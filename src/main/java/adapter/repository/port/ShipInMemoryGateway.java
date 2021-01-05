@@ -39,6 +39,6 @@ public class ShipInMemoryGateway implements ShipGateway {
 
     @Override
     public void remove(String id) {
-
+            //TODO
     }
 }
