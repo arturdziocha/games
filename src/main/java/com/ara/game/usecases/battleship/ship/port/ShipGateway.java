@@ -5,6 +5,8 @@ import io.vavr.control.Option;
 
 public interface ShipGateway {
     ShipDto save(ShipDto shipDto);
+
     Option<ShipDto> findById(String id);
 
+    void remove(String id);
 }

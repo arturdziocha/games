@@ -25,4 +25,8 @@ public final class CreateDto {
     public CreateDto(Builder builder) {
         this.id = builder.id;
     }
+
+    public String getId() {
+        return id;
+    }
 }

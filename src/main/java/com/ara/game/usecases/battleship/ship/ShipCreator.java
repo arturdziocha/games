@@ -1,6 +1,6 @@
 package com.ara.game.usecases.battleship.ship;
 
-import com.ara.game.usecases.battleship.ship.dto.CreateShipDto;
+import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
 import com.ara.game.usecases.battleship.ship.port.ShipGateway;
 import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
@@ -26,10 +26,10 @@ class ShipCreator {
         this.log = LoggerFactory.getLogger(ShipCreator.class);
     }
 
-    Either<Error, CreateDto> create(CreateShipDto createShipDto) {
-        Option<Error> validation = validate(createShipDto);
-        Ship ship = new Ship.Builder().id(idGenerator.generate()).shipClassDto(createShipDto.getShipClassDto()).build();
-        return validation.isDefined() ? Either.left(validation.get()) : saveShip(ship);
+    Either<Error, CreateDto> create(ShipCreateDto shipCreateDto) {
+        Option<Error> validation = validate(shipCreateDto);
+        return validation.isDefined() ? Either.left(validation.get()) :
+                saveShip(shipMapper.mapToEntity(idGenerator.generate(), shipCreateDto.getShipClassDto()));
     }
 
     private Either<Error, CreateDto> saveShip(final Ship ship) {
@@ -41,10 +41,14 @@ class ShipCreator {
         return ship;
     }
 
-    private Option<Error> validate(final CreateShipDto shipDto) {
+    private Option<Error> validate(final ShipCreateDto shipDto) {
         if (shipDto == null) {
             return Option.some(ShipError.DATA_CANNOT_BE_NULL);
         }
+        if (shipDto.getShipClassDto() == null) {
+            return Option.some(ShipError.SHIP_CLASS_CANNOT_BE_EMPTY);
+        }
+
         return Option.none();
     }
 
