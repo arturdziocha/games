@@ -18,4 +18,7 @@ public abstract class Entity {
         id = builder.id;
     }
 
+    public String getId() {
+        return id;
+    }
 }

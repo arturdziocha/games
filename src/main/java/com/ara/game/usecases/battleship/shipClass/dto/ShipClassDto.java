@@ -33,7 +33,7 @@ public class ShipClassDto {
             if (StringUtils.isEmpty(shortName)) {
                 throw new IllegalArgumentException("Short name cannot be mepty");
             }
-            if (size < 0 || size > 6) {
+            if (size < 0 || size > 5) {
                 throw new IllegalArgumentException("Size should be between 0 and 6");
             }
             return new ShipClassDto(this);
