@@ -33,7 +33,7 @@ class ShipCreator {
     }
 
     private Either<Error, CreateDto> saveShip(final Ship ship) {
-        return Try.of(() -> save(save(ship))).map(shipMapper::mapToCreateDto).onFailure(e -> log.error(e.getMessage())).toEither(ShipError.PERSISTENCE_FAILED);
+        return Try.of(() -> save(ship)).map(shipMapper::mapToCreateDto).onFailure(e -> log.error(e.getMessage())).toEither(ShipError.PERSISTENCE_FAILED);
     }
 
     private Ship save(final Ship ship) {

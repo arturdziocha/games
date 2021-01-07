@@ -1,10 +1,18 @@
 package com.ara.game.usecases.battleship.point;
 
+import com.ara.game.usecases.common.Error;
 import java.util.Arrays;
 import java.util.List;
 
+import com.ara.game.usecases.battleship.point.dto.PointCreateStringDto;
+import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.point.port.PointGateway;
+import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.port.IdGenerator;
+
+import io.vavr.control.Either;
+import io.vavr.control.Option;
+import io.vavr.control.Try;
 
 final class PointCreator {
     private final PointGateway pointGateway;
@@ -22,6 +30,51 @@ final class PointCreator {
         this.mapper = mapper;
         this.validator = new Validator();
     }
-    //TODO CREATE
 
+    final Either<Error, CreateDto> create(PointCreateStringDto inputData) {
+        Option<Error> validation = validator.validatePointStrint(inputData);
+        if (validation.isDefined()) {
+            return Either.left(validation.get());
+        }
+        String pointString = inputData.getPointString().toUpperCase();
+        Option<PointDto> find = pointGateway.findByPointString(pointString);
+        if (find.isDefined()) {
+            return Either.right(mapper.mapToCreatePointOutput(find.get()));
+        } else {
+            Either<Error, CreateDto> output;
+            Either<Error, Integer> row = getRow(pointString);
+            Either<Error, Integer> column = getColumn(pointString);
+            if (row.isRight() && column.isRight()) {
+                Point point = new Point.Builder()
+                        .id(idGenerator.generate())
+                        .row(row.get())
+                        .column(column.get())
+                        .pointString(pointString)
+                        .build();
+                PointDto dto = pointGateway.save(mapper.mapToDTO(point));
+                output = Either.right(mapper.mapToCreatePointOutput(dto));
+            } else if (row.isLeft()) {
+                output = Either.left(row.getLeft());
+            } else {
+                output = Either.left(column.getLeft());
+            }
+            return output;
+        }
+    }
+
+    // TODO CREATE
+    private Either<Error, Integer> getColumn(String pointString) {
+        char posY = pointString.charAt(0);
+        int y = chars.indexOf(posY);
+        return y == -1 || y > 5 ? Either.left(PointError.WRONG_COLUMN_SPECIFIED) : Either.right(y);
+    }
+
+    private Either<Error, Integer> getRow(String pointString) {
+        String posX = pointString.substring(1);
+        return Try
+                .of(() -> Integer.parseInt(posX))
+                .filter(i -> i >= 0)
+                .map(val -> val - 1)
+                .toEither(PointError.CANNOT_PARSE_STRING);
+    }
 }

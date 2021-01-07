@@ -3,7 +3,6 @@ package com.ara.game.usecases.battleship.ship;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 import com.ara.game.usecases.battleship.shipClass.dto.ShipClassDto;
 import com.ara.game.usecases.common.CreateDto;
-import io.vavr.control.Either;
 
 class ShipMapper {
     ShipDto mapToDto(Ship ship) {

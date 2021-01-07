@@ -7,12 +7,15 @@ public final class PointDto {
     private final Integer row;
     private final Integer column;
 
-    public class Builder {
+    public static class Builder {
         private String id;
         private String pointString;
         private Integer row;
         private Integer column;
-
+        public Builder id(final String id) {
+            this.id = id;
+            return this;
+        }
         public Builder pointString(final String pointString) {
             this.pointString = pointString;
             return this;

@@ -8,7 +8,7 @@ final class Point extends Entity {
     private final Integer column;
     private final String pointString;
 
-    class Builder extends Entity.Builder<Builder> {
+    static class Builder extends Entity.Builder<Builder> {
         private Integer row;
         private Integer column;
         private String pointString;
