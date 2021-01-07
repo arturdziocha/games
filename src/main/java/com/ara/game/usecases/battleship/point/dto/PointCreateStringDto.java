@@ -4,7 +4,7 @@ final public class PointCreateStringDto {
 
     private final String pointString;
 
-    public class Builder {
+    public static class Builder {
         private String pointString;
 
         public Builder pointString(final String pointString) {
@@ -17,7 +17,7 @@ final public class PointCreateStringDto {
         }
     }
 
-    public PointCreateStringDto(Builder builder) {
+    private PointCreateStringDto(Builder builder) {
         this.pointString = builder.pointString;
     }
 

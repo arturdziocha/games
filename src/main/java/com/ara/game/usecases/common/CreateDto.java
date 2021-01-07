@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 public final class CreateDto {
     private final String id;
 
-
     public static class Builder {
         private String id;
 

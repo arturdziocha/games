@@ -10,7 +10,9 @@ public abstract class Entity {
             this.id = id;
             return self();
         }
+
         protected abstract Entity build();
+
         protected abstract T self();
     }
 

@@ -11,29 +11,31 @@ import io.vavr.control.Try;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 class ShipCreator {
     private final ShipGateway shipGateway;
     private final IdGenerator idGenerator;
     private final ShipMapper shipMapper;
     private final Logger log;
 
-
-    ShipCreator(ShipGateway shipGateway, IdGenerator idGenerator) {
+    ShipCreator(final ShipGateway shipGateway, final IdGenerator idGenerator) {
         this.shipGateway = shipGateway;
         this.idGenerator = idGenerator;
         this.shipMapper = new ShipMapper();
         this.log = LoggerFactory.getLogger(ShipCreator.class);
     }
 
-    Either<Error, CreateDto> create(ShipCreateDto shipCreateDto) {
+    Either<Error, CreateDto> create(final ShipCreateDto shipCreateDto) {
         Option<Error> validation = validate(shipCreateDto);
-        return validation.isDefined() ? Either.left(validation.get()) :
-                saveShip(shipMapper.mapToEntity(idGenerator.generate(), shipCreateDto.getShipClassDto()));
+        return validation.isDefined() ? Either.left(validation.get())
+                : saveShip(shipMapper.mapToEntity(idGenerator.generate(), shipCreateDto.getShipClassDto()));
     }
 
     private Either<Error, CreateDto> saveShip(final Ship ship) {
-        return Try.of(() -> save(ship)).map(shipMapper::mapToCreateDto).onFailure(e -> log.error(e.getMessage())).toEither(ShipError.PERSISTENCE_FAILED);
+        return Try
+                .of(() -> save(ship))
+                .map(shipMapper::mapToCreateDto)
+                .onFailure(e -> log.error(e.getMessage()))
+                .toEither(ShipError.PERSISTENCE_FAILED);
     }
 
     private Ship save(final Ship ship) {

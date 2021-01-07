@@ -5,7 +5,7 @@ final public class PointCreateRowColDto {
     private final Integer row;
     private final Integer column;
 
-    public class Builder {
+    public static class Builder {
         private Integer row;
         private Integer column;
 
@@ -24,7 +24,7 @@ final public class PointCreateRowColDto {
         }
     }
 
-    public PointCreateRowColDto(Builder builder) {
+    private PointCreateRowColDto(Builder builder) {
         this.row = builder.row;
         this.column = builder.column;
     }

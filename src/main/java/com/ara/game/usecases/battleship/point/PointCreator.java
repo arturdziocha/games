@@ -25,7 +25,7 @@ final class PointCreator {
 
     private final List<Character> chars = Arrays
             .asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-                    'U', 'W', 'X', 'Y', 'Z');
+                'U', 'W', 'X', 'Y', 'Z');
 
     PointCreator(final PointGateway pointGateway, final IdGenerator idGenerator, final PointMapper mapper) {
         this.pointGateway = pointGateway;
@@ -35,7 +35,7 @@ final class PointCreator {
         this.log = LoggerFactory.getLogger(PointCreator.class);
     }
 
-    final Either<Error, CreateDto> create(PointCreateStringDto inputData) {
+    final Either<Error, CreateDto> create(final PointCreateStringDto inputData) {
         Option<Error> validation = validator.validatePointStrint(inputData);
         if (validation.isDefined()) {
             return Either.left(validation.get());
@@ -46,8 +46,8 @@ final class PointCreator {
             return Either.right(mapper.mapToCreatePointOutput(mapper.mapToEntity(find.get())));
         } else {
             Either<Error, CreateDto> output;
-            Either<Error, Integer> row = getRow(pointString);
-            Either<Error, Integer> column = getColumn(pointString);
+            Either<Error, Integer> row = createRow(pointString);
+            Either<Error, Integer> column = createColumn(pointString);
             if (row.isRight() && column.isRight()) {
                 Point point = new Point.Builder()
                         .id(idGenerator.generate())
@@ -93,7 +93,11 @@ final class PointCreator {
     }
 
     private Either<Error, CreateDto> savePoint(final Point point) {
-        return Try.of(() -> save(point)).map(mapper::mapToCreatePointOutput).onFailure(e -> log.error(e.getMessage())).toEither(PointError.PERSISTENCE_FAILED);
+        return Try
+                .of(() -> save(point))
+                .map(mapper::mapToCreatePointOutput)
+                .onFailure(e -> log.error(e.getMessage()))
+                .toEither(PointError.PERSISTENCE_FAILED);
     }
 
     private Point save(final Point point) {
@@ -101,14 +105,13 @@ final class PointCreator {
         return point;
     }
 
-    // TODO CREATE
-    private Either<Error, Integer> getColumn(final String pointString) {
+    private Either<Error, Integer> createColumn(final String pointString) {
         char posY = pointString.charAt(0);
         int y = chars.indexOf(posY);
-        return y == -1  ? Either.left(PointError.WRONG_COLUMN_SPECIFIED) : Either.right(y);
+        return y == -1 ? Either.left(PointError.WRONG_COLUMN_SPECIFIED) : Either.right(y);
     }
 
-    private Either<Error, Integer> getRow(final String pointString) {
+    private Either<Error, Integer> createRow(final String pointString) {
         String posX = pointString.substring(1);
         return Try
                 .of(() -> Integer.parseInt(posX))

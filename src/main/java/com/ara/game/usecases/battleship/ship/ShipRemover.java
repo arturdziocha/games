@@ -4,12 +4,12 @@ import com.ara.game.usecases.battleship.ship.port.ShipGateway;
 
 final class ShipRemover {
     private final ShipGateway shipGateway;
-    ShipRemover(ShipGateway shipGateway) {
+
+    ShipRemover(final ShipGateway shipGateway) {
         this.shipGateway = shipGateway;
     }
 
-    void remove(String shipId) {
+    void remove(final String shipId) {
         shipGateway.remove(shipId);
     }
 }
-

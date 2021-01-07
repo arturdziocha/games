@@ -16,21 +16,22 @@ public class ShipClassFacadeTest {
     void setUp() {
         shipClassFacade = new ShipClassFacade();
     }
+
     @Test
     @DisplayName("Find class of ship when name is empty, should return Either.left ")
     void test1() {
-        //Given When
+        // Given When
         Either<Error, ShipClassDto> shipClass = shipClassFacade.findByName("");
-        //Then
+        // Then
         assertThat(shipClass.getLeft().getCause()).isEqualTo("Data cannot be empty");
     }
 
     @Test
     @DisplayName("Find class of ship when null should return Either.left ")
     void test2() {
-        //Given when
+        // Given when
         Either<Error, ShipClassDto> shipClass = shipClassFacade.findByName(null);
-        //Then
+        // Then
         assertThat(shipClass.getLeft().getCause()).isEqualTo("Data cannot be empty");
     }
 

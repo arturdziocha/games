@@ -2,30 +2,56 @@ package com.ara.game.usecases.battleship.point;
 
 import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
 import com.ara.game.usecases.battleship.point.dto.PointCreateStringDto;
+import com.ara.game.usecases.battleship.point.dto.PointDto;
+import com.ara.game.usecases.battleship.point.dto.PointsCreateDto;
 import com.ara.game.usecases.battleship.point.port.PointGateway;
 import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
 import com.google.inject.Inject;
+
+import io.vavr.collection.Seq;
 import io.vavr.control.Either;
 
 public class PointFacade {
     private final PointCreator creator;
     private final PointFinder finder;
+    private final PointsCreator pointsCreator;
 
     @Inject
     public PointFacade(PointGateway pointGateway, IdGenerator idGenerator) {
         PointMapper mapper = new PointMapper();
         creator = new PointCreator(pointGateway, idGenerator, mapper);
         finder = new PointFinder(pointGateway);
-        //TODO pointsCreator = new PointsCreator(finder, pointCreator);
+        pointsCreator = new PointsCreator(finder, creator);
     }
 
-    public final Either<Error, CreateDto> create(PointCreateStringDto inputData) {
+    public final Either<Error, CreateDto> create(final PointCreateStringDto inputData) {
         return creator.create(inputData);
     }
 
-    public final Either<Error, CreateDto> create(PointCreateRowColDto inputData) {
+    public final Either<Error, CreateDto> create(final PointCreateRowColDto inputData) {
         return creator.create(inputData);
     }
+
+    public Either<Error, Seq<CreateDto>> createPoints(final PointsCreateDto inputData) {
+        return pointsCreator.create(inputData);
+    }
+
+    public Either<Error, Seq<CreateDto>> createRandomPoints(final PointsCreateDto inputData) {
+        return pointsCreator.createRandom(inputData);
+    }
+
+    public final Either<Error, PointDto> findById(final String id) {
+        return finder.findById(id);
+    }
+
+    public final Either<Error, PointDto> findByRowAndColumn(final Integer row, final Integer column) {
+        return finder.findByRowAndColumn(row, column);
+    }
+
+    public final Either<Error, PointDto> findByPointString(final String pointString) {
+        return finder.findByPointString(pointString);
+    }
+
 }

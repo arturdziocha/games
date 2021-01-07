@@ -10,7 +10,7 @@ import io.vavr.control.Option;
 
 class Validator {
 
-    Option<Error> validatePointStrint(PointCreateStringDto inputData) {
+    Option<Error> validatePointStrint(final PointCreateStringDto inputData) {
         if (inputData == null) {
             return Option.some(PointError.DATA_CANNOT_BE_NULL);
         }
@@ -20,7 +20,7 @@ class Validator {
         return Option.none();
     }
 
-    final Option<Error> validateRowCol(PointCreateRowColDto inputData) {
+    final Option<Error> validateRowCol(final PointCreateRowColDto inputData) {
         if (inputData == null) {
             return Option.some(PointError.DATA_CANNOT_BE_NULL);
         }

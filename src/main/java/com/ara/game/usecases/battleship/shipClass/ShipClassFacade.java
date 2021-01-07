@@ -14,11 +14,11 @@ public final class ShipClassFacade {
 
     }
 
-    public Either<Error, ShipClassDto> findByName(String name) {
+    public Either<Error, ShipClassDto> findByName(final String name) {
         return finder.findByName(name);
     }
 
-    public Either<Error, ShipClassDto> findByShortName(String shortName) {
+    public Either<Error, ShipClassDto> findByShortName(final String shortName) {
         return finder.findByShortName(shortName);
     }
 

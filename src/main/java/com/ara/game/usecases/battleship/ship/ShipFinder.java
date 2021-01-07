@@ -13,7 +13,7 @@ class ShipFinder {
         this.shipGateway = shipGateway;
     }
 
-    Either<Error, ShipDto> find(String id) {
+    Either<Error, ShipDto> find(final String id) {
         if (StringUtils.isEmpty(id)) {
             return Either.left(ShipError.SHIP_ID_CANNOT_BE_EMPTY);
         }

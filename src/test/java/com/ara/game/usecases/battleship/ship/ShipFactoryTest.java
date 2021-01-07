@@ -30,34 +30,34 @@ public class ShipFactoryTest {
     @Test
     @DisplayName("Should return Either.left when inputData is null")
     void test1() {
-        //Given
+        // Given
         ShipCreateDto createInputData = null;
-        //When
+        // When
         Either<Error, CreateDto> ship = shipFacade.create(createInputData);
-        //Then
+        // Then
         assertThat(ship.getLeft().getCause()).isEqualTo("Data cannot be null");
     }
 
     @Test
     @DisplayName("Should return Either.left when shipClass is null")
     void test2() {
-        //Given
+        // Given
         ShipCreateDto createInputData = new ShipCreateDto.Builder().shipClassDto(null).build();
-        //When
+        // When
         Either<Error, CreateDto> ship = shipFacade.create(createInputData);
-        //Then
+        // Then
         assertThat(ship.getLeft().getCause()).isEqualTo("Class of ship cannot be empty");
     }
 
     @Test
     @DisplayName("Should create Ship Submarine")
     void test3() {
-        //Given
+        // Given
         Either<Error, ShipClassDto> shipClass = shipClassFacade.findByShortName("s");
         ShipCreateDto createInputData = new ShipCreateDto.Builder().shipClassDto(shipClass.get()).build();
-        //When
+        // When
         Either<Error, CreateDto> ship = shipFacade.create(createInputData);
-        //Then
+        // Then
         Either<Error, ShipDto> findShip = shipFacade.find(ship.get().getId());
         assertThat(findShip.get().getHealth()).isEqualByComparingTo(3);
         assertThat(findShip.get().getShipClassDto().getName()).isEqualTo("Submarine");

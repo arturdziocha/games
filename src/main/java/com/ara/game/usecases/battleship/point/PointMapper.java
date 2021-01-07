@@ -19,7 +19,12 @@ class PointMapper {
     }
 
     final Point mapToEntity(final PointDto pointDto) {
-        return new Point.Builder().id(pointDto.getId()).pointString(pointDto.getPointString()).row(pointDto.getRow()).column(pointDto.getColumn()).build();
+        return new Point.Builder()
+                .id(pointDto.getId())
+                .pointString(pointDto.getPointString())
+                .row(pointDto.getRow())
+                .column(pointDto.getColumn())
+                .build();
 
     }
 

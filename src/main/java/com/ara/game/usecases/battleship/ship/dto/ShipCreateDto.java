@@ -18,7 +18,7 @@ public class ShipCreateDto {
         }
     }
 
-    public ShipCreateDto(Builder builder) {
+    private ShipCreateDto(Builder builder) {
         this.shipClassDto = builder.shipClassDto;
     }
 

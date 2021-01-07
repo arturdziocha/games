@@ -11,7 +11,9 @@ enum PointError implements Error {
     ROW_CANNOT_BE_NULL("Row cannot be null"),
     ROW_CANNOT_BE_NEGATIVE("Row cannot be negative"),
     COLUMN_CANNOT_BE_NULL("Column cannot be null"),
-    COLUMN_CANNOT_BE_NEGATIVE("Column cannot be negative");
+    COLUMN_CANNOT_BE_NEGATIVE("Column cannot be negative"),
+    POINT_ID_CANNOT_BE_EMPTY("Point id cannot be empty"),
+    CANNOT_FIND_POINT("Cannot find point in database");
 
     private final String cause;
 

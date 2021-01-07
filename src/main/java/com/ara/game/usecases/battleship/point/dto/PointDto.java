@@ -12,10 +12,12 @@ public final class PointDto {
         private String pointString;
         private Integer row;
         private Integer column;
+
         public Builder id(final String id) {
             this.id = id;
             return this;
         }
+
         public Builder pointString(final String pointString) {
             this.pointString = pointString;
             return this;
@@ -36,7 +38,7 @@ public final class PointDto {
         }
     }
 
-    public PointDto(Builder builder) {
+    private PointDto(Builder builder) {
         this.id = builder.id;
         this.pointString = builder.pointString;
         this.row = builder.row;

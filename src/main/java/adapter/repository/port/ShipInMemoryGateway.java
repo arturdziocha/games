@@ -22,23 +22,25 @@ public class ShipInMemoryGateway implements ShipGateway {
     }
 
     @Override
-    public ShipDto save(ShipDto shipDto) {
+    public ShipDto save(final ShipDto shipDto) {
         entities = entities.put(shipDto.getId(), mapper.mapToEntity(shipDto));
         return shipDto;
     }
 
     @Override
-    public Option<ShipDto> findById(String id) {
+    public Option<ShipDto> findById(final String id) {
         Option<ShipInMemory> find = entities.get(id);
         if (find.isEmpty()) {
             return Option.none();
         }
-        return shipClassFacade.findByShortName(find.get().getShipClassShortName()).map(s -> mapper.mapToDto(find.get(),
-                s)).toOption();
+        return shipClassFacade
+                .findByShortName(find.get().getShipClassShortName())
+                .map(s -> mapper.mapToDto(find.get(), s))
+                .toOption();
     }
 
     @Override
-    public void remove(String id) {
-            //TODO
+    public void remove(final String id) {
+        entities = entities.remove(id);
     }
 }

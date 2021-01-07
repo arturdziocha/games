@@ -7,7 +7,6 @@ public final class ShipDto {
     private final ShipClassDto shipClassDto;
     private final Integer health;
 
-
     public static class Builder {
         private String id;
         private ShipClassDto shipClassDto;
@@ -33,7 +32,7 @@ public final class ShipDto {
         }
     }
 
-    public ShipDto(Builder builder) {
+    private ShipDto(Builder builder) {
         this.id = builder.id;
         this.shipClassDto = builder.shipClassDto;
         this.health = builder.health;

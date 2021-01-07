@@ -40,7 +40,7 @@ final class Point extends Entity {
 
     }
 
-    public Point(Builder builder) {
+    private Point(Builder builder) {
         super(builder);
         this.row = builder.row;
         this.column = builder.column;

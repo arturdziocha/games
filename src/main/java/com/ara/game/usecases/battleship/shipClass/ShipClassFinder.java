@@ -10,11 +10,11 @@ import org.apache.commons.lang3.StringUtils;
 final class ShipClassFinder {
     private final ShipClassMapper mapper;
 
-    ShipClassFinder(ShipClassMapper mapper) {
+    ShipClassFinder(final ShipClassMapper mapper) {
         this.mapper = mapper;
     }
 
-    Either<Error, ShipClassDto> findByName(String name) {
+    Either<Error, ShipClassDto> findByName(final String name) {
         if (StringUtils.isEmpty(name)) {
             return Either.left(ShipClassError.DATA_CANNOT_BE_EMPTY);
         }
@@ -25,7 +25,7 @@ final class ShipClassFinder {
                 .toEither(ShipClassError.SHIP_CLASS_NOT_FOUND);
     }
 
-    Either<Error, ShipClassDto> findByShortName(String shortName) {
+    Either<Error, ShipClassDto> findByShortName(final String shortName) {
         if (StringUtils.isEmpty(shortName)) {
             return Either.left(ShipClassError.DATA_CANNOT_BE_EMPTY);
         }

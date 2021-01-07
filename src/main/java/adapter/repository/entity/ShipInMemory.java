@@ -10,12 +10,12 @@ public class ShipInMemory extends EntityInMemory {
         private String shipClassShortName;
         private Integer health;
 
-        public Builder shipClassShortName(String shipClassShortName) {
+        public Builder shipClassShortName(final String shipClassShortName) {
             this.shipClassShortName = shipClassShortName;
             return self();
         }
 
-        public Builder health(Integer health) {
+        public Builder health(final Integer health) {
             this.health = health;
             return self();
         }
@@ -31,7 +31,7 @@ public class ShipInMemory extends EntityInMemory {
         }
     }
 
-    public ShipInMemory(Builder builder) {
+    private ShipInMemory(Builder builder) {
         super(builder);
         this.shipClassShortName = builder.shipClassShortName;
         this.health = builder.health;

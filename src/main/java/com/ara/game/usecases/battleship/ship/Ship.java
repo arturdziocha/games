@@ -28,7 +28,7 @@ final class Ship extends Entity {
         }
     }
 
-    public Ship(Builder builder) {
+    private Ship(Builder builder) {
         super(builder);
         this.shipClassDto = builder.shipClassDto;
         this.health = builder.health;

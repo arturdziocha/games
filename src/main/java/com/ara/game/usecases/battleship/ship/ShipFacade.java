@@ -22,15 +22,15 @@ public class ShipFacade {
         this.remover = new ShipRemover(shipGateway);
     }
 
-    public Either<Error, CreateDto> create(ShipCreateDto inputData) {
+    public Either<Error, CreateDto> create(final ShipCreateDto inputData) {
         return creator.create(inputData);
     }
 
-    public Either<Error, ShipDto> find(String id) {
+    public Either<Error, ShipDto> find(final String id) {
         return finder.find(id);
     }
 
-    public void remove(String id) {
+    public void remove(final String id) {
         remover.remove(id);
     }
 

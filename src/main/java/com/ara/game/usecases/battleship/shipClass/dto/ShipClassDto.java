@@ -1,6 +1,7 @@
 package com.ara.game.usecases.battleship.shipClass.dto;
 
 import org.apache.commons.lang3.StringUtils;
+
 public class ShipClassDto {
     private final String name;
     private final String shortName;
@@ -39,10 +40,9 @@ public class ShipClassDto {
             return new ShipClassDto(this);
         }
 
-
     }
 
-    public ShipClassDto(Builder builder) {
+    private ShipClassDto(Builder builder) {
         this.name = builder.name;
         this.shortName = builder.shortName;
         this.size = builder.size;
