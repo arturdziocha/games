@@ -1,4 +1,4 @@
-package adapter.repository.entity;
+package adapter.repository.inmemory.entity;
 
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 import com.ara.game.usecases.battleship.shipClass.dto.ShipClassDto;

@@ -1,10 +1,11 @@
-package adapter.repository.port;
+package adapter.repository.inmemory.port;
 
-import adapter.repository.entity.ShipInMemory;
-import adapter.repository.entity.ShipMapper;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 import com.ara.game.usecases.battleship.ship.port.ShipGateway;
 import com.ara.game.usecases.battleship.shipClass.ShipClassFacade;
+
+import adapter.repository.inmemory.entity.ShipInMemory;
+import adapter.repository.inmemory.entity.ShipMapper;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
 import io.vavr.control.Option;

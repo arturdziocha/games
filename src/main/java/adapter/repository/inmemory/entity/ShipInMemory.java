@@ -1,6 +1,6 @@
-package adapter.repository.entity;
+package adapter.repository.inmemory.entity;
 
-import adapter.repository.EntityInMemory;
+import adapter.repository.inmemory.EntityInMemory;
 
 public class ShipInMemory extends EntityInMemory {
     private final String shipClassShortName;
