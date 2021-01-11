@@ -8,15 +8,9 @@ public class PointInMemory extends EntityInMemory {
     private final String pointString;
 
     public static class Builder extends EntityInMemory.Builder<Builder> {
-        private String id;
         private Integer row;
         private Integer column;
         private String pointString;
-
-        public Builder id(final String id) {
-            this.id = id;
-            return self();
-        }
 
         public Builder row(final Integer row) {
             this.row = row;
