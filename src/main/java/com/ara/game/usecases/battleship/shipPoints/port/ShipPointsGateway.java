@@ -7,4 +7,5 @@ public interface ShipPointsGateway {
 
     ShipPointsDto saveAll(ShipPointsCreateDto shipPoints);
 
+    ShipPointsDto save(ShipPointsDto shipPoints);
 }

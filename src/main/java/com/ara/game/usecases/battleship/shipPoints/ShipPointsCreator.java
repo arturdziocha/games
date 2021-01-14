@@ -3,28 +3,38 @@ package com.ara.game.usecases.battleship.shipPoints;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsCreateDto;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
-
+import com.ara.game.usecases.common.Error;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
-import com.ara.game.usecases.common.Error;
+import io.vavr.control.Try;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 class ShipPointsCreator {
     private final ShipPointsGateway shipPointsGateway;
     private final ShipPointsValidator validator;
+    private final ShipMapper mapper;
+    private final Logger log;
 
     public ShipPointsCreator(final ShipPointsGateway shipPointsGateway) {
         this.shipPointsGateway = shipPointsGateway;
         this.validator = new ShipPointsValidator();
+        this.mapper = new ShipMapper();
+        this.log = LoggerFactory.getLogger(ShipPointsCreator.class);
     }
-    Either<Error, ShipPointsDto> createPoints(ShipPointsCreateDto shipPoints) {
-        Option<Error> validated = validator.validateAll(shipPoints);
 
-        if (validated.isEmpty()) {
-            ShipPointsDto dto = shipPointsGateway.saveAll(shipPoints);
-            return Either.right(dto);
-        }
-        return Either.left(validated.get());
+    Either<Error, ShipPointsDto> createPoints(ShipPointsCreateDto shipPoints) {
+        Option<Error> validation = validator.validateAll(shipPoints);
+
+        return validation.isDefined()?Either.left(validation.get()):savePoints(mapper.mapToEntity(shipPoints));
     }
-    private Either<Error, ShipPointsDto> savePoints(ShipPoints shipPoints){
-        
+
+    private Either<Error, ShipPointsDto> savePoints(ShipPoints shipPoints) {
+        return Try.of(() -> save(shipPoints)).map(mapper::mapToDto).onFailure(e -> log.error(e.getMessage())).toEither(ShipPointsError.PERSISTENCE_FAILED);
+    }
+
+    private ShipPoints save(ShipPoints shipPoints) {
+        shipPointsGateway.save(mapper.mapToDto(shipPoints));
+        return shipPoints;
     }
 }

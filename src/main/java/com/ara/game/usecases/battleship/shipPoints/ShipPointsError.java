@@ -4,7 +4,8 @@ import com.ara.game.usecases.common.Error;
 
 enum ShipPointsError implements Error {
     SHIP_NOT_SPECIFIED("Ship not specified"),
-    POINTS_NOT_SPECIFIED("No points specified");
+    POINTS_NOT_SPECIFIED("No points specified"),
+    PERSISTENCE_FAILED("Persistence failed");
     private final String cause;
 
     ShipPointsError(final String cause) {
