@@ -20,7 +20,7 @@ final class PointCreator {
     private final PointGateway pointGateway;
     private final IdGenerator idGenerator;
     private final PointMapper mapper;
-    private final Validator validator;
+    private final PointValidator validator;
     private final Logger log;
 
     private final List<Character> chars = Arrays
@@ -31,7 +31,7 @@ final class PointCreator {
         this.pointGateway = pointGateway;
         this.idGenerator = idGenerator;
         this.mapper = mapper;
-        this.validator = new Validator();
+        this.validator = new PointValidator();
         this.log = LoggerFactory.getLogger(PointCreator.class);
     }
 
