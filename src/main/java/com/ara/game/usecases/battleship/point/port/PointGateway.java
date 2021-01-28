@@ -3,6 +3,7 @@ package com.ara.game.usecases.battleship.point.port;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
 
 import io.vavr.collection.Seq;
+import io.vavr.collection.Set;
 import io.vavr.control.Option;
 
 public interface PointGateway {
@@ -14,5 +15,5 @@ public interface PointGateway {
 
     Option<PointDto> findByPointString(String pointString);
 
-    Option<Seq<PointDto>> findAllById(Seq<String> points);
+    Option<Set<PointDto>> findAllById(Seq<String> points);
 }

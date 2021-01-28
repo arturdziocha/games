@@ -4,10 +4,7 @@ import adapter.repository.inmemory.entity.PointInMemory;
 import adapter.repository.inmemory.entity.PointMapper;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.point.port.PointGateway;
-import io.vavr.collection.HashMap;
-import io.vavr.collection.List;
-import io.vavr.collection.Map;
-import io.vavr.collection.Seq;
+import io.vavr.collection.*;
 import io.vavr.control.Option;
 
 
@@ -42,10 +39,10 @@ public class PointInMemoryGateway implements PointGateway {
     }
 
     @Override
-    public Option<Seq<PointDto>> findAllById(Seq<String> points) {
-        Seq<PointDto> p = List.empty();
+    public Option<Set<PointDto>> findAllById(Seq<String> points) {
+        Set<PointDto> p = HashSet.empty();
         for (String id : points) {
-            entities.get(id).map(mapper::mapToDto).peek(p::append);
+            entities.get(id).map(mapper::mapToDto).peek(p::add);
         }
         return p.isEmpty() ? Option.none() : Option.some(p);
 
