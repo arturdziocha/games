@@ -24,7 +24,9 @@ public class ShipPointsInMemoryGateway implements ShipPointsGateway {
 
     @Override
     public ShipPointsDto save(ShipPointsDto shipPoints) {
-        return null;
+        ShipPointsInMemory shipPointsInMemory = mapper.mapToEntity(shipPoints);
+        entities = entities.put(shipPointsInMemory.getShipId(), shipPointsInMemory);
+        return shipPoints;
     }
 
     @Override
