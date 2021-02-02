@@ -39,7 +39,7 @@ public class PointInMemoryGateway implements PointGateway {
     }
 
     @Override
-    public Option<Set<PointDto>> findAllById(Seq<String> points) {
+    public Option<Set<PointDto>> findAllById(Set<String> points) {
         Set<PointDto> p = HashSet.empty();
         for (String id : points) {
             entities.get(id).map(mapper::mapToDto).peek(p::add);
