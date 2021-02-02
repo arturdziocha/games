@@ -10,7 +10,7 @@ import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
 import com.google.inject.Inject;
 
-import io.vavr.collection.Seq;
+import io.vavr.collection.Set;
 import io.vavr.control.Either;
 
 public class PointFacade {
@@ -34,11 +34,11 @@ public class PointFacade {
         return creator.create(inputData);
     }
 
-    public Either<Error, Seq<CreateDto>> createPoints(final PointsCreateDto inputData) {
+    public Either<Error, Set<CreateDto>> createPoints(final PointsCreateDto inputData) {
         return pointsCreator.create(inputData);
     }
 
-    public Either<Error, Seq<CreateDto>> createRandomPoints(final PointsCreateDto inputData) {
+    public Either<Error, Set<CreateDto>> createRandomPoints(final PointsCreateDto inputData) {
         return pointsCreator.createRandom(inputData);
     }
 

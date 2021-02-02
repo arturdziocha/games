@@ -15,4 +15,6 @@ public interface PointGateway {
     Option<PointDto> findByPointString(String pointString);
 
     Option<Set<PointDto>> findAllById(Set<String> points);
+    
+    void removeAll(Set<String> points);
 }

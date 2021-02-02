@@ -5,8 +5,8 @@ import com.ara.game.usecases.battleship.point.dto.PointsCreateDto;
 import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 
-import io.vavr.collection.List;
-import io.vavr.collection.Seq;
+import io.vavr.collection.HashSet;
+import io.vavr.collection.Set;
 import io.vavr.control.Either;
 
 final class PointsCreator {
@@ -18,21 +18,21 @@ final class PointsCreator {
         this.creator = creator;
     }
 
-    final Either<Error, Seq<CreateDto>> create(final PointsCreateDto inputData) {
+    final Either<Error, Set<CreateDto>> create(final PointsCreateDto inputData) {
         return fill(inputData);
     }
 
-    final Either<Error, Seq<CreateDto>> createRandom(final PointsCreateDto inputData) {
+    final Either<Error, Set<CreateDto>> createRandom(final PointsCreateDto inputData) {
 
-        Either<Error, Seq<CreateDto>> chooser = fill(inputData);
+        Either<Error, Set<CreateDto>> chooser = fill(inputData);
         while (chooser.isLeft()) {
             chooser = fill(inputData);
         }
         return chooser;
     }
 
-    private Either<Error, Seq<CreateDto>> fill(final PointsCreateDto pointsCreateInputData) {
-        Seq<CreateDto> points = List.empty();
+    private Either<Error, Set<CreateDto>> fill(final PointsCreateDto pointsCreateInputData) {
+        Set<CreateDto> points = HashSet.empty();
         for (int i = 0; i < pointsCreateInputData.getSize(); i++) {
             int row = 0;
             int column = 0;
@@ -62,7 +62,7 @@ final class PointsCreator {
             if (created.isLeft()) {
                 return Either.left(created.getLeft());
             }
-            points = points.append(created.get());
+            points = points.add(created.get());
         }
         return Either.right(points);
     }

@@ -1,12 +1,15 @@
 package adapter.repository.inmemory.port;
 
-import adapter.repository.inmemory.entity.PointInMemory;
-import adapter.repository.inmemory.entity.PointMapper;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.point.port.PointGateway;
-import io.vavr.collection.*;
-import io.vavr.control.Option;
 
+import adapter.repository.inmemory.entity.PointInMemory;
+import adapter.repository.inmemory.entity.PointMapper;
+import io.vavr.collection.HashMap;
+import io.vavr.collection.HashSet;
+import io.vavr.collection.Map;
+import io.vavr.collection.Set;
+import io.vavr.control.Option;
 
 public class PointInMemoryGateway implements PointGateway {
     Map<String, PointInMemory> entities;
@@ -30,7 +33,10 @@ public class PointInMemoryGateway implements PointGateway {
 
     @Override
     public Option<PointDto> findByRowAndColumn(Integer row, Integer column) {
-        return entities.values().find(entity -> entity.getRow().equals(row) && entity.getColumn().equals(column)).map(mapper::mapToDto);
+        return entities
+                .values()
+                .find(entity -> entity.getRow().equals(row) && entity.getColumn().equals(column))
+                .map(mapper::mapToDto);
     }
 
     @Override
@@ -45,6 +51,12 @@ public class PointInMemoryGateway implements PointGateway {
             entities.get(id).map(mapper::mapToDto).peek(p::add);
         }
         return p.isEmpty() ? Option.none() : Option.some(p);
+
+    }
+
+    @Override
+    public void removeAll(Set<String> points) {
+        entities.removeAll(points);
 
     }
 }
