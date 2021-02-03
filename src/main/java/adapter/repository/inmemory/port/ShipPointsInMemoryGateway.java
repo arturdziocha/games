@@ -1,12 +1,11 @@
 package adapter.repository.inmemory.port;
 
+import adapter.repository.inmemory.entity.ShipPointsInMemory;
+import adapter.repository.inmemory.entity.ShipPointsMapper;
 import com.ara.game.usecases.battleship.point.port.PointGateway;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 import com.google.inject.Inject;
-
-import adapter.repository.inmemory.entity.ShipPointsInMemory;
-import adapter.repository.inmemory.entity.ShipPointsMapper;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
 import io.vavr.control.Option;
@@ -34,13 +33,14 @@ public class ShipPointsInMemoryGateway implements ShipPointsGateway {
     public Option<ShipPointsDto> findById(String shipId) {
         return entities
                 .get(shipId)
-                .map(pointsIds -> pointsIds.getPointIds())
-                .flatMap(findPoints -> pointGateway.findAllById(findPoints))
-                .map(l -> mapper.mapToOutputData(shipId, l));
+                .map(ShipPointsInMemory::getPointIds)
+                .flatMap(s -> pointGateway.findAllById(s)
+                        .peek(System.out::println)
+                        .map(w -> mapper.mapToOutputData(shipId, w)));
     }
 
     @Override
-    public void remove(String shipId) {        
+    public void remove(String shipId) {
         entities = entities.remove(shipId);
     }
 }

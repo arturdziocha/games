@@ -7,7 +7,7 @@ import io.vavr.control.Option;
 public interface PlayerGateway {
     Option<PlayerDto> findById(String id);
 
-    Option<PlayerAllDataDto> findAllData(String id);
+    //Option<PlayerAllDataDto> findAllData(String id);
 
     PlayerDto save(PlayerDto inputData);
 }

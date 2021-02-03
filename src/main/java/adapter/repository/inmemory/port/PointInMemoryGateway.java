@@ -46,11 +46,15 @@ public class PointInMemoryGateway implements PointGateway {
 
     @Override
     public Option<Set<PointDto>> findAllById(Set<String> points) {
-        Set<PointDto> p = HashSet.empty();
+        Set<PointDto> collection = HashSet.empty();
         for (String id : points) {
-            entities.get(id).map(mapper::mapToDto).peek(p::add);
+            Option<PointInMemory> option = entities.get(id);
+            if(option.isEmpty()){
+                return Option.none();
+            }
+            collection = collection.add(mapper.mapToDto(option.get()));
         }
-        return p.isEmpty() ? Option.none() : Option.some(p);
+        return Option.of(collection);
 
     }
 
