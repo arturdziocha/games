@@ -39,11 +39,4 @@ public class ShipPointsInMemory {
         return pointIds;
     }
 
-    @Override
-    public String toString() {
-        return "ShipPointsInMemory{" +
-                "shipId='" + shipId + '\'' +
-                ", pointIds=" + pointIds +
-                '}';
-    }
 }
