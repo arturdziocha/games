@@ -54,4 +54,10 @@ public class PointFacade {
         return finder.findByPointString(pointString);
     }
 
+    public Either<Error, Set<PointDto>> findAllById(Set<String> pointsIds) {
+        return finder.findAllById(pointsIds);
+    }
+
+    
+
 }

@@ -7,7 +7,7 @@ final class Ship extends Entity {
     private final ShipClassDto shipClassDto;
     private final Integer health;
 
-    public static class Builder extends Entity.Builder<Builder> {
+    static class Builder extends Entity.Builder<Builder> {
         private ShipClassDto shipClassDto;
         private Integer health;
 
@@ -34,11 +34,11 @@ final class Ship extends Entity {
         this.health = builder.health;
     }
 
-    public ShipClassDto getShipClassDto() {
+    ShipClassDto getShipClassDto() {
         return shipClassDto;
     }
 
-    public Integer getHealth() {
+    Integer getHealth() {
         return health;
     }
 

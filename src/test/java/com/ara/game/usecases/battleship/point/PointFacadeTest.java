@@ -23,7 +23,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import external.ConsoleModule;
-import io.vavr.collection.Seq;
+import io.vavr.collection.Set;
 import io.vavr.control.Either;
 
 class PointFacadeTest {
@@ -167,7 +167,7 @@ class PointFacadeTest {
                 .build();
 
         // When
-        Either<Error, Seq<CreateDto>> createdPoints = pointFacade.createPoints(spcid);
+        Either<Error, Set<CreateDto>> createdPoints = pointFacade.createPoints(spcid);
         List<String> pointStrings = createdPoints
                 .get()
                 .map(p -> pointFacade.findById(p.getId()))

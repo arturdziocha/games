@@ -6,10 +6,12 @@ import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.point.port.PointGateway;
 import com.ara.game.usecases.common.Error;
 
+import io.vavr.collection.Set;
 import io.vavr.control.Either;
 
 class PointFinder {
     private final PointGateway pointGateway;
+
     public PointFinder(final PointGateway pointGateway) {
         this.pointGateway = pointGateway;
     }
@@ -20,7 +22,7 @@ class PointFinder {
         } else {
             return pointGateway.findById(id).toEither(PointError.CANNOT_FIND_POINT);
         }
-    }    
+    }
 
     final Either<Error, PointDto> findByRowAndColumn(final Integer row, final Integer column) {
         if (row == null || column == null) {
@@ -34,5 +36,12 @@ class PointFinder {
             return Either.left(PointError.DATA_CANNOT_BE_NULL);
         }
         return pointGateway.findByPointString(pointString.toUpperCase()).toEither(PointError.CANNOT_FIND_POINT);
+    }
+
+    public Either<Error, Set<PointDto>> findAllById(Set<String> pointsIds) {
+        if (pointsIds.isEmpty()) {
+            return Either.left(PointError.DATA_CANNOT_BE_NULL);
+        }
+        return pointGateway.findAllById(pointsIds).toEither(PointError.CANNOT_FIND_POINT);
     }
 }
