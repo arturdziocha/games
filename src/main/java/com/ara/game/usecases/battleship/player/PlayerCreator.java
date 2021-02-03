@@ -8,7 +8,6 @@ import com.ara.game.usecases.battleship.player.port.PlayerGateway;
 import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
-import com.google.inject.Inject;
 
 import io.vavr.control.Either;
 import io.vavr.control.Option;
@@ -21,7 +20,6 @@ final class PlayerCreator {
     private final PlayerMapper mapper;
     private final Logger log;
 
-    @Inject
     public PlayerCreator(final PlayerGateway playerGateway, final IdGenerator idGenerator) {
         this.playerGateway = playerGateway;
         this.idGenerator = idGenerator;
