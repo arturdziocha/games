@@ -38,4 +38,12 @@ public class ShipPointsInMemory {
     public Set<String> getPointIds() {
         return pointIds;
     }
+
+    @Override
+    public String toString() {
+        return "ShipPointsInMemory{" +
+                "shipId='" + shipId + '\'' +
+                ", pointIds=" + pointIds +
+                '}';
+    }
 }

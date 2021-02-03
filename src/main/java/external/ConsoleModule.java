@@ -10,12 +10,13 @@ import com.ara.game.usecases.battleship.ship.port.ShipGateway;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 import com.ara.game.usecases.common.port.IdGenerator;
 import com.google.inject.AbstractModule;
+import com.google.inject.Singleton;
 
 public class ConsoleModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(IdGenerator.class).to(UuidGenerator.class);
-        bind(PointGateway.class).to(PointInMemoryGateway.class);
+        bind(PointGateway.class).to(PointInMemoryGateway.class).in(Singleton.class);
         bind(ShipGateway.class).to(ShipInMemoryGateway.class);
         bind(ShipPointsGateway.class).to(ShipPointsInMemoryGateway.class);
     }

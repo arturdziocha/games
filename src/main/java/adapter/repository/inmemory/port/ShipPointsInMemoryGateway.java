@@ -34,9 +34,8 @@ public class ShipPointsInMemoryGateway implements ShipPointsGateway {
         return entities
                 .get(shipId)
                 .map(ShipPointsInMemory::getPointIds)
-                .flatMap(s -> pointGateway.findAllById(s)
-                        .peek(System.out::println)
-                        .map(w -> mapper.mapToOutputData(shipId, w)));
+                .flatMap(s -> pointGateway.findAllById(s).map(w -> mapper.mapToOutputData(shipId, w))
+                );
     }
 
     @Override

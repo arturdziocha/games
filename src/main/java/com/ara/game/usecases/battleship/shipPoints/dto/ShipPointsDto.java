@@ -37,4 +37,12 @@ public class ShipPointsDto {
     public Set<PointDto> getPoints() {
         return points;
     }
+
+    @Override
+    public String toString() {
+        return "ShipPointsDto{" +
+                "shipId='" + shipId + '\'' +
+                ", points=" + points +
+                '}';
+    }
 }

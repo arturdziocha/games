@@ -1,12 +1,10 @@
 package adapter.repository.inmemory.port;
 
-import com.ara.game.usecases.battleship.point.dto.PointDto;
-import com.ara.game.usecases.battleship.point.port.PointGateway;
-
 import adapter.repository.inmemory.entity.PointInMemory;
 import adapter.repository.inmemory.entity.PointMapper;
+import com.ara.game.usecases.battleship.point.dto.PointDto;
+import com.ara.game.usecases.battleship.point.port.PointGateway;
 import io.vavr.collection.HashMap;
-import io.vavr.collection.HashSet;
 import io.vavr.collection.Map;
 import io.vavr.collection.Set;
 import io.vavr.control.Option;
@@ -46,16 +44,7 @@ public class PointInMemoryGateway implements PointGateway {
 
     @Override
     public Option<Set<PointDto>> findAllById(Set<String> points) {
-        Set<PointDto> collection = HashSet.empty();
-        for (String id : points) {
-            Option<PointInMemory> option = entities.get(id);
-            if(option.isEmpty()){
-                return Option.none();
-            }
-            collection = collection.add(mapper.mapToDto(option.get()));
-        }
-        return Option.of(collection);
-
+        return Option.of(points.flatMap(s -> entities.get(s).map(mapper::mapToDto)));
     }
 
     @Override

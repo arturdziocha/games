@@ -22,6 +22,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class ShipPointsFacadeTest {
     private ShipPointsFacade shipPointsFacade;
     private PointFacade pointFacade;
@@ -64,7 +66,8 @@ public class ShipPointsFacadeTest {
         shipPointsFacade.create(new ShipPointsCreateDto.Builder().points(findPoints.get()).ship(ship.get()).build());
 
         Either<Error, ShipPointsDto> shipPoints = shipPointsFacade.find(ship.get().getId());
-        System.out.println(shipPoints);
+        Set<String> shipPointsIds = shipPoints.get().getPoints().map(PointDto::getId);
+        assertThat(pointsIds).containsAll(shipPointsIds);
 
 
     }

@@ -58,4 +58,12 @@ public class PointInMemory extends EntityInMemory {
         return pointString;
     }
 
+    @Override
+    public String toString() {
+        return "PointInMemory{" +
+                "row=" + row +
+                ", column=" + column +
+                ", pointString='" + pointString + '\'' +
+                '}';
+    }
 }
