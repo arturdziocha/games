@@ -23,7 +23,7 @@ final class Player extends Entity {
         }
 
         @Override
-        protected Entity build() {
+        protected Player build() {
             return new Player(this);
         }
 

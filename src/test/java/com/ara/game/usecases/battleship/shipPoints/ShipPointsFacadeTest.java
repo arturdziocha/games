@@ -36,9 +36,9 @@ public class ShipPointsFacadeTest {
         Injector injector = Guice.createInjector(new ConsoleModule());
         shipPointsFacade = injector.getInstance(ShipPointsFacade.class);
         pointFacade = injector.getInstance(PointFacade.class);
-        shipClassFacade = new ShipClassFacade();
+        shipClassFacade = injector.getInstance(ShipClassFacade.class);
         shipFacade = injector.getInstance(ShipFacade.class);
-        directionFacade = new DirectionFacade();
+        directionFacade = injector.getInstance(DirectionFacade.class);
     }
 
     @Test
@@ -50,7 +50,7 @@ public class ShipPointsFacadeTest {
         Either<Error, ShipDto> ship = shipFacade.find(createShip.get().getId());
 
         Either<Error, CreateDto> createPoint =
-                pointFacade.create(new PointCreateRowColDto.Builder().row(1).column(1).build());
+                pointFacade.create(new PointCreateRowColDto.Builder().row(0).column(0).build());
         Either<Error, PointDto> startPoint = pointFacade.findById(createPoint.get().getId());
 
         Either<Error, Set<CreateDto>> points =
@@ -63,10 +63,10 @@ public class ShipPointsFacadeTest {
 
         Either<Error, Set<PointDto>> findPoints = pointFacade.findAllById(pointsIds);
         //When
-        shipPointsFacade.create(new ShipPointsCreateDto.Builder().points(findPoints.get()).ship(ship.get()).build());
-
-        Either<Error, ShipPointsDto> shipPoints = shipPointsFacade.find(ship.get().getId());
+        shipPointsFacade.create(new ShipPointsCreateDto.Builder().points(findPoints.get()).ship(ship.get()).build());        
+        Either<Error, ShipPointsDto> shipPoints = shipPointsFacade.find(ship.get().getId());        
         Set<String> shipPointsIds = shipPoints.get().getPoints().map(PointDto::getId);
+        //Then
         assertThat(pointsIds).containsAll(shipPointsIds);
 
 
