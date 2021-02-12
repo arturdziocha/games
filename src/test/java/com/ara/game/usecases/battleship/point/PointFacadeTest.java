@@ -179,4 +179,35 @@ class PointFacadeTest {
         List<String> pStrings = Arrays.asList("B2", "B3", "B4", "B5");
         assertThat(pointStrings).hasSameElementsAs(pStrings);
     }
+    @Test
+    @DisplayName("Should create 4 points up")
+    void shouldCreate4PointsUp() {
+        ShipClassFacade shipClassFacade = new ShipClassFacade();
+        DirectionFacade directionFacade = new DirectionFacade();
+        // Given
+        Either<Error, ShipClassDto> shipClass = shipClassFacade.findByName("Battleship");
+        Either<Error, DirectionDto> direction = directionFacade.findByShortName("u");
+        Either<Error, CreateDto> point = pointFacade
+                .create(new PointCreateStringDto.Builder().pointString("b5").build());
+        Either<Error, PointDto> findPoint = pointFacade.findById(point.get().getId());
+
+        PointsCreateDto spcid = new PointsCreateDto.Builder()
+                .size(shipClass.get().getSize())
+                .point(findPoint.get())
+                .direction(direction.get())
+                .build();
+
+        // When
+        Either<Error, Set<CreateDto>> createdPoints = pointFacade.createPoints(spcid);
+        List<String> pointStrings = createdPoints
+                .get()
+                .map(p -> pointFacade.findById(p.getId()))
+                .map(Either::get)
+                .map(pod -> pod.getPointString())
+                .toJavaList();
+
+        // Then
+        List<String> pStrings = Arrays.asList("B2", "B3", "B4", "B5");
+        assertThat(pointStrings).hasSameElementsAs(pStrings);
+    }
 }

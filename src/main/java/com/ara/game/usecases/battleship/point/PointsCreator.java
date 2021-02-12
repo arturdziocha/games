@@ -1,5 +1,8 @@
 package com.ara.game.usecases.battleship.point;
 
+import org.omg.CORBA.PRIVATE_MEMBER;
+
+import com.ara.game.usecases.battleship.direction.dto.DirectionDto;
 import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
 import com.ara.game.usecases.battleship.point.dto.PointsCreateDto;
 import com.ara.game.usecases.common.CreateDto;
@@ -38,7 +41,7 @@ final class PointsCreator {
             int column = 0;
             switch (pointsCreateInputData.getDirection().getShortName()) {
                 case "u":
-                    row = pointsCreateInputData.getPoint().getRow() - 1;
+                    row = pointsCreateInputData.getPoint().getRow() - i;
                     column = pointsCreateInputData.getPoint().getColumn();
                     break;
                 case "r":
@@ -69,6 +72,64 @@ final class PointsCreator {
 
     private Either<Error, CreateDto> create(final Integer row, final Integer column) {
         return creator.create(new PointCreateRowColDto.Builder().row(row).column(column).build());
+    }
+
+    private class RowColumn {
+        private Integer row, column;
+
+        RowColumn(Integer row, Integer column) {
+            this.row = row;
+            this.column = column;
+        }
+
+        public Integer getRow() {
+            return row;
+        }
+
+        public Integer getColumn() {
+            return column;
+        }
+    }
+    private RowColumn calculate(DirectionDto direction, Integer move) {
+        DirectionStrategy directionStrategy;
+        if(direction.getShortName().equals("u")) {
+            directionStrategy = new UpStrategy(); 
+        } 
+        //TODO
+        return null;
+        
+    }
+    private interface DirectionStrategy {
+        RowColumn calculate(RowColumn rowColumn, Integer move);
+    }
+
+    private class UpStrategy implements DirectionStrategy {
+        @Override
+        public RowColumn calculate(RowColumn rowColumn, Integer move) {
+            return new RowColumn(rowColumn.getRow() - move, rowColumn.getColumn());
+        }
+    }
+
+    private class RightStrategy implements DirectionStrategy {
+        @Override
+        public RowColumn calculate(RowColumn rowColumn, Integer move) {
+            return new RowColumn(rowColumn.getRow(), rowColumn.getColumn() + move);
+        }
+    }
+
+    private class DownStrategy implements DirectionStrategy {
+        @Override
+        public RowColumn calculate(RowColumn rowColumn, Integer move) {
+            return new RowColumn(rowColumn.getRow() + move, rowColumn.getColumn());
+        }
+    }
+
+    private class LeftStrategy implements DirectionStrategy {
+        @Override
+        public RowColumn calculate(RowColumn rowColumn, Integer move) {
+            return new RowColumn(rowColumn.getRow(), rowColumn.getColumn() - move);
+        }
+
     }
 
 }
