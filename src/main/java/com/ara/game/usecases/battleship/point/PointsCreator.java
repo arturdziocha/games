@@ -1,13 +1,10 @@
 package com.ara.game.usecases.battleship.point;
 
-import org.omg.CORBA.PRIVATE_MEMBER;
-
 import com.ara.game.usecases.battleship.direction.dto.DirectionDto;
 import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
 import com.ara.game.usecases.battleship.point.dto.PointsCreateDto;
 import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
-
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 import io.vavr.control.Either;
@@ -90,15 +87,23 @@ final class PointsCreator {
             return column;
         }
     }
-    private RowColumn calculate(DirectionDto direction, Integer move) {
+
+    private Either<Error, DirectionStrategy> calculate(DirectionDto direction) {
         DirectionStrategy directionStrategy;
-        if(direction.getShortName().equals("u")) {
-            directionStrategy = new UpStrategy(); 
-        } 
-        //TODO
-        return null;
-        
+        switch (direction.getShortName()) {
+            case "u":
+                return Either.right(new UpStrategy());
+            case "r":
+                return Either.right(new RightStrategy());
+            case "d":
+                return Either.right(new DownStrategy());
+            case "l":
+                return Either.right(new LeftStrategy());
+            default:
+                return Either.left(PointsCreatorError.CANNOT_CREATE_POINTS);
+        }
     }
+
     private interface DirectionStrategy {
         RowColumn calculate(RowColumn rowColumn, Integer move);
     }
