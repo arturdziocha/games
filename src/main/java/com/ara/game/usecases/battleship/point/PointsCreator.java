@@ -101,8 +101,7 @@ final class PointsCreator {
 
     }
 
-    private Either<Error, DirectionStrategy> getDirection(DirectionDto direction) {
-        DirectionStrategy directionStrategy;
+    private Either<Error, DirectionStrategy> getDirection(DirectionDto direction) {        
         switch (direction.getShortName()) {
             case "u":
                 return Either.right(new UpStrategy());
