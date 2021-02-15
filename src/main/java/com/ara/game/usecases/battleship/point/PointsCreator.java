@@ -34,7 +34,7 @@ final class PointsCreator {
     private Either<Error, Set<CreateDto>> fill(final PointsCreateDto pointsCreateInputData) {
         Set<CreateDto> points = HashSet.empty();
         for (int i = 0; i < pointsCreateInputData.getSize(); i++) {
-            int row = 0;
+            /*int row = 0;
             int column = 0;
             switch (pointsCreateInputData.getDirection().getShortName()) {
                 case "u":
@@ -54,15 +54,23 @@ final class PointsCreator {
                     column = pointsCreateInputData.getPoint().getColumn() - i;
                 default:
                     return Either.left(PointsCreatorError.CANNOT_CREATE_POINTS);
+            }*/
+            Either<Error, DirectionStrategy> direction = getDirection(pointsCreateInputData.getDirection());
+            if (direction.isRight()) {
+                RowColumn rowColumn = calculate(direction.get(),
+                        new RowColumn(pointsCreateInputData.getPoint().getRow(),
+                                pointsCreateInputData.getPoint().getColumn()), i);
+                Either<Error, CreateDto> created = finder
+                        .findByRowAndColumn(rowColumn.getRow(), rowColumn.getColumn())
+                        .map(p -> new CreateDto.Builder().id(p.getId()).build())
+                        .orElse(create(rowColumn.getRow(), rowColumn.getColumn()));
+                if (created.isLeft()) {
+                    return Either.left(created.getLeft());
+                }
+                points = points.add(created.get());
+            } else {
+                return Either.left(direction.getLeft());
             }
-            Either<Error, CreateDto> created = finder
-                    .findByRowAndColumn(row, column)
-                    .map(p -> new CreateDto.Builder().id(p.getId()).build())
-                    .orElse(create(row, column));
-            if (created.isLeft()) {
-                return Either.left(created.getLeft());
-            }
-            points = points.add(created.get());
         }
         return Either.right(points);
     }
@@ -88,7 +96,12 @@ final class PointsCreator {
         }
     }
 
-    private Either<Error, DirectionStrategy> calculate(DirectionDto direction) {
+    private RowColumn calculate(DirectionStrategy directionStrategy, RowColumn rowColumn, Integer move) {
+        return directionStrategy.calculate(rowColumn, move);
+
+    }
+
+    private Either<Error, DirectionStrategy> getDirection(DirectionDto direction) {
         DirectionStrategy directionStrategy;
         switch (direction.getShortName()) {
             case "u":

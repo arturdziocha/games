@@ -1,14 +1,5 @@
 package com.ara.game.usecases.battleship.point;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import com.ara.game.usecases.battleship.direction.DirectionFacade;
 import com.ara.game.usecases.battleship.direction.dto.DirectionDto;
 import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
@@ -21,10 +12,17 @@ import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-
 import external.ConsoleModule;
 import io.vavr.collection.Set;
 import io.vavr.control.Either;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class PointFacadeTest {
 
@@ -172,7 +170,7 @@ class PointFacadeTest {
                 .get()
                 .map(p -> pointFacade.findById(p.getId()))
                 .map(Either::get)
-                .map(pod -> pod.getPointString())
+                .map(PointDto::getPointString)
                 .toJavaList();
 
         // Then
@@ -203,7 +201,7 @@ class PointFacadeTest {
                 .get()
                 .map(p -> pointFacade.findById(p.getId()))
                 .map(Either::get)
-                .map(pod -> pod.getPointString())
+                .map(PointDto::getPointString)
                 .toJavaList();
 
         // Then
