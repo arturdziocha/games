@@ -1,18 +1,18 @@
 package com.ara.game.usecases.battleship.ship;
 
-import com.ara.game.usecases.battleship.shipClass.dto.ShipClassDto;
+import com.ara.game.usecases.battleship.enums.ShipClass;
 import com.ara.game.usecases.common.domain.Entity;
 
 final class Ship extends Entity {
-    private final ShipClassDto shipClassDto;
+    private final ShipClass shipClass;
     private final Integer health;
 
     static class Builder extends Entity.Builder<Builder> {
-        private ShipClassDto shipClassDto;
+        private ShipClass shipClass;
         private Integer health;
 
-        Builder shipClassDto(final ShipClassDto shipClassDto) {
-            this.shipClassDto = shipClassDto;
+        Builder shipClass(final ShipClass shipClassDto) {
+            this.shipClass = shipClassDto;
             this.health = shipClassDto.getSize();
             return self();
         }
@@ -30,12 +30,12 @@ final class Ship extends Entity {
 
     private Ship(Builder builder) {
         super(builder);
-        this.shipClassDto = builder.shipClassDto;
+        this.shipClass = builder.shipClass;
         this.health = builder.health;
     }
 
-    ShipClassDto getShipClassDto() {
-        return shipClassDto;
+    ShipClass getShipClass() {
+        return shipClass;
     }
 
     Integer getHealth() {

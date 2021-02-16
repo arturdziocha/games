@@ -1,6 +1,6 @@
 package com.ara.game.usecases.battleship.point;
 
-import com.ara.game.usecases.battleship.direction.dto.DirectionDto;
+import com.ara.game.usecases.battleship.enums.Direction;
 import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
 import com.ara.game.usecases.battleship.point.dto.PointsCreateDto;
 import com.ara.game.usecases.common.CreateDto;
@@ -101,7 +101,7 @@ final class PointsCreator {
 
     }
 
-    private Either<Error, DirectionStrategy> getDirection(DirectionDto direction) {        
+    private Either<Error, DirectionStrategy> getDirection(Direction direction) {
         switch (direction.getShortName()) {
             case "u":
                 return Either.right(new UpStrategy());

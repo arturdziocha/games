@@ -1,15 +1,15 @@
 package com.ara.game.usecases.battleship.ship.dto;
 
-import com.ara.game.usecases.battleship.shipClass.dto.ShipClassDto;
+import com.ara.game.usecases.battleship.enums.ShipClass;
 
 public final class ShipDto {
     private final String id;
-    private final ShipClassDto shipClassDto;
+    private final ShipClass shipClass;
     private final Integer health;
 
     public static class Builder {
         private String id;
-        private ShipClassDto shipClassDto;
+        private ShipClass shipClass;
         private Integer health;
 
         public Builder id(final String id) {
@@ -17,8 +17,8 @@ public final class ShipDto {
             return this;
         }
 
-        public Builder shipClassDto(final ShipClassDto shipClassDto) {
-            this.shipClassDto = shipClassDto;
+        public Builder shipClass(final ShipClass shipClass) {
+            this.shipClass = shipClass;
             return this;
         }
 
@@ -34,7 +34,7 @@ public final class ShipDto {
 
     private ShipDto(Builder builder) {
         this.id = builder.id;
-        this.shipClassDto = builder.shipClassDto;
+        this.shipClass = builder.shipClass;
         this.health = builder.health;
     }
 
@@ -42,8 +42,8 @@ public final class ShipDto {
         return id;
     }
 
-    public ShipClassDto getShipClassDto() {
-        return shipClassDto;
+    public ShipClass getShipClass() {
+        return shipClass;
     }
 
     public Integer getHealth() {

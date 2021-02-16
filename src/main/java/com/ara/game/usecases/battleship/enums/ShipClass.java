@@ -1,6 +1,9 @@
-package com.ara.game.usecases.battleship.shipClass;
+package com.ara.game.usecases.battleship.enums;
 
-enum ShipClass {
+import io.vavr.collection.Stream;
+import io.vavr.control.Option;
+
+public enum ShipClass {
     BARCA("Barca", "b", 1),
     PATROL_BOAT("Patrol Boat", "pb", 2),
     SUBMARINE("Submarine", "s", 3),
@@ -27,5 +30,13 @@ enum ShipClass {
 
     public Integer getSize() {
         return size;
+    }
+
+    public static Option<ShipClass> findByName(final String name) {
+        return Stream.of(values()).find(val -> val.name.equals(name));
+    }
+
+    public static Option<ShipClass> findByShortName(final String shortName) {
+        return Stream.of(values()).find(val -> val.getShortName().equals(shortName));
     }
 }

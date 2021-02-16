@@ -1,11 +1,10 @@
 package adapter.repository.inmemory.port;
 
-import com.ara.game.usecases.battleship.ship.dto.ShipDto;
-import com.ara.game.usecases.battleship.ship.port.ShipGateway;
-import com.ara.game.usecases.battleship.shipClass.ShipClassFacade;
-
 import adapter.repository.inmemory.entity.ShipInMemory;
 import adapter.repository.inmemory.entity.ShipMapper;
+import com.ara.game.usecases.battleship.enums.ShipClass;
+import com.ara.game.usecases.battleship.ship.dto.ShipDto;
+import com.ara.game.usecases.battleship.ship.port.ShipGateway;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
 import io.vavr.control.Option;
@@ -13,12 +12,10 @@ import io.vavr.control.Option;
 public class ShipInMemoryGateway implements ShipGateway {
     private Map<String, ShipInMemory> entities;
     private final ShipMapper mapper;
-    private final ShipClassFacade shipClassFacade;
 
     public ShipInMemoryGateway() {
         this.entities = HashMap.empty();
         this.mapper = new ShipMapper();
-        this.shipClassFacade = new ShipClassFacade();
 
     }
 
@@ -34,8 +31,7 @@ public class ShipInMemoryGateway implements ShipGateway {
         if (find.isEmpty()) {
             return Option.none();
         }
-        return shipClassFacade
-                .findByShortName(find.get().getShipClassShortName())
+        return ShipClass.findByShortName(find.get().getShipClassShortName())
                 .map(s -> mapper.mapToDto(find.get(), s))
                 .toOption();
     }

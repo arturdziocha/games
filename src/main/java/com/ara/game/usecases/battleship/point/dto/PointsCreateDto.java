@@ -1,17 +1,17 @@
 package com.ara.game.usecases.battleship.point.dto;
 
-import com.ara.game.usecases.battleship.direction.dto.DirectionDto;
+import com.ara.game.usecases.battleship.enums.Direction;
 
 public final class PointsCreateDto {
 
     private final Integer size;
     private final PointDto point;
-    private final DirectionDto direction;
+    private final Direction direction;
 
     public static class Builder {
         private Integer size;
         private PointDto point;
-        private DirectionDto direction;
+        private Direction direction;
 
         public Builder size(final Integer size) {
             this.size = size;
@@ -23,7 +23,7 @@ public final class PointsCreateDto {
             return this;
         }
 
-        public Builder direction(final DirectionDto direction) {
+        public Builder direction(final Direction direction) {
             this.direction = direction;
             return this;
         }
@@ -47,7 +47,7 @@ public final class PointsCreateDto {
         return point;
     }
 
-    public DirectionDto getDirection() {
+    public Direction getDirection() {
         return direction;
     }
 }

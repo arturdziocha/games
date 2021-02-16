@@ -1,6 +1,7 @@
 package com.ara.game.usecases.battleship.shipPoints;
 
-import com.ara.game.usecases.battleship.direction.DirectionFacade;
+import com.ara.game.usecases.battleship.enums.Direction;
+import com.ara.game.usecases.battleship.enums.ShipClass;
 import com.ara.game.usecases.battleship.point.PointFacade;
 import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
@@ -8,7 +9,6 @@ import com.ara.game.usecases.battleship.point.dto.PointsCreateDto;
 import com.ara.game.usecases.battleship.ship.ShipFacade;
 import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
-import com.ara.game.usecases.battleship.shipClass.ShipClassFacade;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsCreateDto;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
 import com.ara.game.usecases.common.CreateDto;
@@ -28,17 +28,14 @@ public class ShipPointsFacadeTest {
     private ShipPointsFacade shipPointsFacade;
     private PointFacade pointFacade;
     private ShipFacade shipFacade;
-    private ShipClassFacade shipClassFacade;
-    private DirectionFacade directionFacade;
+    private ShipClass shipClass;
 
     @BeforeEach
     void setUp() {
         Injector injector = Guice.createInjector(new ConsoleModule());
         shipPointsFacade = injector.getInstance(ShipPointsFacade.class);
         pointFacade = injector.getInstance(PointFacade.class);
-        shipClassFacade = injector.getInstance(ShipClassFacade.class);
         shipFacade = injector.getInstance(ShipFacade.class);
-        directionFacade = injector.getInstance(DirectionFacade.class);
     }
 
     @Test
@@ -46,7 +43,7 @@ public class ShipPointsFacadeTest {
     void test1() {
         //Given
         Either<Error, CreateDto> createShip =
-                shipFacade.create(new ShipCreateDto.Builder().shipClassDto(shipClassFacade.findByShortName("c").get()).build());
+                shipFacade.create(new ShipCreateDto.Builder().shipClass(ShipClass.CARRIER).build());
         Either<Error, ShipDto> ship = shipFacade.find(createShip.get().getId());
 
         Either<Error, CreateDto> createPoint =
@@ -57,14 +54,14 @@ public class ShipPointsFacadeTest {
                 pointFacade.createPoints(new PointsCreateDto.Builder()
                         .point(startPoint.get())
                         .size(ship.get().getHealth())
-                        .direction(directionFacade.findByShortName("d").get())
+                        .direction(Direction.DOWN)
                         .build());
         Set<String> pointsIds = points.get().map(CreateDto::getId);
 
         Either<Error, Set<PointDto>> findPoints = pointFacade.findAllById(pointsIds);
         //When
-        shipPointsFacade.create(new ShipPointsCreateDto.Builder().points(findPoints.get()).ship(ship.get()).build());        
-        Either<Error, ShipPointsDto> shipPoints = shipPointsFacade.find(ship.get().getId());        
+        shipPointsFacade.create(new ShipPointsCreateDto.Builder().points(findPoints.get()).ship(ship.get()).build());
+        Either<Error, ShipPointsDto> shipPoints = shipPointsFacade.find(ship.get().getId());
         Set<String> shipPointsIds = shipPoints.get().getPoints().map(PointDto::getId);
         //Then
         assertThat(pointsIds).containsAll(shipPointsIds);

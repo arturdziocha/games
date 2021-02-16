@@ -1,23 +1,23 @@
 package com.ara.game.usecases.battleship.player;
 
-import com.ara.game.usecases.battleship.playerType.dto.PlayerTypeDto;
+import com.ara.game.usecases.battleship.enums.PlayerType;
 import com.ara.game.usecases.common.domain.Entity;
 
 final class Player extends Entity {
 
     private final String name;
-    private final PlayerTypeDto playerType;
+    private final PlayerType playerType;
 
     static class Builder extends Entity.Builder<Builder> {
         private String name;
-        private PlayerTypeDto playerType;
+        private PlayerType playerType;
 
         Builder name(final String name) {
             this.name = name;
             return self();
         }
 
-        Builder playerType(final PlayerTypeDto playerType) {
+        Builder playerType(final PlayerType playerType) {
             this.playerType = playerType;
             return self();
         }
@@ -44,7 +44,7 @@ final class Player extends Entity {
         return name;
     }
 
-    PlayerTypeDto getPlayerType() {
+    PlayerType getPlayerType() {
         return playerType;
     }
 }

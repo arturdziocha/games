@@ -4,20 +4,20 @@ import adapter.repository.inmemory.EntityInMemory;
 
 public class PlayerInMemory extends EntityInMemory {
     private final String name;
-    private final String playerType;
+    private final String playerTypeId;
 
 
     public static class Builder extends EntityInMemory.Builder<Builder> {
         private String name;
-        private String playerType;
+        private String playerTypeId;
 
         public Builder name(final String name) {
             this.name = name;
             return self();
         }
 
-        public Builder playerType(final String playerType) {
-            this.playerType = playerType;
+        public Builder playerTypeId(final String playerTypeId) {
+            this.playerTypeId = playerTypeId;
             return self();
         }
 
@@ -36,14 +36,14 @@ public class PlayerInMemory extends EntityInMemory {
     private PlayerInMemory(Builder builder) {
         super(builder);
         this.name = builder.name;
-        this.playerType = builder.playerType;
+        this.playerTypeId = builder.playerTypeId;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getPlayerType() {
-        return playerType;
+    public String getPlayerTypeId() {
+        return playerTypeId;
     }
 }

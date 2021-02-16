@@ -1,31 +1,27 @@
 package com.ara.game.usecases.battleship.player;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.ara.game.usecases.battleship.enums.PlayerType;
+import com.ara.game.usecases.battleship.player.dto.PlayerCreateDto;
+import com.ara.game.usecases.battleship.player.dto.PlayerDto;
+import com.ara.game.usecases.common.CreateDto;
+import com.ara.game.usecases.common.Error;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import external.ConsoleModule;
+import io.vavr.control.Either;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.ara.game.usecases.battleship.player.dto.PlayerCreateDto;
-import com.ara.game.usecases.battleship.player.dto.PlayerDto;
-import com.ara.game.usecases.battleship.playerType.PlayerTypeFacade;
-import com.ara.game.usecases.battleship.playerType.dto.PlayerTypeDto;
-import com.ara.game.usecases.common.CreateDto;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
-import external.ConsoleModule;
-import io.vavr.control.Either;
-import com.ara.game.usecases.common.Error;
+import static org.assertj.core.api.Assertions.assertThat;
 class PlayerFacadeTest {
 
     private PlayerFacade playerFacade;
-    private PlayerTypeFacade playerTypeFacade;
 
     @BeforeEach
     void before() {
         Injector injector = Guice.createInjector(new ConsoleModule());
         playerFacade = injector.getInstance(PlayerFacade.class);
-        playerTypeFacade = new PlayerTypeFacade();
     }
     @Test
     @DisplayName("Should return Either.left when input data is null")
@@ -40,10 +36,10 @@ class PlayerFacadeTest {
 
     @Test
     @DisplayName("Should return Either.left when player name is null")
-    void test2() {        
+    void test2() {
         // Given
-        Either<Error, PlayerTypeDto> playerType = playerTypeFacade.findById("1");
-        PlayerCreateDto input = new PlayerCreateDto.Builder().name(null).playerType(playerType.get()).build();
+        PlayerType playerType = PlayerType.HUMAN_PLAYER;
+        PlayerCreateDto input = new PlayerCreateDto.Builder().name(null).playerType(playerType).build();
         // When
         Either<Error, CreateDto> player = playerFacade.create(input);
         // Then
@@ -75,11 +71,11 @@ class PlayerFacadeTest {
     @DisplayName("Should create player")
     void test5() {
         // Given
-        Either<Error, PlayerTypeDto> playerType = playerTypeFacade.findById("1");
+        PlayerType playerType = PlayerType.HUMAN_PLAYER;
         // When
         PlayerCreateDto input = new PlayerCreateDto.Builder()
                 .name("Artur")
-                .playerType(playerType.get())
+                .playerType(playerType)
                 .build();
         Either<Error, CreateDto> player = playerFacade.create(input);
 

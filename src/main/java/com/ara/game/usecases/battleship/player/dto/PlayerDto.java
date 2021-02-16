@@ -1,17 +1,17 @@
 package com.ara.game.usecases.battleship.player.dto;
 
-import com.ara.game.usecases.battleship.playerType.dto.PlayerTypeDto;
+import com.ara.game.usecases.battleship.enums.PlayerType;
 
 public final class PlayerDto {
     private final String id;
     private final String name;
-    private final PlayerTypeDto playerType;
+    private final PlayerType playerType;
 
 
     public static class Builder {
         private String name;
         private String id;
-        private PlayerTypeDto playerType;
+        private PlayerType playerType;
 
         public Builder id(final String id) {
             this.id = id;
@@ -23,7 +23,7 @@ public final class PlayerDto {
             return this;
         }
 
-        public Builder playerType(final PlayerTypeDto playerType) {
+        public Builder playerType(final PlayerType playerType) {
             this.playerType = playerType;
             return this;
         }
@@ -47,7 +47,7 @@ public final class PlayerDto {
         return name;
     }
 
-    public PlayerTypeDto getPlayerType() {
+    public PlayerType getPlayerType() {
         return playerType;
     }
 }

@@ -2,7 +2,6 @@ package com.ara.game.usecases.battleship.ship;
 
 import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
 import com.ara.game.usecases.common.Error;
-
 import io.vavr.control.Option;
 
 final class ShipValidator {
@@ -10,7 +9,7 @@ final class ShipValidator {
         if (shipDto == null) {
             return Option.some(ShipError.DATA_CANNOT_BE_NULL);
         }
-        if (shipDto.getShipClassDto() == null) {
+        if (shipDto.getShipClass() == null) {
             return Option.some(ShipError.SHIP_CLASS_CANNOT_BE_EMPTY);
         }
 

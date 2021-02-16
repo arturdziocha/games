@@ -1,15 +1,15 @@
 package com.ara.game.usecases.battleship.ship.dto;
 
-import com.ara.game.usecases.battleship.shipClass.dto.ShipClassDto;
+import com.ara.game.usecases.battleship.enums.ShipClass;
 
 public class ShipCreateDto {
-    private final ShipClassDto shipClassDto;
+    private final ShipClass shipClass;
 
     public static class Builder {
-        private ShipClassDto shipClassDto;
+        private ShipClass shipClass;
 
-        public Builder shipClassDto(final ShipClassDto shipClassDto) {
-            this.shipClassDto = shipClassDto;
+        public Builder shipClass(final ShipClass shipClass) {
+            this.shipClass = shipClass;
             return this;
         }
 
@@ -19,10 +19,10 @@ public class ShipCreateDto {
     }
 
     private ShipCreateDto(Builder builder) {
-        this.shipClassDto = builder.shipClassDto;
+        this.shipClass = builder.shipClass;
     }
 
-    public ShipClassDto getShipClassDto() {
-        return shipClassDto;
+    public ShipClass getShipClass() {
+        return shipClass;
     }
 }

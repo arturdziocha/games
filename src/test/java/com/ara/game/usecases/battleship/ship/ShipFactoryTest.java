@@ -1,9 +1,8 @@
 package com.ara.game.usecases.battleship.ship;
 
+import com.ara.game.usecases.battleship.enums.ShipClass;
 import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
-import com.ara.game.usecases.battleship.shipClass.ShipClassFacade;
-import com.ara.game.usecases.battleship.shipClass.dto.ShipClassDto;
 import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Guice;
@@ -18,13 +17,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ShipFactoryTest {
     private ShipFacade shipFacade;
-    private ShipClassFacade shipClassFacade;
 
     @BeforeEach
     void before() {
         Injector injector = Guice.createInjector(new ConsoleModule());
         shipFacade = injector.getInstance(ShipFacade.class);
-        shipClassFacade = injector.getInstance(ShipClassFacade.class);
     }
 
     @Test
@@ -42,7 +39,7 @@ public class ShipFactoryTest {
     @DisplayName("Should return Either.left when shipClass is null")
     void test2() {
         // Given
-        ShipCreateDto createInputData = new ShipCreateDto.Builder().shipClassDto(null).build();
+        ShipCreateDto createInputData = new ShipCreateDto.Builder().shipClass(null).build();
         // When
         Either<Error, CreateDto> ship = shipFacade.create(createInputData);
         // Then
@@ -53,13 +50,13 @@ public class ShipFactoryTest {
     @DisplayName("Should create Ship Submarine")
     void test3() {
         // Given
-        Either<Error, ShipClassDto> shipClass = shipClassFacade.findByShortName("s");
-        ShipCreateDto createInputData = new ShipCreateDto.Builder().shipClassDto(shipClass.get()).build();
+        ShipClass shipClass = ShipClass.SUBMARINE;
+        ShipCreateDto createInputData = new ShipCreateDto.Builder().shipClass(shipClass).build();
         // When
         Either<Error, CreateDto> ship = shipFacade.create(createInputData);
         // Then
         Either<Error, ShipDto> findShip = shipFacade.find(ship.get().getId());
         assertThat(findShip.get().getHealth()).isEqualByComparingTo(3);
-        assertThat(findShip.get().getShipClassDto().getName()).isEqualTo("Submarine");
+        assertThat(findShip.get().getShipClass().getName()).isEqualTo("Submarine");
     }
 }

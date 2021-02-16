@@ -1,13 +1,11 @@
 package com.ara.game.usecases.battleship.point;
 
-import com.ara.game.usecases.battleship.direction.DirectionFacade;
-import com.ara.game.usecases.battleship.direction.dto.DirectionDto;
+import com.ara.game.usecases.battleship.enums.Direction;
+import com.ara.game.usecases.battleship.enums.ShipClass;
 import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
 import com.ara.game.usecases.battleship.point.dto.PointCreateStringDto;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.point.dto.PointsCreateDto;
-import com.ara.game.usecases.battleship.shipClass.ShipClassFacade;
-import com.ara.game.usecases.battleship.shipClass.dto.ShipClassDto;
 import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Guice;
@@ -149,19 +147,17 @@ class PointFacadeTest {
     @Test
     @DisplayName("Should create 4 points down")
     void shouldCreate4PointsDown() {
-        ShipClassFacade shipClassFacade = new ShipClassFacade();
-        DirectionFacade directionFacade = new DirectionFacade();
         // Given
-        Either<Error, ShipClassDto> shipClass = shipClassFacade.findByName("Battleship");
-        Either<Error, DirectionDto> direction = directionFacade.findByShortName("d");
+        ShipClass shipClass = ShipClass.BATTLESHIP;
+        Direction direction = Direction.DOWN;
         Either<Error, CreateDto> point = pointFacade
                 .create(new PointCreateStringDto.Builder().pointString("b2").build());
         Either<Error, PointDto> findPoint = pointFacade.findById(point.get().getId());
 
         PointsCreateDto spcid = new PointsCreateDto.Builder()
-                .size(shipClass.get().getSize())
+                .size(shipClass.getSize())
                 .point(findPoint.get())
-                .direction(direction.get())
+                .direction(direction)
                 .build();
 
         // When
@@ -177,22 +173,21 @@ class PointFacadeTest {
         List<String> pStrings = Arrays.asList("B2", "B3", "B4", "B5");
         assertThat(pointStrings).hasSameElementsAs(pStrings);
     }
+
     @Test
     @DisplayName("Should create 4 points up")
     void shouldCreate4PointsUp() {
-        ShipClassFacade shipClassFacade = new ShipClassFacade();
-        DirectionFacade directionFacade = new DirectionFacade();
         // Given
-        Either<Error, ShipClassDto> shipClass = shipClassFacade.findByName("Battleship");
-        Either<Error, DirectionDto> direction = directionFacade.findByShortName("u");
+        ShipClass shipClass = ShipClass.BATTLESHIP;
+        Direction direction = Direction.UP;
         Either<Error, CreateDto> point = pointFacade
                 .create(new PointCreateStringDto.Builder().pointString("b5").build());
         Either<Error, PointDto> findPoint = pointFacade.findById(point.get().getId());
 
         PointsCreateDto spcid = new PointsCreateDto.Builder()
-                .size(shipClass.get().getSize())
+                .size(shipClass.getSize())
                 .point(findPoint.get())
-                .direction(direction.get())
+                .direction(direction)
                 .build();
 
         // When

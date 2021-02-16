@@ -1,17 +1,15 @@
 package com.ara.game.usecases.battleship.ship;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
 import com.ara.game.usecases.battleship.ship.port.ShipGateway;
 import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
-
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class ShipCreator {
     private final ShipGateway shipGateway;
@@ -31,7 +29,7 @@ class ShipCreator {
     Either<Error, CreateDto> create(final ShipCreateDto shipCreateDto) {
         Option<Error> validation = validator.validate(shipCreateDto);
         return validation.isDefined() ? Either.left(validation.get())
-                : saveShip(mapper.mapToEntity(idGenerator.generate(), shipCreateDto.getShipClassDto()));
+                : saveShip(mapper.mapToEntity(idGenerator.generate(), shipCreateDto.getShipClass()));
     }
 
     private Either<Error, CreateDto> saveShip(final Ship ship) {

@@ -1,11 +1,10 @@
 package adapter.repository.inmemory.port;
 
-import com.ara.game.usecases.battleship.player.dto.PlayerDto;
-import com.ara.game.usecases.battleship.player.port.PlayerGateway;
-import com.ara.game.usecases.battleship.playerType.PlayerTypeFacade;
-
 import adapter.repository.inmemory.entity.PlayerInMemory;
 import adapter.repository.inmemory.entity.PlayerMapper;
+import com.ara.game.usecases.battleship.enums.PlayerType;
+import com.ara.game.usecases.battleship.player.dto.PlayerDto;
+import com.ara.game.usecases.battleship.player.port.PlayerGateway;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
 import io.vavr.control.Option;
@@ -13,11 +12,9 @@ import io.vavr.control.Option;
 public class PlayerInMemoryGateway implements PlayerGateway {
     Map<String, PlayerInMemory> entities = HashMap.empty();
     private final PlayerMapper mapper;
-    private final PlayerTypeFacade playerTypeFacade;
 
     public PlayerInMemoryGateway() {
         this.mapper = new PlayerMapper();
-        this.playerTypeFacade = new PlayerTypeFacade();
     }
 
     @Override
@@ -26,8 +23,8 @@ public class PlayerInMemoryGateway implements PlayerGateway {
         if (find.isEmpty()) {
             return Option.none();
         }
-        return playerTypeFacade
-                .findById(find.get().getPlayerType())
+        return PlayerType
+                .findById(find.get().getPlayerTypeId())
                 .map(pT -> mapper.mapToDto(find.get(), pT))
                 .toOption();
     }
