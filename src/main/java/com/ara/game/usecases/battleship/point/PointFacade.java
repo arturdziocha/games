@@ -9,20 +9,19 @@ import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
 import com.google.inject.Inject;
-
 import io.vavr.collection.Set;
 import io.vavr.control.Either;
 
 public class PointFacade {
-    private final PointCreator creator;
-    private final PointFinder finder;
+    private final Creator creator;
+    private final Finder finder;
     private final PointsCreator pointsCreator;
 
     @Inject
     public PointFacade(PointGateway pointGateway, IdGenerator idGenerator) {
-        PointMapper mapper = new PointMapper();
-        creator = new PointCreator(pointGateway, idGenerator, mapper);
-        finder = new PointFinder(pointGateway);
+        Mapper mapper = new Mapper();
+        creator = new Creator(pointGateway, idGenerator, mapper);
+        finder = new Finder(pointGateway);
         pointsCreator = new PointsCreator(finder, creator);
     }
 

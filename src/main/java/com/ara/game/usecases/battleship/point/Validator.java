@@ -1,14 +1,12 @@
 package com.ara.game.usecases.battleship.point;
 
 import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
-import org.apache.commons.lang3.StringUtils;
-
 import com.ara.game.usecases.battleship.point.dto.PointCreateStringDto;
 import com.ara.game.usecases.common.Error;
-
 import io.vavr.control.Option;
+import org.apache.commons.lang3.StringUtils;
 
-class PointValidator {
+class Validator {
 
     final Option<Error> validatePointStrint(final PointCreateStringDto inputData) {
         if (inputData == null) {

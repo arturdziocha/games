@@ -10,10 +10,10 @@ import io.vavr.collection.Set;
 import io.vavr.control.Either;
 
 final class PointsCreator {
-    private final PointFinder finder;
-    private final PointCreator creator;
+    private final Finder finder;
+    private final Creator creator;
 
-    PointsCreator(final PointFinder finder, final PointCreator creator) {
+    PointsCreator(final Finder finder, final Creator creator) {
         this.finder = finder;
         this.creator = creator;
     }

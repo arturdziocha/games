@@ -8,15 +8,15 @@ import com.google.inject.Inject;
 import io.vavr.control.Either;
 
 public class ShipPointsFacade {
-    private final ShipPointsCreator creator;
-    private final ShipPointsFinder finder;
-    private final ShipPointsRemover remover;
+    private final Creator creator;
+    private final Finder finder;
+    private final Remover remover;
 
     @Inject
     public ShipPointsFacade(final ShipPointsGateway shipPointsGateway) {
-        this.remover = new ShipPointsRemover(shipPointsGateway);
-        this.finder = new ShipPointsFinder(shipPointsGateway);
-        this.creator = new ShipPointsCreator(shipPointsGateway);
+        this.remover = new Remover(shipPointsGateway);
+        this.finder = new Finder(shipPointsGateway);
+        this.creator = new Creator(shipPointsGateway);
     }
 
     public Either<Error, ShipPointsDto> create(final ShipPointsCreateDto shipPoints) {

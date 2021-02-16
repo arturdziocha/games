@@ -11,15 +11,15 @@ import io.vavr.control.Either;
 
 public class ShipFacade {
 
-    private final ShipCreator creator;
-    private final ShipFinder finder;
-    private final ShipRemover remover;
+    private final Creator creator;
+    private final Finder finder;
+    private final Remover remover;
 
     @Inject
     public ShipFacade(final ShipGateway shipGateway, final IdGenerator idGenerator) {
-        this.creator = new ShipCreator(shipGateway, idGenerator);
-        this.finder = new ShipFinder(shipGateway);
-        this.remover = new ShipRemover(shipGateway);
+        this.creator = new Creator(shipGateway, idGenerator);
+        this.finder = new Finder(shipGateway);
+        this.remover = new Remover(shipGateway);
     }
 
     public Either<Error, CreateDto> create(final ShipCreateDto inputData) {
