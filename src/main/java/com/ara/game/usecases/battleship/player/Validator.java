@@ -7,7 +7,7 @@ import com.ara.game.usecases.common.Error;
 
 import io.vavr.control.Option;
 
-final class PlayerValidator {
+final class Validator {
 
     public Option<Error> validate(PlayerCreateDto inputData) {
         if (inputData == null) {

@@ -13,19 +13,19 @@ import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
 
-final class PlayerCreator {
+final class Creator {
     private final PlayerGateway playerGateway;
     private final IdGenerator idGenerator;
-    private final PlayerValidator validator;
-    private final PlayerMapper mapper;
+    private final Validator validator;
+    private final Mapper mapper;
     private final Logger log;
 
-    public PlayerCreator(final PlayerGateway playerGateway, final IdGenerator idGenerator) {
+    public Creator(final PlayerGateway playerGateway, final IdGenerator idGenerator) {
         this.playerGateway = playerGateway;
         this.idGenerator = idGenerator;
-        this.validator = new PlayerValidator();
-        this.mapper = new PlayerMapper();
-        this.log = LoggerFactory.getLogger(PlayerCreator.class);
+        this.validator = new Validator();
+        this.mapper = new Mapper();
+        this.log = LoggerFactory.getLogger(Creator.class);
     }
 
     Either<Error, CreateDto> create(PlayerCreateDto inputData) {

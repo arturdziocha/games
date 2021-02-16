@@ -6,10 +6,10 @@ import com.ara.game.usecases.common.Error;
 import io.vavr.control.Either;
 import org.apache.commons.lang3.StringUtils;
 
-class PlayerFinder {
+class Finder {
     private final PlayerGateway playerGateway;
 
-    PlayerFinder(final PlayerGateway playerGateway) {
+    Finder(final PlayerGateway playerGateway) {
         this.playerGateway = playerGateway;
     }
 

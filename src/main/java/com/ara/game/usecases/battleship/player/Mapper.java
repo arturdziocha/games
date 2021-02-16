@@ -4,7 +4,7 @@ import com.ara.game.usecases.battleship.player.dto.PlayerCreateDto;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.common.CreateDto;
 
-final class PlayerMapper {
+final class Mapper {
 
     public PlayerDto mapToDto(Player player) {
         return new PlayerDto.Builder()

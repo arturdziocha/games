@@ -10,13 +10,13 @@ import com.google.inject.Inject;
 import io.vavr.control.Either;
 
 public class PlayerFacade {
-    private final PlayerCreator creator;
-    private final PlayerFinder finder;
+    private final Creator creator;
+    private final Finder finder;
 
     @Inject
     public PlayerFacade(final PlayerGateway playerGateway, final IdGenerator idGenerator) {
-        this.creator = new PlayerCreator(playerGateway, idGenerator);
-        this.finder = new PlayerFinder(playerGateway);
+        this.creator = new Creator(playerGateway, idGenerator);
+        this.finder = new Finder(playerGateway);
     }
 
     public Either<Error, CreateDto> create(final PlayerCreateDto inputData) {
