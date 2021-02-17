@@ -3,7 +3,6 @@ package adapter.repository.inmemory.port;
 import com.ara.game.usecases.battleship.enums.ShipClass;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 import com.ara.game.usecases.battleship.ship.port.ShipGateway;
-import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 
 import adapter.repository.inmemory.entity.ShipInMemory;
 import adapter.repository.inmemory.entity.ShipMapper;
@@ -15,12 +14,10 @@ import io.vavr.control.Option;
 
 public class ShipInMemoryGateway implements ShipGateway {
     private Map<String, ShipInMemory> entities;
-    private final ShipPointsGateway shipPointsGateway;
     private final ShipMapper mapper;
 
-    public ShipInMemoryGateway(final ShipPointsGateway shipPointsGateway) {
+    public ShipInMemoryGateway() {
         this.entities = HashMap.empty();
-        this.shipPointsGateway = shipPointsGateway;
         this.mapper = new ShipMapper();
 
     }

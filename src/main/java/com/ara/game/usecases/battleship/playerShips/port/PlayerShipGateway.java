@@ -13,5 +13,7 @@ public interface PlayerShipGateway {
 
     Option<ShipPointsDto> findByPlayerIdAndShipClassShortName(String playerId, String shipClassShortName);
 
+    void remove(String playerId);
+
 
 }
