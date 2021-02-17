@@ -1,19 +1,20 @@
 package com.ara.game.usecases.battleship.shipPoints.dto;
 
 import com.ara.game.usecases.battleship.point.dto.PointDto;
+import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 
 import io.vavr.collection.Set;
 
 public class ShipPointsDto {
-    private final String shipId;
+    private final ShipDto ship;
     private final Set<PointDto> points;
 
     public static class Builder {
-        private String shipId;
+        private ShipDto ship;
         private Set<PointDto> points;
 
-        public Builder shipId(final String shipId){
-            this.shipId = shipId;
+        public Builder ship(final ShipDto shipId){
+            this.ship = shipId;
             return this;
         }
         public Builder points(final Set<PointDto> points) {
@@ -27,11 +28,11 @@ public class ShipPointsDto {
     }
 
     private ShipPointsDto(Builder builder) {
-        this.shipId = builder.shipId;this.points = builder.points;
+        this.ship = builder.ship;this.points = builder.points;
     }
 
-    public String getShipId() {
-        return shipId;
+    public ShipDto getShip() {
+        return ship;
     }
 
     public Set<PointDto> getPoints() {
@@ -41,7 +42,7 @@ public class ShipPointsDto {
     @Override
     public String toString() {
         return "ShipPointsDto{" +
-                "shipId='" + shipId + '\'' +
+                "shipId='" + ship + '\'' +
                 ", points=" + points +
                 '}';
     }

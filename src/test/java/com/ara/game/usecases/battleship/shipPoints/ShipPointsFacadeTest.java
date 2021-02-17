@@ -1,5 +1,11 @@
 package com.ara.game.usecases.battleship.shipPoints;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import com.ara.game.usecases.battleship.enums.Direction;
 import com.ara.game.usecases.battleship.enums.ShipClass;
 import com.ara.game.usecases.battleship.point.PointFacade;
@@ -15,20 +21,15 @@ import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
 import external.ConsoleModule;
 import io.vavr.collection.Set;
 import io.vavr.control.Either;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class ShipPointsFacadeTest {
     private ShipPointsFacade shipPointsFacade;
     private PointFacade pointFacade;
     private ShipFacade shipFacade;
-    private ShipClass shipClass;
 
     @BeforeEach
     void setUp() {
@@ -41,17 +42,17 @@ public class ShipPointsFacadeTest {
     @Test
     @DisplayName("Should create Carrier with startPoint A1 and direction down")
     void test1() {
-        //Given
-        Either<Error, CreateDto> createShip =
-                shipFacade.create(new ShipCreateDto.Builder().shipClass(ShipClass.CARRIER).build());
+        // Given
+        Either<Error, CreateDto> createShip = shipFacade
+                .create(new ShipCreateDto.Builder().shipClass(ShipClass.CARRIER).build());
         Either<Error, ShipDto> ship = shipFacade.find(createShip.get().getId());
 
-        Either<Error, CreateDto> createPoint =
-                pointFacade.create(new PointCreateRowColDto.Builder().row(0).column(0).build());
+        Either<Error, CreateDto> createPoint = pointFacade
+                .create(new PointCreateRowColDto.Builder().row(0).column(0).build());
         Either<Error, PointDto> startPoint = pointFacade.findById(createPoint.get().getId());
 
-        Either<Error, Set<CreateDto>> points =
-                pointFacade.createPoints(new PointsCreateDto.Builder()
+        Either<Error, Set<CreateDto>> points = pointFacade
+                .createPoints(new PointsCreateDto.Builder()
                         .point(startPoint.get())
                         .size(ship.get().getHealth())
                         .direction(Direction.DOWN)
@@ -59,13 +60,11 @@ public class ShipPointsFacadeTest {
         Set<String> pointsIds = points.get().map(CreateDto::getId);
 
         Either<Error, Set<PointDto>> findPoints = pointFacade.findAllById(pointsIds);
-        //When
+        // When
         shipPointsFacade.create(new ShipPointsCreateDto.Builder().points(findPoints.get()).ship(ship.get()).build());
         Either<Error, ShipPointsDto> shipPoints = shipPointsFacade.find(ship.get().getId());
         Set<String> shipPointsIds = shipPoints.get().getPoints().map(PointDto::getId);
-        //Then
+        // Then
         assertThat(pointsIds).containsAll(shipPointsIds);
-
-
     }
 }

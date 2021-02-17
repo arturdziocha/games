@@ -19,7 +19,7 @@ public class ConsoleModule extends AbstractModule {
     protected void configure() {
         bind(IdGenerator.class).to(UuidGenerator.class);
         bind(PointGateway.class).to(PointInMemoryGateway.class).in(Singleton.class);
-        bind(ShipGateway.class).to(ShipInMemoryGateway.class);
+        bind(ShipGateway.class).to(ShipInMemoryGateway.class).in(Singleton.class);
         bind(ShipPointsGateway.class).to(ShipPointsInMemoryGateway.class);
         bind(PlayerGateway.class).to(PlayerInMemoryGateway.class);
     }

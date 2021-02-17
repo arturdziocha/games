@@ -1,5 +1,6 @@
 package com.ara.game.usecases.battleship.enums;
 
+import io.vavr.collection.Set;
 import io.vavr.collection.Stream;
 import io.vavr.control.Option;
 
@@ -38,5 +39,9 @@ public enum ShipClass {
 
     public static Option<ShipClass> findByShortName(final String shortName) {
         return Stream.of(values()).find(val -> val.getShortName().equals(shortName));
+    }
+
+    public static Set<String> findAllShortName() {
+        return Stream.of(values()).map(ShipClass::getShortName).toSortedSet(String::compareTo);
     }
 }
