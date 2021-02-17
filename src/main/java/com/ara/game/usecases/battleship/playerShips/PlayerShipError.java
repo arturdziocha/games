@@ -8,7 +8,9 @@ enum PlayerShipError implements Error {
     SHIP_NOT_SPECIFIED("Ship not specified"),
     ALL_SHIPS_ALREADY_PLACED("All ships already placed"),
     SHIP_ALREADY_PLACED("Ship is already placed"),
-    SHIP_IS_TO_CLOSE_OTHER("Ship is to close other ships");
+    SHIP_IS_TO_CLOSE_OTHER("Ship is to close other ships"),
+    PERSISTENCE_FAILED("Saving error"),
+    NO_SHIPS_DEFINED("No ships specified");
     private final String cause;
 
     PlayerShipError(final String cause) {

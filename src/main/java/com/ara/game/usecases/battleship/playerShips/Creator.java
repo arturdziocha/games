@@ -2,33 +2,39 @@ package com.ara.game.usecases.battleship.playerShips;
 
 import com.ara.game.usecases.battleship.enums.ShipClass;
 import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipCreateDto;
-import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipsDto;
+import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipDto;
 import com.ara.game.usecases.battleship.playerShips.port.PlayerShipGateway;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.ship.port.ShipGateway;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 import com.ara.game.usecases.common.Error;
-
 import io.vavr.collection.Set;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
+import io.vavr.control.Try;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class Creator {
     private final PlayerShipGateway playerShipGateway;
     private final ShipPointsGateway shipPointsGateway;
     private final Validator validator;
     private final ShipGateway shipGateway;
+    private final Mapper mapper;
+    private final Logger log;
 
     public Creator(final PlayerShipGateway playerShipGateway, final ShipGateway shipGateway,
-            final ShipPointsGateway shipPointsGateway) {
+                   final ShipPointsGateway shipPointsGateway) {
         this.playerShipGateway = playerShipGateway;
         this.shipGateway = shipGateway;
         this.shipPointsGateway = shipPointsGateway;
         this.validator = new Validator();
+        this.mapper = new Mapper();
+        this.log = LoggerFactory.getLogger(Creator.class);
     }
 
-    Either<Error, PlayerShipsDto> create(PlayerShipCreateDto inputData) {
+    Either<Error, PlayerShipDto> create(PlayerShipCreateDto inputData) {
         Option<Error> validation = validator.validate(inputData);
         if (validation.isDefined()) {
             return Either.left(validation.get());
@@ -41,29 +47,35 @@ final class Creator {
             return Either.left(PlayerShipError.SHIP_ALREADY_PLACED);
         }
 
-        Option<Set<PlayerShipsDto>> placedShips = playerShipGateway.findAllShips(inputData.getPlayer().getId());
+        Option<Set<ShipPointsDto>> placedShips = playerShipGateway.findAllShips(inputData.getPlayer().getId());
         Option<ShipPointsDto> ship = shipPointsGateway.findById(inputData.getShip().getId());
         if (placedShips.isDefined()) {
-            Set<ShipPointsDto> alreadyPlacedPoints = placedShips.get().flatMap(s -> s.getShips());
+            Set<ShipPointsDto> alreadyPlacedPoints = placedShips.get();
             if (isToCloseTo(alreadyPlacedPoints, ship.get().getPoints())) {
                 removeShip(inputData.getShip().getId());
                 return Either.left(PlayerShipError.SHIP_IS_TO_CLOSE_OTHER);
             }
         }
-        // TODo Finish creating
-        return null;
+        return savePlayerShip(new PlayerShip.Builder().player(inputData.getPlayer()).ship(inputData.getShip()).build());
+    }
+
+    private Either<Error, PlayerShipDto> savePlayerShip(PlayerShip playerShip) {
+        return Try.of(() -> save(playerShip)).map(mapper::mapToDto).onFailure(e -> log.error(e.getMessage())).toEither(PlayerShipError.PERSISTENCE_FAILED);
+    }
+
+    private PlayerShip save(PlayerShip playerShip) {
+        playerShipGateway.save(mapper.mapToDto(playerShip));
+        return playerShip;
     }
 
     private boolean isAllShipsPlaced(String playerId) {
-        Option<Set<PlayerShipsDto>> alreadyPlaced = playerShipGateway.findAllShips(playerId);
+        Option<Set<ShipPointsDto>> alreadyPlaced = playerShipGateway.findAllShips(playerId);
         if (alreadyPlaced.isEmpty()) {
             return false;
         }
-        Set<String> alreadyPlacedShortNames = alreadyPlaced
-                .get()
-                .flatMap(s -> s.getShips())
-                .map(r -> r.getShip().getShipClass().getShortName())
-                .toSortedSet(String::compareTo);
+        Set<String> alreadyPlacedShortNames =
+                alreadyPlaced.get().map(s -> s.getShip().getShipClass().getShortName()).toSortedSet(String::compareTo);
+
         Set<String> shipClasses = ShipClass.findAllShortName();
         return shipClasses.containsAll(alreadyPlacedShortNames);
     }
@@ -71,7 +83,7 @@ final class Creator {
     private boolean isAlreadyPlaced(PlayerShipCreateDto playerShip) {
         return playerShipGateway
                 .findByPlayerIdAndShipClassShortName(playerShip.getPlayer().getId(),
-                    playerShip.getShip().getShipClass().getShortName())
+                        playerShip.getShip().getShipClass().getShortName())
                 .isDefined();
     }
 

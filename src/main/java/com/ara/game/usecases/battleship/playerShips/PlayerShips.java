@@ -3,41 +3,39 @@ package com.ara.game.usecases.battleship.playerShips;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 
-import io.vavr.collection.Set;
-
-final class PlayerShips {
+final class PlayerShip {
     private final PlayerDto player;
-    private final Set<ShipDto> ships;
+    private final ShipDto ship;
 
     static class Builder {
         private PlayerDto player;
-        private Set<ShipDto> ships;
+        private ShipDto ship;
 
         Builder player(final PlayerDto player) {
             this.player = player;
             return this;
         }
 
-        Builder ships(final Set<ShipDto> ships) {
-            this.ships = ships;
+        Builder ship(final ShipDto ship) {
+            this.ship = ship;
             return this;
         }
 
-        PlayerShips build() {
-            return new PlayerShips(this);
+        PlayerShip build() {
+            return new PlayerShip(this);
         }
     }
 
-    public PlayerShips(Builder builder) {
+    public PlayerShip(Builder builder) {
         this.player = builder.player;
-        this.ships = builder.ships;
+        this.ship = builder.ship;
     }
 
     public PlayerDto getPlayer() {
         return player;
     }
 
-    public Set<ShipDto> getShips() {
-        return ships;
+    public ShipDto getShip() {
+        return ship;
     }
 }
