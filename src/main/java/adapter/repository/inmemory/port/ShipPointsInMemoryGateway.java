@@ -9,6 +9,7 @@ import com.google.inject.Inject;
 
 import adapter.repository.inmemory.entity.ShipPointsMapper;
 import io.vavr.collection.HashMap;
+import io.vavr.collection.HashSet;
 import io.vavr.collection.Map;
 import io.vavr.collection.Set;
 import io.vavr.control.Option;
@@ -52,7 +53,21 @@ public class ShipPointsInMemoryGateway implements ShipPointsGateway {
     }
 
     @Override
+    public Option<Set<ShipPointsDto>> findAllById(Set<String> shipsIds) {
+        Set<ShipPointsDto> ships = HashSet.empty();
+        for (String id : shipsIds) {
+            Option<ShipPointsDto> ship = findById(id);
+            if (ship.isEmpty()) {
+                return Option.none();
+            }
+            ships = ships.add(ship.get());
+        }
+        return Option.of(ships);
+    }
+
+    @Override
     public void remove(String shipId) {
         entities = entities.remove(shipId);
     }
+
 }

@@ -7,7 +7,7 @@ import io.vavr.control.Option;
 
 public interface PlayerShipGateway {
 
-    PlayerShipDto save(PlayerShipDto mapToDto);
+    PlayerShipDto save(PlayerShipDto inputData);
 
     Option<Set<ShipPointsDto>> findAllShips(String playerId);
 
