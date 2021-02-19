@@ -7,15 +7,18 @@ import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 import com.google.inject.Inject;
 
-import adapter.repository.inmemory.entity.ShipPointsInMemory;
 import adapter.repository.inmemory.entity.ShipPointsMapper;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
+import io.vavr.collection.Set;
 import io.vavr.control.Option;
 
 public class ShipPointsInMemoryGateway implements ShipPointsGateway {
     private final PointGateway pointGateway;
-    private Map<String, ShipPointsInMemory> entities;
+    /**
+     * Map<String>, Set<String>> first value is shipId, second point ids
+     */
+    private Map<String, Set<String>> entities;
     private final ShipPointsMapper mapper;
     private final ShipGateway shipGateway;
 
@@ -35,17 +38,16 @@ public class ShipPointsInMemoryGateway implements ShipPointsGateway {
 
     @Override
     public Option<ShipPointsDto> findById(String shipId) {
-        Option<ShipPointsInMemory> shipPoints = entities.get(shipId);
+        Option<Set<String>> shipPoints = entities.get(shipId);
         if (shipPoints.isEmpty()) {
             return Option.none();
         }
-        Option<ShipDto> ship = entities.get(shipId).flatMap(w -> shipGateway.findById(w.getShipId()));
+        Option<ShipDto> ship = shipGateway.findById(shipId);
         if (ship.isEmpty()) {
             return Option.none();
         }
         return entities
                 .get(shipId)
-                .map(ShipPointsInMemory::getPointIds)
                 .flatMap(s -> pointGateway.findAllById(s).map(w -> mapper.mapToOutputData(ship.get(), w)));
     }
 

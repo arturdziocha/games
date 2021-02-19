@@ -7,11 +7,8 @@ import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
 import io.vavr.collection.Set;
 
 public class ShipPointsMapper {
-    public ShipPointsInMemory mapToEntity(ShipPointsDto shipPoints) {
-        return new ShipPointsInMemory.Builder()
-                .shipId(shipPoints.getShip().getId())
-                .pointIds(shipPoints.getPoints().map(PointDto::getId))
-                .build();
+    public Set<String> mapToEntity(ShipPointsDto shipPoints) {
+        return shipPoints.getPoints().map(PointDto::getId);
     }
 
     public ShipPointsDto mapToOutputData(ShipDto ship, Set<PointDto> points) {
