@@ -3,18 +3,20 @@ package com.ara.game.usecases.battleship.resources;
 import com.ara.game.usecases.battleship.enums.PlayerType;
 import com.ara.game.usecases.battleship.player.PlayerFacade;
 import com.ara.game.usecases.battleship.player.dto.PlayerCreateDto;
-import com.ara.game.usecases.battleship.player.port.PlayerGateway;
 import com.ara.game.usecases.common.CreateDto;
-import com.ara.game.usecases.common.port.IdGenerator;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
+import external.ConsoleModule;
 import io.vavr.collection.Set;
 import io.vavr.collection.Stream;
 
 final class PlayerLoader {
     private final PlayerFacade playerFacade;
 
-    PlayerLoader(final PlayerGateway playerGateway, final IdGenerator idGenerator) {
-        this.playerFacade = new PlayerFacade(playerGateway, idGenerator);
+    PlayerLoader() {
+        Injector injector = Guice.createInjector(new ConsoleModule());
+        this.playerFacade = injector.getInstance(PlayerFacade.class);
     }
 
     String loadFirstPlayer() {
