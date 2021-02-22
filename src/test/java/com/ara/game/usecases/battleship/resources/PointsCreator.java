@@ -10,15 +10,15 @@ import external.ConsoleModule;
 import io.vavr.collection.Set;
 import io.vavr.collection.Stream;
 
-final class PointsLoader {
+final class PointsCreator {
     private final PointFacade pointFacade;
 
-    public PointsLoader() {
+    public PointsCreator() {
         Injector injector = Guice.createInjector(new ConsoleModule());
         this.pointFacade = injector.getInstance(PointFacade.class);
     }
 
-    Set<String> loadSixStartPoints() {
+    Set<String> createSixPoints() {
         PointCreateStringDto[] points = { new PointCreateStringDto.Builder().pointString("a1").build(),
                 new PointCreateStringDto.Builder().pointString("c1").build(),
                 new PointCreateStringDto.Builder().pointString("e1").build(),
@@ -28,7 +28,7 @@ final class PointsLoader {
         return Stream.of(points).map(p -> pointFacade.create(p).get()).map(CreateDto::getId).toSet();
     }
 
-    Set<String> loadFiveStartPoints() {
+    Set<String> createFivePoints() {
         PointCreateStringDto[] points = { new PointCreateStringDto.Builder().pointString("a1").build(),
                 new PointCreateStringDto.Builder().pointString("c1").build(),
                 new PointCreateStringDto.Builder().pointString("e1").build(),
