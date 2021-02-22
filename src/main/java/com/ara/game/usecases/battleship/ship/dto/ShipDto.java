@@ -2,7 +2,7 @@ package com.ara.game.usecases.battleship.ship.dto;
 
 import com.ara.game.usecases.battleship.enums.ShipClass;
 
-public final class ShipDto {
+public final class ShipDto implements Comparable<ShipDto> {
     private final String id;
     private final ShipClass shipClass;
     private final Integer health;
@@ -48,5 +48,15 @@ public final class ShipDto {
 
     public Integer getHealth() {
         return health;
+    }
+
+    @Override
+    public String toString() {
+        return "ShipDto [id=" + id + ", shipClass=" + shipClass + ", health=" + health + "]";
+    }
+
+    @Override
+    public int compareTo(ShipDto o) {
+        return health.compareTo(o.getHealth());
     }
 }

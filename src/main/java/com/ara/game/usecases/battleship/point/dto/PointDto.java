@@ -1,7 +1,6 @@
 package com.ara.game.usecases.battleship.point.dto;
 
-public final class PointDto {
-
+public final class PointDto implements Comparable<PointDto> {
     private final String id;
     private final String pointString;
     private final Integer row;
@@ -61,4 +60,17 @@ public final class PointDto {
         return column;
     }
 
+    @Override
+    public String toString() {
+        return "PointDto [id=" + id + ", pointString=" + pointString + ", row=" + row + ", column=" + column + "]";
+    }
+
+    @Override
+    public int compareTo(PointDto o) {
+        int result = row.compareTo(o.getRow());
+        if (result == 0) {
+            result = column.compareTo(o.getColumn());
+        }
+        return result;
+    }
 }

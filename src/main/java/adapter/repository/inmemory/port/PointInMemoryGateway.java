@@ -43,8 +43,8 @@ public class PointInMemoryGateway implements PointGateway {
     }
 
     @Override
-    public Option<Set<PointDto>> findAllById(Set<String> points) {
-        return Option.of(points.flatMap(s -> entities.get(s).map(mapper::mapToDto)));
+    public Option<Set<PointDto>> findAllById(Set<String> points) {        
+        return Option.of(points.flatMap(s -> entities.get(s)).map(mapper::mapToDto));
     }
 
     @Override

@@ -57,5 +57,6 @@ public class PointInMemory extends EntityInMemory {
     public String getPointString() {
         return pointString;
     }
+    
 
 }

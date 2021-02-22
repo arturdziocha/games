@@ -23,7 +23,7 @@ final class PointsCreator {
     }
 
     final Either<Error, Set<CreateDto>> createRandom(final PointsCreateDto inputData) {
-
+        // TODO It's not generating Random points. Have to change
         Either<Error, Set<CreateDto>> chooser = fill(inputData);
         while (chooser.isLeft()) {
             chooser = fill(inputData);
@@ -36,9 +36,9 @@ final class PointsCreator {
         for (int i = 0; i < pointsCreateInputData.getSize(); i++) {
             Either<Error, DirectionStrategy> direction = getDirection(pointsCreateInputData.getDirection());
             if (direction.isRight()) {
-                RowColumn rowColumn = calculate(direction.get(),
-                        new RowColumn(pointsCreateInputData.getPoint().getRow(),
-                                pointsCreateInputData.getPoint().getColumn()), i);
+                RowColumn rowColumn = calculate(direction.get(), new RowColumn(
+                        pointsCreateInputData.getPoint().getRow(), pointsCreateInputData.getPoint().getColumn()),
+                    i);
                 Either<Error, CreateDto> created = finder
                         .findByRowAndColumn(rowColumn.getRow(), rowColumn.getColumn())
                         .map(p -> new CreateDto.Builder().id(p.getId()).build())

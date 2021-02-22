@@ -2,8 +2,11 @@ package com.ara.game.usecases.battleship.resources;
 
 import com.ara.game.usecases.battleship.point.PointFacade;
 import com.ara.game.usecases.battleship.point.dto.PointCreateStringDto;
+import com.ara.game.usecases.battleship.point.port.PointGateway;
 import com.ara.game.usecases.common.CreateDto;
+import com.ara.game.usecases.common.port.IdGenerator;
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 
 import external.ConsoleModule;
@@ -13,9 +16,9 @@ import io.vavr.collection.Stream;
 final class PointsCreator {
     private final PointFacade pointFacade;
 
-    public PointsCreator() {
-        Injector injector = Guice.createInjector(new ConsoleModule());
-        this.pointFacade = injector.getInstance(PointFacade.class);
+    @Inject
+    public PointsCreator(final PointGateway pointGateway, final IdGenerator idGenerator) {
+        this.pointFacade = new PointFacade(pointGateway, idGenerator);
     }
 
     Set<String> createSixPoints() {
