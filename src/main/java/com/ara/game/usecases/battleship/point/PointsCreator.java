@@ -34,27 +34,6 @@ final class PointsCreator {
     private Either<Error, Set<CreateDto>> fill(final PointsCreateDto pointsCreateInputData) {
         Set<CreateDto> points = HashSet.empty();
         for (int i = 0; i < pointsCreateInputData.getSize(); i++) {
-            /*int row = 0;
-            int column = 0;
-            switch (pointsCreateInputData.getDirection().getShortName()) {
-                case "u":
-                    row = pointsCreateInputData.getPoint().getRow() - i;
-                    column = pointsCreateInputData.getPoint().getColumn();
-                    break;
-                case "r":
-                    row = pointsCreateInputData.getPoint().getRow();
-                    column = pointsCreateInputData.getPoint().getColumn() + i;
-                    break;
-                case "d":
-                    row = pointsCreateInputData.getPoint().getRow() + i;
-                    column = pointsCreateInputData.getPoint().getColumn();
-                    break;
-                case "l":
-                    row = pointsCreateInputData.getPoint().getRow();
-                    column = pointsCreateInputData.getPoint().getColumn() - i;
-                default:
-                    return Either.left(PointsCreatorError.CANNOT_CREATE_POINTS);
-            }*/
             Either<Error, DirectionStrategy> direction = getDirection(pointsCreateInputData.getDirection());
             if (direction.isRight()) {
                 RowColumn rowColumn = calculate(direction.get(),
