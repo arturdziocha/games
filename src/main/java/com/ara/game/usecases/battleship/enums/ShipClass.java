@@ -5,8 +5,11 @@ import io.vavr.collection.Stream;
 import io.vavr.control.Option;
 
 public enum ShipClass {
-    BARCA("Barca", "b", 1),
-    PATROL_BOAT("Patrol Boat", "pb", 2),
+    BARCA1("Barca1", "b1", 1),
+    BARCA2("Barca2", "b2", 1),
+    BARCA3("Barca3", "b3", 1),
+    PATROL_BOAT1("Patrol Boat1", "pb1", 2),
+    PATROL_BOAT2("Patrol Boat2", "pb2", 2),
     SUBMARINE("Submarine", "s", 3),
     DESTROYER("Destroyer", "d", 3),
     BATTLESHIP("Battleship", "bp", 4),

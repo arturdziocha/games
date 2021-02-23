@@ -27,7 +27,10 @@ final class PointsCreator {
                 new PointCreateStringDto.Builder().pointString("e1").build(),
                 new PointCreateStringDto.Builder().pointString("g1").build(),
                 new PointCreateStringDto.Builder().pointString("i1").build(),
-                new PointCreateStringDto.Builder().pointString("b9").build() };
+                new PointCreateStringDto.Builder().pointString("a10").build(),
+                new PointCreateStringDto.Builder().pointString("c10").build(),
+                new PointCreateStringDto.Builder().pointString("e10").build(),
+                new PointCreateStringDto.Builder().pointString("b10").build() };
         return Stream.of(points).map(p -> pointFacade.create(p).get()).map(CreateDto::getId).toSet();
     }
 

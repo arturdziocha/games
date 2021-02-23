@@ -57,6 +57,10 @@ public final class ShipDto implements Comparable<ShipDto> {
 
     @Override
     public int compareTo(ShipDto o) {
-        return health.compareTo(o.getHealth());
+        int result = health.compareTo(o.getHealth());
+        if (result == 0) {
+            result = shipClass.getName().compareTo(o.getShipClass().getName());
+        }
+        return result;
     }
 }
