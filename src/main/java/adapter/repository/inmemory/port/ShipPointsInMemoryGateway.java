@@ -12,8 +12,6 @@ import io.vavr.collection.HashMap;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Map;
 import io.vavr.collection.Set;
-import io.vavr.collection.SortedSet;
-import io.vavr.collection.TreeSet;
 import io.vavr.control.Option;
 
 public class ShipPointsInMemoryGateway implements ShipPointsGateway {
