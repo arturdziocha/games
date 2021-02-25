@@ -2,11 +2,15 @@ package adapter.repository.inmemory.port;
 
 import adapter.repository.inmemory.entity.PointInMemory;
 import adapter.repository.inmemory.entity.PointMapper;
+
+import java.util.Comparator;
+
 import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.point.port.PointGateway;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
 import io.vavr.collection.Set;
+import io.vavr.collection.SortedSet;
 import io.vavr.control.Option;
 
 public class PointInMemoryGateway implements PointGateway {
@@ -43,13 +47,30 @@ public class PointInMemoryGateway implements PointGateway {
     }
 
     @Override
-    public Option<Set<PointDto>> findAllById(Set<String> points) {        
-        return Option.of(points.flatMap(s -> entities.get(s)).map(mapper::mapToDto));
+    public Option<SortedSet<PointDto>> findAllById(Set<String> points) {
+        return Option
+                .of(points
+                        .flatMap(s -> entities.get(s))
+                        .toSortedSet(new PointInMemoryComparator())
+                        .map(mapper::mapToDto));
     }
 
     @Override
     public void removeAll(Set<String> points) {
         entities.removeAll(points);
+
+    }
+
+    private class PointInMemoryComparator implements Comparator<PointInMemory> {
+
+        @Override
+        public int compare(PointInMemory o1, PointInMemory o2) {
+            int result = o1.getRow().compareTo(o2.getRow());
+            if (result == 0) {
+                result = o1.getColumn().compareTo(o2.getColumn());
+            }
+            return result;
+        }
 
     }
 }

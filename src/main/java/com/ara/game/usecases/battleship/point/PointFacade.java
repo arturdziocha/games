@@ -9,7 +9,9 @@ import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
 import com.google.inject.Inject;
+
 import io.vavr.collection.Set;
+import io.vavr.collection.SortedSet;
 import io.vavr.control.Either;
 
 public class PointFacade {
@@ -53,10 +55,8 @@ public class PointFacade {
         return finder.findByPointString(pointString);
     }
 
-    public Either<Error, Set<PointDto>> findAllById(Set<String> pointsIds) {
+    public Either<Error, SortedSet<PointDto>> findAllById(Set<String> pointsIds) {
         return finder.findAllById(pointsIds);
     }
-
-    
 
 }

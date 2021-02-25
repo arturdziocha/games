@@ -24,6 +24,7 @@ import com.google.inject.Injector;
 
 import external.ConsoleModule;
 import io.vavr.collection.Set;
+import io.vavr.collection.SortedSet;
 import io.vavr.control.Either;
 
 public class ShipPointsFacadeTest {
@@ -59,7 +60,7 @@ public class ShipPointsFacadeTest {
                         .build());
         Set<String> pointsIds = points.get().map(CreateDto::getId);
 
-        Either<Error, Set<PointDto>> findPoints = pointFacade.findAllById(pointsIds);
+        Either<Error, SortedSet<PointDto>> findPoints = pointFacade.findAllById(pointsIds);
         // When
         shipPointsFacade.create(new ShipPointsCreateDto.Builder().points(findPoints.get()).ship(ship.get()).build());
         Either<Error, ShipPointsDto> shipPoints = shipPointsFacade.find(ship.get().getId());

@@ -19,6 +19,7 @@ import external.ConsoleModule;
 import io.vavr.collection.Array;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
+import io.vavr.collection.SortedSet;
 import io.vavr.collection.Stream;
 
 final class ShipsLoader {
@@ -37,7 +38,7 @@ final class ShipsLoader {
 
     public Set<ShipPointsDto> loadSix() {
         Set<String> pointsIds = pointsCreator.createSixPoints();
-        Array<PointDto> points = pointFacade.findAllById(pointsIds).get().toSortedSet().toArray();
+        Array<PointDto> points = pointFacade.findAllById(pointsIds).get().toArray();
 
         ShipCreateDto[] ships = { new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build(),
                 new ShipCreateDto.Builder().shipClass(ShipClass.BARCA2).build(),
@@ -71,7 +72,7 @@ final class ShipsLoader {
         }
         System.out.println(w);
         Set<Set<String>> pSet = w.map(s -> pointFacade.createPoints(s).get()).map(q -> q.map(CreateDto::getId)).toSet();
-        Array<Set<PointDto>> ppp = pSet.map(f -> pointFacade.findAllById(f).get()).toArray();
+        Array<SortedSet<PointDto>> ppp = pSet.map(f -> pointFacade.findAllById(f).get()).toArray();
         System.out.println(ppp);
         Set<ShipPointsDto> toReturn = HashSet.empty();
         for (int i = 0; i < ppp.size(); i++) {
@@ -81,13 +82,5 @@ final class ShipsLoader {
                             .get());
         }
         return toReturn;
-
-    }
-
-    public static void main(String[] args) {
-        ShipsLoader loader = new ShipsLoader();
-        Set<ShipPointsDto> l = loader.loadSix();
-        l.forEach(System.out::println);
-
     }
 }
