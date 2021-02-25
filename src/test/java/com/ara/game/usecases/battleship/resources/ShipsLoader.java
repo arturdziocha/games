@@ -5,22 +5,19 @@ import com.ara.game.usecases.battleship.enums.ShipClass;
 import com.ara.game.usecases.battleship.point.PointFacade;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.point.dto.PointsCreateDto;
+import com.ara.game.usecases.battleship.point.port.PointGateway;
 import com.ara.game.usecases.battleship.ship.ShipFacade;
 import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
+import com.ara.game.usecases.battleship.ship.port.ShipGateway;
 import com.ara.game.usecases.battleship.shipPoints.ShipPointsFacade;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsCreateDto;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
+import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 import com.ara.game.usecases.common.CreateDto;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
-import external.ConsoleModule;
-import io.vavr.collection.Array;
-import io.vavr.collection.HashSet;
-import io.vavr.collection.Set;
-import io.vavr.collection.SortedSet;
-import io.vavr.collection.Stream;
+import com.ara.game.usecases.common.port.IdGenerator;
+import com.google.inject.Inject;
+import io.vavr.collection.*;
 
 final class ShipsLoader {
     private final ShipFacade shipFacade;
@@ -28,19 +25,20 @@ final class ShipsLoader {
     private final ShipPointsFacade shipPointsFacade;
     private final PointFacade pointFacade;
 
-    ShipsLoader() {
-        Injector injector = Guice.createInjector(new ConsoleModule());
-        shipFacade = injector.getInstance(ShipFacade.class);
-        pointsCreator = injector.getInstance(PointsCreator.class);
-        pointFacade = injector.getInstance(PointFacade.class);
-        shipPointsFacade = injector.getInstance(ShipPointsFacade.class);
+    @Inject
+    ShipsLoader(final ShipGateway shipGateway, final IdGenerator idGenerator, final PointGateway pointGateway,
+                final ShipPointsGateway shipPointsGateway) {
+        shipFacade = new ShipFacade(shipGateway, idGenerator);
+        pointsCreator = new PointsCreator(pointGateway, idGenerator);
+        pointFacade = new PointFacade(pointGateway, idGenerator);
+        shipPointsFacade = new ShipPointsFacade(shipPointsGateway);
     }
 
     public Set<ShipPointsDto> loadSix() {
         Set<String> pointsIds = pointsCreator.createSixPoints();
         Array<PointDto> points = pointFacade.findAllById(pointsIds).get().toArray();
 
-        ShipCreateDto[] ships = { new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build(),
+        ShipCreateDto[] ships = {new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build(),
                 new ShipCreateDto.Builder().shipClass(ShipClass.BARCA2).build(),
                 new ShipCreateDto.Builder().shipClass(ShipClass.BARCA3).build(),
                 new ShipCreateDto.Builder().shipClass(ShipClass.PATROL_BOAT1).build(),
@@ -48,7 +46,7 @@ final class ShipsLoader {
                 new ShipCreateDto.Builder().shipClass(ShipClass.SUBMARINE).build(),
                 new ShipCreateDto.Builder().shipClass(ShipClass.DESTROYER).build(),
                 new ShipCreateDto.Builder().shipClass(ShipClass.BATTLESHIP).build(),
-                new ShipCreateDto.Builder().shipClass(ShipClass.CARRIER).build() };
+                new ShipCreateDto.Builder().shipClass(ShipClass.CARRIER).build()};
         Set<String> shipsIds = Stream.of(ships).map(s -> shipFacade.create(s).get()).map(CreateDto::getId).toSet();
         Array<ShipDto> findShips = shipsIds.map(id -> shipFacade.find(id).get()).toSortedSet().toArray();
         System.out.println(findShips);
