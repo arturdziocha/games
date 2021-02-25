@@ -30,7 +30,7 @@ final class PlayerLoader {
     Set<String> loadTwoPlayers() {
         PlayerCreateDto[] players = {
                 new PlayerCreateDto.Builder().name("Artur").playerType(PlayerType.HUMAN_PLAYER).build(),
-                new PlayerCreateDto.Builder().name("Artur").playerType(PlayerType.HUMAN_PLAYER).build() };
+                new PlayerCreateDto.Builder().name("Jarek").playerType(PlayerType.HUMAN_PLAYER).build() };
         return Stream.of(players).map(player -> playerFacade.create(player).get()).map(CreateDto::getId).toSet();
     }
 

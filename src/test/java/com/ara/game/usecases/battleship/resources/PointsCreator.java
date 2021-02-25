@@ -5,11 +5,8 @@ import com.ara.game.usecases.battleship.point.dto.PointCreateStringDto;
 import com.ara.game.usecases.battleship.point.port.PointGateway;
 import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.port.IdGenerator;
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 
-import external.ConsoleModule;
 import io.vavr.collection.Set;
 import io.vavr.collection.Stream;
 
