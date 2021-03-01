@@ -18,8 +18,8 @@ final class PointsCreator {
         this.pointFacade = new PointFacade(pointGateway, idGenerator);
     }
 
-    Set<PointDto> createSixPoints() {
-        PointCreateStringDto[] points = {new PointCreateStringDto.Builder().pointString("a1").build(),
+    Set<PointDto> createNinePoints() {
+        PointCreateStringDto[] points = { new PointCreateStringDto.Builder().pointString("a1").build(),
                 new PointCreateStringDto.Builder().pointString("c1").build(),
                 new PointCreateStringDto.Builder().pointString("e1").build(),
                 new PointCreateStringDto.Builder().pointString("g1").build(),
@@ -27,17 +27,24 @@ final class PointsCreator {
                 new PointCreateStringDto.Builder().pointString("a10").build(),
                 new PointCreateStringDto.Builder().pointString("c10").build(),
                 new PointCreateStringDto.Builder().pointString("e10").build(),
-                new PointCreateStringDto.Builder().pointString("j10").build()};
+                new PointCreateStringDto.Builder().pointString("j10").build() };
 
-        return Stream.of(points).map(p->pointFacade.create(p).get()).map(l->pointFacade.findById(l.getId()).get()).toSortedSet();
+        return Stream
+                .of(points)
+                .map(p -> pointFacade.create(p).get())
+                .map(l -> pointFacade.findById(l.getId()).get())
+                .toSortedSet();
     }
 
-    Set<String> createFivePoints() {
-        PointCreateStringDto[] points = {new PointCreateStringDto.Builder().pointString("a1").build(),
+    Set<String> createEightPoints() {
+        PointCreateStringDto[] points = { new PointCreateStringDto.Builder().pointString("a1").build(),
                 new PointCreateStringDto.Builder().pointString("c1").build(),
                 new PointCreateStringDto.Builder().pointString("e1").build(),
                 new PointCreateStringDto.Builder().pointString("g1").build(),
-                new PointCreateStringDto.Builder().pointString("i1").build()};
+                new PointCreateStringDto.Builder().pointString("i1").build(),
+                new PointCreateStringDto.Builder().pointString("a10").build(),
+                new PointCreateStringDto.Builder().pointString("c10").build(),
+                new PointCreateStringDto.Builder().pointString("e10").build() };
         return Stream.of(points).map(p -> pointFacade.create(p).get()).map(CreateDto::getId).toSet();
     }
 

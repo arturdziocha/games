@@ -34,8 +34,8 @@ public final class ShipsLoader {
         shipPointsFacade = new ShipPointsFacade(shipPointsGateway);
     }
 
-    public Set<ShipPointsDto> loadSix() {
-        Array<PointDto> points = pointsCreator.createSixPoints().toArray();
+    public Set<ShipPointsDto> loadNine() {
+        Array<PointDto> points = pointsCreator.createNinePoints().toArray();
 
 
         ShipCreateDto[] ships = {new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build(),
@@ -81,8 +81,8 @@ public final class ShipsLoader {
         return toReturn;
     }
 
-    public Set<ShipPointsDto> loadFive() {
-        Set<String> pointsIds = pointsCreator.createFivePoints();
+    public Set<ShipPointsDto> loadEight() {
+        Set<String> pointsIds = pointsCreator.createEightPoints();
         Array<PointDto> points = pointFacade.findAllById(pointsIds).get().toArray();
 
         ShipCreateDto[] ships = {new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build(),

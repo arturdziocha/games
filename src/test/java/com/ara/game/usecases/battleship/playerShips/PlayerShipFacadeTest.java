@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipCreateDto;
-import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipDto;
 import com.ara.game.usecases.battleship.resources.PlayerLoader;
 import com.ara.game.usecases.battleship.resources.ShipsLoader;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
@@ -36,10 +35,10 @@ class PlayerShipFacadeTest {
     void test() {
         // Given
         PlayerDto playerId = playerLoader.loadFirstPlayer();        
-        Set<ShipPointsDto> ships = shipsLoader.loadSix();
+        Set<ShipPointsDto> ships = shipsLoader.loadNine();
         //When
         for(ShipPointsDto ship : ships) {
-            Either<Error, PlayerShipDto> added= playerShipFacade.create(new PlayerShipCreateDto.Builder().player(playerId).ship(ship.getShip()).build());
+            playerShipFacade.create(new PlayerShipCreateDto.Builder().player(playerId).ship(ship.getShip()).build());
         }        
         // Then
         Either<Error, Set<ShipPointsDto>> findShips = playerShipFacade.find(playerId.getId());
