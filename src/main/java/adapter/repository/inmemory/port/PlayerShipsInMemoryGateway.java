@@ -24,7 +24,7 @@ public final class PlayerShipsInMemoryGateway implements PlayerShipGateway {
     }
 
     @Override
-    public PlayerShipDto save(PlayerShipDto inputData) {
+    public PlayerShipDto save(PlayerShipDto inputData) {       
         Option<Set<String>> old = entities.get(inputData.getPlayer().getId());
         if (old.isDefined()) {
             Set<String> toReplace = old.get().add(inputData.getShip().getId());

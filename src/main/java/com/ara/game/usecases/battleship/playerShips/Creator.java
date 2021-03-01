@@ -25,7 +25,7 @@ final class Creator {
     private final Logger log;
 
     public Creator(final PlayerShipGateway playerShipGateway, final ShipGateway shipGateway,
-                   final ShipPointsGateway shipPointsGateway) {
+            final ShipPointsGateway shipPointsGateway) {
         this.playerShipGateway = playerShipGateway;
         this.shipGateway = shipGateway;
         this.shipPointsGateway = shipPointsGateway;
@@ -42,7 +42,7 @@ final class Creator {
         if (isAllShipsPlaced(inputData.getPlayer().getId())) {
             removeShip(inputData.getShip().getId());
             return Either.left(PlayerShipError.ALL_SHIPS_ALREADY_PLACED);
-        }
+        }        
         if (isAlreadyPlaced(inputData)) {
             return Either.left(PlayerShipError.SHIP_ALREADY_PLACED);
         }
@@ -60,7 +60,11 @@ final class Creator {
     }
 
     private Either<Error, PlayerShipDto> savePlayerShip(PlayerShip playerShip) {
-        return Try.of(() -> save(playerShip)).map(mapper::mapToDto).onFailure(e -> log.error(e.getMessage())).toEither(PlayerShipError.PERSISTENCE_FAILED);
+        return Try
+                .of(() -> save(playerShip))
+                .map(mapper::mapToDto)
+                .onFailure(e -> log.error(e.getMessage()))
+                .toEither(PlayerShipError.PERSISTENCE_FAILED);
     }
 
     private PlayerShip save(PlayerShip playerShip) {
@@ -73,8 +77,10 @@ final class Creator {
         if (alreadyPlaced.isEmpty()) {
             return false;
         }
-        Set<String> alreadyPlacedShortNames =
-                alreadyPlaced.get().map(s -> s.getShip().getShipClass().getShortName()).toSortedSet(String::compareTo);
+        Set<String> alreadyPlacedShortNames = alreadyPlaced
+                .get()
+                .map(s -> s.getShip().getShipClass().getShortName())
+                .toSortedSet(String::compareTo);
 
         Set<String> shipClasses = ShipClass.findAllShortName();
         return shipClasses.containsAll(alreadyPlacedShortNames);
@@ -83,7 +89,7 @@ final class Creator {
     private boolean isAlreadyPlaced(PlayerShipCreateDto playerShip) {
         return playerShipGateway
                 .findByPlayerIdAndShipClassShortName(playerShip.getPlayer().getId(),
-                        playerShip.getShip().getShipClass().getShortName())
+                    playerShip.getShip().getShipClass().getShortName())
                 .isDefined();
     }
 

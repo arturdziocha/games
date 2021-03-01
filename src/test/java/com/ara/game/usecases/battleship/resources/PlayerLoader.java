@@ -3,31 +3,35 @@ package com.ara.game.usecases.battleship.resources;
 import com.ara.game.usecases.battleship.enums.PlayerType;
 import com.ara.game.usecases.battleship.player.PlayerFacade;
 import com.ara.game.usecases.battleship.player.dto.PlayerCreateDto;
+import com.ara.game.usecases.battleship.player.dto.PlayerDto;
+import com.ara.game.usecases.battleship.player.port.PlayerGateway;
 import com.ara.game.usecases.common.CreateDto;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import com.ara.game.usecases.common.Error;
+import com.ara.game.usecases.common.port.IdGenerator;
+import com.google.inject.Inject;
 
-import external.ConsoleModule;
 import io.vavr.collection.Set;
 import io.vavr.collection.Stream;
+import io.vavr.control.Either;
 
-final class PlayerLoader {
+public final class PlayerLoader {
     private final PlayerFacade playerFacade;
 
-    PlayerLoader() {
-        Injector injector = Guice.createInjector(new ConsoleModule());
-        this.playerFacade = injector.getInstance(PlayerFacade.class);
+    @Inject
+    public PlayerLoader(PlayerGateway playerGateway, IdGenerator idGenerator) {
+        this.playerFacade = new PlayerFacade(playerGateway, idGenerator);
     }
 
-    String loadFirstPlayer() {
+    public PlayerDto loadFirstPlayer() {
         PlayerCreateDto player = new PlayerCreateDto.Builder()
                 .name("Artur")
                 .playerType(PlayerType.HUMAN_PLAYER)
                 .build();
-        return playerFacade.create(player).get().getId();
+        Either<Error, CreateDto> playerCreated = playerFacade.create(player);        
+        return playerFacade.find(playerCreated.get().getId()).get();
     }
 
-    Set<String> loadTwoPlayers() {
+    public Set<String> loadTwoPlayers() {
         PlayerCreateDto[] players = {
                 new PlayerCreateDto.Builder().name("Artur").playerType(PlayerType.HUMAN_PLAYER).build(),
                 new PlayerCreateDto.Builder().name("Jarek").playerType(PlayerType.HUMAN_PLAYER).build() };

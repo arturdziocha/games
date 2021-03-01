@@ -19,7 +19,7 @@ import com.ara.game.usecases.common.port.IdGenerator;
 import com.google.inject.Inject;
 import io.vavr.collection.*;
 
-final class ShipsLoader {
+public final class ShipsLoader {
     private final ShipFacade shipFacade;
     private final PointsCreator pointsCreator;
     private final ShipPointsFacade shipPointsFacade;
@@ -27,7 +27,7 @@ final class ShipsLoader {
 
     @Inject
     ShipsLoader(final ShipGateway shipGateway, final IdGenerator idGenerator, final PointGateway pointGateway,
-                final ShipPointsGateway shipPointsGateway) {
+            final ShipPointsGateway shipPointsGateway) {
         shipFacade = new ShipFacade(shipGateway, idGenerator);
         pointsCreator = new PointsCreator(pointGateway, idGenerator);
         pointFacade = new PointFacade(pointGateway, idGenerator);
@@ -38,7 +38,7 @@ final class ShipsLoader {
         Set<String> pointsIds = pointsCreator.createSixPoints();
         Array<PointDto> points = pointFacade.findAllById(pointsIds).get().toArray();
 
-        ShipCreateDto[] ships = {new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build(),
+        ShipCreateDto[] ships = { new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build(),
                 new ShipCreateDto.Builder().shipClass(ShipClass.BARCA2).build(),
                 new ShipCreateDto.Builder().shipClass(ShipClass.BARCA3).build(),
                 new ShipCreateDto.Builder().shipClass(ShipClass.PATROL_BOAT1).build(),
@@ -46,7 +46,53 @@ final class ShipsLoader {
                 new ShipCreateDto.Builder().shipClass(ShipClass.SUBMARINE).build(),
                 new ShipCreateDto.Builder().shipClass(ShipClass.DESTROYER).build(),
                 new ShipCreateDto.Builder().shipClass(ShipClass.BATTLESHIP).build(),
-                new ShipCreateDto.Builder().shipClass(ShipClass.CARRIER).build()};
+                new ShipCreateDto.Builder().shipClass(ShipClass.CARRIER).build() };
+        Set<String> shipsIds = Stream.of(ships).map(s -> shipFacade.create(s).get()).map(CreateDto::getId).toSet();
+        Array<ShipDto> findShips = shipsIds.map(id -> shipFacade.find(id).get()).toSortedSet().toArray();
+       
+
+        Set<PointsCreateDto> w = HashSet.empty();
+        for (int i = 0; i < 6; i++) {
+            w = w
+                    .add(new PointsCreateDto.Builder()
+                            .direction(Direction.DOWN)
+                            .point(points.get(i))
+                            .size(findShips.get(i).getHealth())
+                            .build());
+        }
+        for (int i = 6; i < findShips.size(); i++) {
+            w = w
+                    .add(new PointsCreateDto.Builder()
+                            .direction(Direction.UP)
+                            .point(points.get(i))
+                            .size(findShips.get(i).getHealth())
+                            .build());
+        }
+        Set<Set<String>> pSet = w.map(s -> pointFacade.createPoints(s).get()).map(q -> q.map(CreateDto::getId)).toSet();
+        Array<SortedSet<PointDto>> ppp = pSet.map(f -> pointFacade.findAllById(f).get()).toArray();
+    
+        Set<ShipPointsDto> toReturn = HashSet.empty();
+        for (int i = 0; i < ppp.size(); i++) {
+            toReturn = toReturn
+                    .add(shipPointsFacade
+                            .create(new ShipPointsCreateDto.Builder().ship(findShips.get(i)).points(ppp.get(i)).build())
+                            .get());
+        }       
+        return toReturn;
+    }
+
+    public Set<ShipPointsDto> loadFive() {
+        Set<String> pointsIds = pointsCreator.createFivePoints();
+        Array<PointDto> points = pointFacade.findAllById(pointsIds).get().toArray();
+
+        ShipCreateDto[] ships = { new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build(),
+                new ShipCreateDto.Builder().shipClass(ShipClass.BARCA2).build(),
+                new ShipCreateDto.Builder().shipClass(ShipClass.BARCA3).build(),
+                new ShipCreateDto.Builder().shipClass(ShipClass.PATROL_BOAT1).build(),
+                new ShipCreateDto.Builder().shipClass(ShipClass.PATROL_BOAT2).build(),
+                new ShipCreateDto.Builder().shipClass(ShipClass.SUBMARINE).build(),
+                new ShipCreateDto.Builder().shipClass(ShipClass.DESTROYER).build(),
+                new ShipCreateDto.Builder().shipClass(ShipClass.BATTLESHIP).build() };
         Set<String> shipsIds = Stream.of(ships).map(s -> shipFacade.create(s).get()).map(CreateDto::getId).toSet();
         Array<ShipDto> findShips = shipsIds.map(id -> shipFacade.find(id).get()).toSortedSet().toArray();
         System.out.println(findShips);

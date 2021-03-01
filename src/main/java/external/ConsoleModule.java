@@ -2,11 +2,13 @@ package external;
 
 import adapter.id.UuidGenerator;
 import adapter.repository.inmemory.port.PlayerInMemoryGateway;
+import adapter.repository.inmemory.port.PlayerShipsInMemoryGateway;
 import adapter.repository.inmemory.port.PointInMemoryGateway;
 import adapter.repository.inmemory.port.ShipInMemoryGateway;
 import adapter.repository.inmemory.port.ShipPointsInMemoryGateway;
 
 import com.ara.game.usecases.battleship.player.port.PlayerGateway;
+import com.ara.game.usecases.battleship.playerShips.port.PlayerShipGateway;
 import com.ara.game.usecases.battleship.point.port.PointGateway;
 import com.ara.game.usecases.battleship.ship.port.ShipGateway;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
@@ -21,6 +23,7 @@ public class ConsoleModule extends AbstractModule {
         bind(PointGateway.class).to(PointInMemoryGateway.class).in(Singleton.class);
         bind(ShipGateway.class).to(ShipInMemoryGateway.class).in(Singleton.class);
         bind(ShipPointsGateway.class).to(ShipPointsInMemoryGateway.class).in(Singleton.class);
-        bind(PlayerGateway.class).to(PlayerInMemoryGateway.class).in(Singleton.class);;
+        bind(PlayerGateway.class).to(PlayerInMemoryGateway.class).in(Singleton.class);
+        bind(PlayerShipGateway.class).to(PlayerShipsInMemoryGateway.class).in(Singleton.class);
     }
 }
