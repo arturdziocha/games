@@ -2,10 +2,11 @@ package adapter.repository.inmemory.entity;
 
 import adapter.repository.inmemory.EntityInMemory;
 
-public class PointInMemory extends EntityInMemory {
+public class PointInMemory extends EntityInMemory implements Comparable<PointInMemory> {
     private final Integer row;
     private final Integer column;
     private final String pointString;
+
 
     public static class Builder extends EntityInMemory.Builder<Builder> {
         private Integer row;
@@ -57,6 +58,13 @@ public class PointInMemory extends EntityInMemory {
     public String getPointString() {
         return pointString;
     }
-    
 
+    @Override
+    public int compareTo(PointInMemory o) {
+        int result = row - o.getRow();
+        if (result == 0) {
+            result = column - o.getColumn();
+        }
+        return result;
+    }
 }

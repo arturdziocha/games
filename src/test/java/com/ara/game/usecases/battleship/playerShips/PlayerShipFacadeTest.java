@@ -31,7 +31,7 @@ class PlayerShipFacadeTest {
         shipsLoader = injector.getInstance(ShipsLoader.class);
     }
 
-    @DisplayName("Should save 6 ships of player")
+    @DisplayName("Should save 9 ships of player")
     @Test
     void test() {
         // Given
@@ -40,11 +40,10 @@ class PlayerShipFacadeTest {
         //When
         for(ShipPointsDto ship : ships) {
             Either<Error, PlayerShipDto> added= playerShipFacade.create(new PlayerShipCreateDto.Builder().player(playerId).ship(ship.getShip()).build());
-            System.out.println(added);
         }        
         // Then
         Either<Error, Set<ShipPointsDto>> findShips = playerShipFacade.find(playerId.getId());
-        assertThat(findShips.get().size()).isEqualTo(6);
+        assertThat(findShips.get().size()).isEqualTo(9);
     }
 
 }

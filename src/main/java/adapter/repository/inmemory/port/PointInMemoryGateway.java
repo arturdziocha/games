@@ -1,20 +1,18 @@
 package adapter.repository.inmemory.port;
 
-import java.util.Comparator;
-
-import com.ara.game.usecases.battleship.point.dto.PointDto;
-import com.ara.game.usecases.battleship.point.port.PointGateway;
-
 import adapter.repository.inmemory.entity.PointInMemory;
 import adapter.repository.inmemory.entity.PointMapper;
+import com.ara.game.usecases.battleship.point.dto.PointDto;
+import com.ara.game.usecases.battleship.point.port.PointGateway;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
 import io.vavr.collection.Set;
 import io.vavr.collection.SortedSet;
 import io.vavr.control.Option;
 
+import java.util.Comparator;
+
 public class PointInMemoryGateway implements PointGateway {
-    private static Comparator<PointInMemory> COMPARATOR = Comparator.comparing(PointInMemory::getRow).thenComparing(PointInMemory::getColumn);
     Map<String, PointInMemory> entities;
     private final PointMapper mapper;
 
@@ -52,7 +50,7 @@ public class PointInMemoryGateway implements PointGateway {
         return Option
                 .of(points
                         .flatMap(s -> entities.get(s))
-                        .toSortedSet(COMPARATOR)
+                        .toSortedSet()
                         .map(mapper::mapToDto));
     }
 
@@ -60,5 +58,5 @@ public class PointInMemoryGateway implements PointGateway {
     public void removeAll(Set<String> points) {
         entities.removeAll(points);
 
-    }    
+    }
 }

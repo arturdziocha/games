@@ -5,7 +5,6 @@ import com.ara.game.usecases.battleship.playerShips.port.PlayerShipGateway;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 import com.google.inject.Inject;
-
 import io.vavr.collection.HashMap;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Map;
@@ -24,20 +23,21 @@ public final class PlayerShipsInMemoryGateway implements PlayerShipGateway {
     }
 
     @Override
-    public PlayerShipDto save(PlayerShipDto inputData) {       
+    public PlayerShipDto save(PlayerShipDto inputData) {
         Option<Set<String>> old = entities.get(inputData.getPlayer().getId());
         if (old.isDefined()) {
-            Set<String> toReplace = old.get().add(inputData.getShip().getId());
-            entities = entities.replaceValue(inputData.getPlayer().getId(), toReplace);
+            Set<String> oldSet = old.get();
+            Set<String> newSet = oldSet.add(inputData.getShip().getId());
+            entities = entities.replaceValue(inputData.getPlayer().getId(), newSet);
         } else {
-            entities.put(inputData.getPlayer().getId(), HashSet.of(inputData.getShip().getId()));
+            entities = entities.put(inputData.getPlayer().getId(), HashSet.of(inputData.getShip().getId()));
         }
         return inputData;
     }
 
     @Override
     public Option<Set<ShipPointsDto>> findAllShips(String playerId) {
-        return entities.get(playerId).flatMap(s -> shipPointsGateway.findAllById(s));
+        return entities.get(playerId).flatMap(shipPointsGateway::findAllById);
     }
 
     @Override

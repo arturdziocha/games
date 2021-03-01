@@ -73,17 +73,17 @@ final class Creator {
     }
 
     private boolean isAllShipsPlaced(String playerId) {
-        Option<Set<ShipPointsDto>> alreadyPlaced = playerShipGateway.findAllShips(playerId);
-        if (alreadyPlaced.isEmpty()) {
+        Option<Set<ShipPointsDto>> alreadyPlacedShips = playerShipGateway.findAllShips(playerId);
+        if (alreadyPlacedShips.isEmpty()) {
             return false;
         }
-        Set<String> alreadyPlacedShortNames = alreadyPlaced
+        Set<String> alreadyPlacedShortNames = alreadyPlacedShips
                 .get()
                 .map(s -> s.getShip().getShipClass().getShortName())
                 .toSortedSet(String::compareTo);
 
         Set<String> shipClasses = ShipClass.findAllShortName();
-        return shipClasses.containsAll(alreadyPlacedShortNames);
+        return alreadyPlacedShortNames.containsAll(shipClasses);
     }
 
     private boolean isAlreadyPlaced(PlayerShipCreateDto playerShip) {
