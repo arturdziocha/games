@@ -35,7 +35,7 @@ class PlayerShipFacadeTest {
     void test() {
         // Given
         PlayerDto playerId = playerLoader.loadFirstPlayer();        
-        Set<ShipPointsDto> ships = shipsLoader.loadNine();
+        Set<ShipPointsDto> ships = shipsLoader.createNineShips();
         //When
         for(ShipPointsDto ship : ships) {
             playerShipFacade.create(new PlayerShipCreateDto.Builder().player(playerId).ship(ship.getShip()).build());
