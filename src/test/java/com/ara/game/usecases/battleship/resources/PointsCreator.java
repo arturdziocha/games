@@ -21,61 +21,61 @@ final class PointsCreator {
     }
 
     public PointDto createA1() {
-        Either<Error, CreateDto> point =
-                pointFacade.create(new PointCreateStringDto.Builder().pointString("a1").build());
-        return pointFacade.findByPointString("a1").get();
+        Either<Error, CreateDto> point = pointFacade
+                .create(new PointCreateStringDto.Builder().pointString("a1").build());
+        return pointFacade.findById(point.get().getId()).get();
     }
 
     public PointDto createC1() {
-        Either<Error, CreateDto> point =
-                pointFacade.create(new PointCreateStringDto.Builder().pointString("c1").build());
-        return pointFacade.findByPointString("a1").get();
+        Either<Error, CreateDto> point = pointFacade
+                .create(new PointCreateStringDto.Builder().pointString("c1").build());
+        return pointFacade.findById(point.get().getId()).get();
     }
 
-    public PointDto createe1() {
-        Either<Error, CreateDto> point =
-                pointFacade.create(new PointCreateStringDto.Builder().pointString("e1").build());
-        return pointFacade.findByPointString("a1").get();
+    public PointDto createE1() {
+        Either<Error, CreateDto> point = pointFacade
+                .create(new PointCreateStringDto.Builder().pointString("e1").build());
+        return pointFacade.findById(point.get().getId()).get();
     }
 
     public PointDto createG1() {
-        Either<Error, CreateDto> point =
-                pointFacade.create(new PointCreateStringDto.Builder().pointString("g1").build());
-        return pointFacade.findByPointString("a1").get();
+        Either<Error, CreateDto> point = pointFacade
+                .create(new PointCreateStringDto.Builder().pointString("g1").build());
+        return pointFacade.findById(point.get().getId()).get();
     }
 
     public PointDto createI1() {
-        Either<Error, CreateDto> point =
-                pointFacade.create(new PointCreateStringDto.Builder().pointString("i1").build());
-        return pointFacade.findByPointString("a1").get();
+        Either<Error, CreateDto> point = pointFacade
+                .create(new PointCreateStringDto.Builder().pointString("i1").build());
+        return pointFacade.findById(point.get().getId()).get();
     }
 
     public PointDto createA10() {
-        Either<Error, CreateDto> point =
-                pointFacade.create(new PointCreateStringDto.Builder().pointString("a10").build());
-        return pointFacade.findByPointString("a1").get();
+        Either<Error, CreateDto> point = pointFacade
+                .create(new PointCreateStringDto.Builder().pointString("a10").build());
+        return pointFacade.findById(point.get().getId()).get();
     }
 
     public PointDto createC10() {
-        Either<Error, CreateDto> point =
-                pointFacade.create(new PointCreateStringDto.Builder().pointString("c10").build());
-        return pointFacade.findByPointString("a1").get();
+        Either<Error, CreateDto> point = pointFacade
+                .create(new PointCreateStringDto.Builder().pointString("c10").build());
+        return pointFacade.findById(point.get().getId()).get();
     }
 
     public PointDto createE10() {
-        Either<Error, CreateDto> point =
-                pointFacade.create(new PointCreateStringDto.Builder().pointString("e10").build());
-        return pointFacade.findByPointString("a1").get();
+        Either<Error, CreateDto> point = pointFacade
+                .create(new PointCreateStringDto.Builder().pointString("e10").build());
+        return pointFacade.findById(point.get().getId()).get();
     }
 
     public PointDto createJ10() {
-        Either<Error, CreateDto> point =
-                pointFacade.create(new PointCreateStringDto.Builder().pointString("j10").build());
-        return pointFacade.findByPointString("a1").get();
+        Either<Error, CreateDto> point = pointFacade
+                .create(new PointCreateStringDto.Builder().pointString("j10").build());
+        return pointFacade.findById(point.get().getId()).get();
     }
 
     Set<PointDto> createNinePoints() {
-        PointCreateStringDto[] points = {new PointCreateStringDto.Builder().pointString("a1").build(),
+        PointCreateStringDto[] points = { new PointCreateStringDto.Builder().pointString("a1").build(),
                 new PointCreateStringDto.Builder().pointString("c1").build(),
                 new PointCreateStringDto.Builder().pointString("e1").build(),
                 new PointCreateStringDto.Builder().pointString("g1").build(),
@@ -83,7 +83,7 @@ final class PointsCreator {
                 new PointCreateStringDto.Builder().pointString("a10").build(),
                 new PointCreateStringDto.Builder().pointString("c10").build(),
                 new PointCreateStringDto.Builder().pointString("e10").build(),
-                new PointCreateStringDto.Builder().pointString("j10").build()};
+                new PointCreateStringDto.Builder().pointString("j10").build() };
 
         return Stream
                 .of(points)
@@ -93,14 +93,14 @@ final class PointsCreator {
     }
 
     Set<String> createEightPoints() {
-        PointCreateStringDto[] points = {new PointCreateStringDto.Builder().pointString("a1").build(),
+        PointCreateStringDto[] points = { new PointCreateStringDto.Builder().pointString("a1").build(),
                 new PointCreateStringDto.Builder().pointString("c1").build(),
                 new PointCreateStringDto.Builder().pointString("e1").build(),
                 new PointCreateStringDto.Builder().pointString("g1").build(),
                 new PointCreateStringDto.Builder().pointString("i1").build(),
                 new PointCreateStringDto.Builder().pointString("a10").build(),
                 new PointCreateStringDto.Builder().pointString("c10").build(),
-                new PointCreateStringDto.Builder().pointString("e10").build()};
+                new PointCreateStringDto.Builder().pointString("e10").build() };
         return Stream.of(points).map(p -> pointFacade.create(p).get()).map(CreateDto::getId).toSet();
     }
 

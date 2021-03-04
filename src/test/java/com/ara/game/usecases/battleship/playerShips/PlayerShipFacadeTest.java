@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipCreateDto;
 import com.ara.game.usecases.battleship.resources.PlayerLoader;
-import com.ara.game.usecases.battleship.resources.ShipsLoader;
+import com.ara.game.usecases.battleship.resources.ShipsCreator;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Guice;
@@ -21,13 +21,13 @@ import io.vavr.control.Either;
 class PlayerShipFacadeTest {
     private final PlayerShipFacade playerShipFacade;
     private final PlayerLoader playerLoader;
-    private final ShipsLoader shipsLoader;
+    private final ShipsCreator shipsLoader;
 
     public PlayerShipFacadeTest() {
         Injector injector = Guice.createInjector(new ConsoleModule());
         playerShipFacade = injector.getInstance(PlayerShipFacade.class);
         playerLoader = injector.getInstance(PlayerLoader.class);
-        shipsLoader = injector.getInstance(ShipsLoader.class);
+        shipsLoader = injector.getInstance(ShipsCreator.class);
     }
 
     @DisplayName("Should save 9 ships of player")
