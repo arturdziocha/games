@@ -73,6 +73,11 @@ final class PointsCreator {
                 .create(new PointCreateStringDto.Builder().pointString("j10").build());
         return pointFacade.findById(point.get().getId()).get();
     }
+    public PointDto createI10() {
+        Either<Error, CreateDto> point = pointFacade
+                .create(new PointCreateStringDto.Builder().pointString("i10").build());
+        return pointFacade.findById(point.get().getId()).get();
+    }
 
     Set<PointDto> createNinePoints() {
         PointCreateStringDto[] points = { new PointCreateStringDto.Builder().pointString("a1").build(),
@@ -103,5 +108,7 @@ final class PointsCreator {
                 new PointCreateStringDto.Builder().pointString("e10").build() };
         return Stream.of(points).map(p -> pointFacade.create(p).get()).map(CreateDto::getId).toSet();
     }
+
+    
 
 }
