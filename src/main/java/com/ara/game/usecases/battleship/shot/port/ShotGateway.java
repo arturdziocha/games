@@ -1,11 +1,14 @@
 package com.ara.game.usecases.battleship.shot.port;
 
-import com.ara.game.usecases.battleship.point.dto.PointDto;
+import com.ara.game.usecases.battleship.shot.dto.ShotDto;
+import io.vavr.collection.Set;
 
 public interface ShotGateway {
-    PointDto save(PointDto point);
+    ShotDto save(ShotDto point);
 
-    PointDto find(String player);
+    Set<ShotDto> findAll(String player);
+
+    ShotDto find(String player, String point);
 
     void remove(String player, String point);
 }
