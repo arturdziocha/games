@@ -14,6 +14,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 class PlayerFacadeTest {
 
     private PlayerFacade playerFacade;
@@ -23,6 +24,7 @@ class PlayerFacadeTest {
         Injector injector = Guice.createInjector(new ConsoleModule());
         playerFacade = injector.getInstance(PlayerFacade.class);
     }
+
     @Test
     @DisplayName("Should return Either.left when input data is null")
     void test1() {
@@ -45,6 +47,7 @@ class PlayerFacadeTest {
         // Then
         assertThat(player.getLeft().getCause()).isEqualTo("Name cannot be empty");
     }
+
     @Test
     @DisplayName("Should return Either.left when player type is null")
     void test3() {
@@ -54,7 +57,7 @@ class PlayerFacadeTest {
         Either<Error, CreateDto> player = playerFacade.create(input);
         // Then
         assertThat(player.getLeft().getCause()).isEqualTo("Type of player cannot be empty");
-    }    
+    }
 
     @Test
     @DisplayName("Should return Either.left when player type is not found")

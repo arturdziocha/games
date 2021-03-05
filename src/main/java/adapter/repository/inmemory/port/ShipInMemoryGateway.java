@@ -1,11 +1,10 @@
 package adapter.repository.inmemory.port;
 
+import adapter.repository.inmemory.entity.ShipInMemory;
+import adapter.repository.inmemory.entity.ShipMapper;
 import com.ara.game.usecases.battleship.enums.ShipClass;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 import com.ara.game.usecases.battleship.ship.port.ShipGateway;
-
-import adapter.repository.inmemory.entity.ShipInMemory;
-import adapter.repository.inmemory.entity.ShipMapper;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Map;
@@ -13,8 +12,8 @@ import io.vavr.collection.Set;
 import io.vavr.control.Option;
 
 public class ShipInMemoryGateway implements ShipGateway {
-    private Map<String, ShipInMemory> entities;
     private final ShipMapper mapper;
+    private Map<String, ShipInMemory> entities;
 
     public ShipInMemoryGateway() {
         this.entities = HashMap.empty();

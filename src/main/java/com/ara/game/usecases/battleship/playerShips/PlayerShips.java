@@ -7,6 +7,19 @@ final class PlayerShip {
     private final PlayerDto player;
     private final ShipDto ship;
 
+    public PlayerShip(Builder builder) {
+        this.player = builder.player;
+        this.ship = builder.ship;
+    }
+
+    public PlayerDto getPlayer() {
+        return player;
+    }
+
+    public ShipDto getShip() {
+        return ship;
+    }
+
     static class Builder {
         private PlayerDto player;
         private ShipDto ship;
@@ -24,18 +37,5 @@ final class PlayerShip {
         PlayerShip build() {
             return new PlayerShip(this);
         }
-    }
-
-    public PlayerShip(Builder builder) {
-        this.player = builder.player;
-        this.ship = builder.ship;
-    }
-
-    public PlayerDto getPlayer() {
-        return player;
-    }
-
-    public ShipDto getShip() {
-        return ship;
     }
 }

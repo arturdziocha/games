@@ -1,17 +1,15 @@
 package com.ara.game.usecases.battleship.player;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.ara.game.usecases.battleship.player.dto.PlayerCreateDto;
 import com.ara.game.usecases.battleship.player.port.PlayerGateway;
 import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
-
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class Creator {
     private final PlayerGateway playerGateway;

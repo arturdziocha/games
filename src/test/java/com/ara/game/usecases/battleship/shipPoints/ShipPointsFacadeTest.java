@@ -1,11 +1,5 @@
 package com.ara.game.usecases.battleship.shipPoints;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import com.ara.game.usecases.battleship.enums.Direction;
 import com.ara.game.usecases.battleship.enums.ShipClass;
 import com.ara.game.usecases.battleship.point.PointFacade;
@@ -21,11 +15,15 @@ import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-
 import external.ConsoleModule;
 import io.vavr.collection.Set;
 import io.vavr.collection.SortedSet;
 import io.vavr.control.Either;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ShipPointsFacadeTest {
     private ShipPointsFacade shipPointsFacade;

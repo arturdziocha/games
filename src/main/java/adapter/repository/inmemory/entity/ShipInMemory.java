@@ -6,6 +6,20 @@ public class ShipInMemory extends EntityInMemory {
     private final String shipClassShortName;
     private final Integer health;
 
+    private ShipInMemory(Builder builder) {
+        super(builder);
+        this.shipClassShortName = builder.shipClassShortName;
+        this.health = builder.health;
+    }
+
+    public String getShipClassShortName() {
+        return shipClassShortName;
+    }
+
+    public Integer getHealth() {
+        return health;
+    }
+
     public static class Builder extends EntityInMemory.Builder<Builder> {
         private String shipClassShortName;
         private Integer health;
@@ -29,19 +43,5 @@ public class ShipInMemory extends EntityInMemory {
         protected Builder self() {
             return this;
         }
-    }
-
-    private ShipInMemory(Builder builder) {
-        super(builder);
-        this.shipClassShortName = builder.shipClassShortName;
-        this.health = builder.health;
-    }
-
-    public String getShipClassShortName() {
-        return shipClassShortName;
-    }
-
-    public Integer getHealth() {
-        return health;
     }
 }

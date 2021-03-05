@@ -8,7 +8,6 @@ import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Inject;
-
 import io.vavr.collection.Set;
 import io.vavr.control.Either;
 
@@ -19,7 +18,7 @@ public class PlayerShipFacade {
 
     @Inject
     public PlayerShipFacade(final PlayerShipGateway playerShipGateway, final ShipGateway shipGateway,
-            final ShipPointsGateway shipPointsGateway) {
+                            final ShipPointsGateway shipPointsGateway) {
         this.creator = new Creator(playerShipGateway, shipGateway, shipPointsGateway);
         this.finder = new Finder(playerShipGateway);
         this.remover = new Remover(playerShipGateway);

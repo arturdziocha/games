@@ -7,31 +7,6 @@ public final class ShipDto implements Comparable<ShipDto> {
     private final ShipClass shipClass;
     private final Integer health;
 
-    public static class Builder {
-        private String id;
-        private ShipClass shipClass;
-        private Integer health;
-
-        public Builder id(final String id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder shipClass(final ShipClass shipClass) {
-            this.shipClass = shipClass;
-            return this;
-        }
-
-        public Builder health(final Integer health) {
-            this.health = health;
-            return this;
-        }
-
-        public ShipDto build() {
-            return new ShipDto(this);
-        }
-    }
-
     private ShipDto(Builder builder) {
         this.id = builder.id;
         this.shipClass = builder.shipClass;
@@ -62,5 +37,30 @@ public final class ShipDto implements Comparable<ShipDto> {
             result = shipClass.getName().compareTo(o.getShipClass().getName());
         }
         return result;
+    }
+
+    public static class Builder {
+        private String id;
+        private ShipClass shipClass;
+        private Integer health;
+
+        public Builder id(final String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder shipClass(final ShipClass shipClass) {
+            this.shipClass = shipClass;
+            return this;
+        }
+
+        public Builder health(final Integer health) {
+            this.health = health;
+            return this;
+        }
+
+        public ShipDto build() {
+            return new ShipDto(this);
+        }
     }
 }

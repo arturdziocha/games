@@ -8,6 +8,34 @@ public class PointInMemory extends EntityInMemory implements Comparable<PointInM
     private final String pointString;
 
 
+    private PointInMemory(Builder builder) {
+        super(builder);
+        this.row = builder.row;
+        this.column = builder.column;
+        this.pointString = builder.pointString;
+    }
+
+    public Integer getRow() {
+        return row;
+    }
+
+    public Integer getColumn() {
+        return column;
+    }
+
+    public String getPointString() {
+        return pointString;
+    }
+
+    @Override
+    public int compareTo(PointInMemory o) {
+        int result = row - o.getRow();
+        if (result == 0) {
+            result = column - o.getColumn();
+        }
+        return result;
+    }
+
     public static class Builder extends EntityInMemory.Builder<Builder> {
         private Integer row;
         private Integer column;
@@ -38,33 +66,5 @@ public class PointInMemory extends EntityInMemory implements Comparable<PointInM
         protected Builder self() {
             return this;
         }
-    }
-
-    private PointInMemory(Builder builder) {
-        super(builder);
-        this.row = builder.row;
-        this.column = builder.column;
-        this.pointString = builder.pointString;
-    }
-
-    public Integer getRow() {
-        return row;
-    }
-
-    public Integer getColumn() {
-        return column;
-    }
-
-    public String getPointString() {
-        return pointString;
-    }
-
-    @Override
-    public int compareTo(PointInMemory o) {
-        int result = row - o.getRow();
-        if (result == 0) {
-            result = column - o.getColumn();
-        }
-        return result;
     }
 }

@@ -4,6 +4,14 @@ final public class PointCreateStringDto {
 
     private final String pointString;
 
+    private PointCreateStringDto(Builder builder) {
+        this.pointString = builder.pointString;
+    }
+
+    public String getPointString() {
+        return pointString;
+    }
+
     public static class Builder {
         private String pointString;
 
@@ -15,13 +23,5 @@ final public class PointCreateStringDto {
         public PointCreateStringDto build() {
             return new PointCreateStringDto(this);
         }
-    }
-
-    private PointCreateStringDto(Builder builder) {
-        this.pointString = builder.pointString;
-    }
-
-    public String getPointString() {
-        return pointString;
     }
 }

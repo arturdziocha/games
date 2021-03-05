@@ -24,18 +24,6 @@ public enum ShipClass {
         this.size = size;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getShortName() {
-        return shortName;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
     public static Option<ShipClass> findByName(final String name) {
         return Stream.of(values()).find(val -> val.name.equals(name));
     }
@@ -46,5 +34,17 @@ public enum ShipClass {
 
     public static Set<String> findAllShortName() {
         return Stream.of(values()).map(ShipClass::getShortName).toSortedSet(String::compareTo);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public Integer getSize() {
+        return size;
     }
 }

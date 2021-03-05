@@ -10,8 +10,8 @@ import io.vavr.collection.Map;
 import io.vavr.control.Option;
 
 public class PlayerInMemoryGateway implements PlayerGateway {
-    Map<String, PlayerInMemory> entities = HashMap.empty();
     private final PlayerMapper mapper;
+    Map<String, PlayerInMemory> entities = HashMap.empty();
 
     public PlayerInMemoryGateway() {
         this.mapper = new PlayerMapper();

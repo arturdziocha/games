@@ -1,6 +1,7 @@
 package com.ara.game.usecases.battleship.player;
 
 import com.ara.game.usecases.common.Error;
+
 enum PlayerError implements Error {
     DATA_CANNOT_BE_EMPTY("Data cannot be empty"),
     PLAYER_NAME_CANNOT_BE_EMPTY("Name cannot be empty"),

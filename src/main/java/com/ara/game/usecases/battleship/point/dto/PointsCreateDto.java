@@ -8,6 +8,24 @@ public final class PointsCreateDto {
     private final PointDto point;
     private final Direction direction;
 
+    private PointsCreateDto(Builder builder) {
+        this.size = builder.size;
+        this.point = builder.point;
+        this.direction = builder.direction;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public PointDto getPoint() {
+        return point;
+    }
+
+    public Direction getDirection() {
+        return direction;
+    }
+
     public static class Builder {
         private Integer size;
         private PointDto point;
@@ -31,23 +49,5 @@ public final class PointsCreateDto {
         public PointsCreateDto build() {
             return new PointsCreateDto(this);
         }
-    }
-
-    private PointsCreateDto(Builder builder) {
-        this.size = builder.size;
-        this.point = builder.point;
-        this.direction = builder.direction;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public PointDto getPoint() {
-        return point;
-    }
-
-    public Direction getDirection() {
-        return direction;
     }
 }

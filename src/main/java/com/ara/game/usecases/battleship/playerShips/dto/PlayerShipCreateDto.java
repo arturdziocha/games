@@ -7,6 +7,19 @@ public class PlayerShipCreateDto {
     private final PlayerDto player;
     private final ShipDto ship;
 
+    private PlayerShipCreateDto(Builder builder) {
+        this.player = builder.player;
+        this.ship = builder.ship;
+    }
+
+    public PlayerDto getPlayer() {
+        return player;
+    }
+
+    public ShipDto getShip() {
+        return ship;
+    }
+
     public static class Builder {
         private PlayerDto player;
         private ShipDto ship;
@@ -24,19 +37,6 @@ public class PlayerShipCreateDto {
         public PlayerShipCreateDto build() {
             return new PlayerShipCreateDto(this);
         }
-    }
-
-    private PlayerShipCreateDto(Builder builder) {
-        this.player = builder.player;
-        this.ship = builder.ship;
-    }
-
-    public PlayerDto getPlayer() {
-        return player;
-    }
-
-    public ShipDto getShip() {
-        return ship;
     }
 
 }

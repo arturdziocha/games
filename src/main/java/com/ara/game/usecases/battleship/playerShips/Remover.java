@@ -8,6 +8,7 @@ final class Remover {
     public Remover(final PlayerShipGateway playerShipGateway) {
         this.playerShipGateway = playerShipGateway;
     }
+
     void remove(final String playerId) {
         playerShipGateway.remove(playerId);
     }

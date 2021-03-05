@@ -1,11 +1,9 @@
 package com.ara.game.usecases.battleship.player;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.ara.game.usecases.battleship.player.dto.PlayerCreateDto;
 import com.ara.game.usecases.common.Error;
-
 import io.vavr.control.Option;
+import org.apache.commons.lang3.StringUtils;
 
 final class Validator {
 

@@ -1,7 +1,6 @@
 package com.ara.game.usecases.battleship.ship.port;
 
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
-
 import io.vavr.collection.Set;
 import io.vavr.control.Option;
 

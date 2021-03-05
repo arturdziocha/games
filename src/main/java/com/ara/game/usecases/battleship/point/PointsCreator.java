@@ -37,8 +37,8 @@ final class PointsCreator {
             Either<Error, DirectionStrategy> direction = getDirection(pointsCreateInputData.getDirection());
             if (direction.isRight()) {
                 RowColumn rowColumn = calculate(direction.get(), new RowColumn(
-                        pointsCreateInputData.getPoint().getRow(), pointsCreateInputData.getPoint().getColumn()),
-                    i);
+                                pointsCreateInputData.getPoint().getRow(), pointsCreateInputData.getPoint().getColumn()),
+                        i);
                 Either<Error, CreateDto> created = finder
                         .findByRowAndColumn(rowColumn.getRow(), rowColumn.getColumn())
                         .map(p -> new CreateDto.Builder().id(p.getId()).build())
@@ -56,23 +56,6 @@ final class PointsCreator {
 
     private Either<Error, CreateDto> create(final Integer row, final Integer column) {
         return creator.create(new PointCreateRowColDto.Builder().row(row).column(column).build());
-    }
-
-    private class RowColumn {
-        private Integer row, column;
-
-        RowColumn(Integer row, Integer column) {
-            this.row = row;
-            this.column = column;
-        }
-
-        public Integer getRow() {
-            return row;
-        }
-
-        public Integer getColumn() {
-            return column;
-        }
     }
 
     private RowColumn calculate(DirectionStrategy directionStrategy, RowColumn rowColumn, Integer move) {
@@ -97,6 +80,23 @@ final class PointsCreator {
 
     private interface DirectionStrategy {
         RowColumn calculate(RowColumn rowColumn, Integer move);
+    }
+
+    private class RowColumn {
+        private Integer row, column;
+
+        RowColumn(Integer row, Integer column) {
+            this.row = row;
+            this.column = column;
+        }
+
+        public Integer getRow() {
+            return row;
+        }
+
+        public Integer getColumn() {
+            return column;
+        }
     }
 
     private class UpStrategy implements DirectionStrategy {

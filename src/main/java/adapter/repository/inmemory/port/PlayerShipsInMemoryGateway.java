@@ -12,8 +12,8 @@ import io.vavr.collection.Set;
 import io.vavr.control.Option;
 
 public final class PlayerShipsInMemoryGateway implements PlayerShipGateway {
-    private Map<String, Set<String>> entities;
     private final ShipPointsGateway shipPointsGateway;
+    private Map<String, Set<String>> entities;
 
     @Inject
     public PlayerShipsInMemoryGateway(final ShipPointsGateway shipPointsGateway) {

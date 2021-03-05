@@ -5,6 +5,14 @@ import org.apache.commons.lang3.StringUtils;
 public final class CreateDto {
     private final String id;
 
+    private CreateDto(Builder builder) {
+        this.id = builder.id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
     public static class Builder {
         private String id;
 
@@ -19,13 +27,5 @@ public final class CreateDto {
             }
             return new CreateDto(this);
         }
-    }
-
-    private CreateDto(Builder builder) {
-        this.id = builder.id;
-    }
-
-    public String getId() {
-        return id;
     }
 }

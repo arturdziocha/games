@@ -8,6 +8,25 @@ final class Point extends Entity {
     private final Integer column;
     private final String pointString;
 
+    private Point(Builder builder) {
+        super(builder);
+        this.row = builder.row;
+        this.column = builder.column;
+        this.pointString = builder.pointString;
+    }
+
+    public Integer getRow() {
+        return row;
+    }
+
+    public Integer getColumn() {
+        return column;
+    }
+
+    public String getPointString() {
+        return pointString;
+    }
+
     static class Builder extends Entity.Builder<Builder> {
         private Integer row;
         private Integer column;
@@ -38,25 +57,6 @@ final class Point extends Entity {
             return this;
         }
 
-    }
-
-    private Point(Builder builder) {
-        super(builder);
-        this.row = builder.row;
-        this.column = builder.column;
-        this.pointString = builder.pointString;
-    }
-
-    public Integer getRow() {
-        return row;
-    }
-
-    public Integer getColumn() {
-        return column;
-    }
-
-    public String getPointString() {
-        return pointString;
     }
 
 }

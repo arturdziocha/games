@@ -6,6 +6,19 @@ public final class PlayerCreateDto {
     private final String name;
     private final PlayerType playerType;
 
+    private PlayerCreateDto(Builder builder) {
+        this.name = builder.name;
+        this.playerType = builder.playerType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public PlayerType getPlayerType() {
+        return playerType;
+    }
+
     public static class Builder {
         private String name;
         private PlayerType playerType;
@@ -23,19 +36,6 @@ public final class PlayerCreateDto {
         public PlayerCreateDto build() {
             return new PlayerCreateDto(this);
         }
-    }
-
-    private PlayerCreateDto(Builder builder) {
-        this.name = builder.name;
-        this.playerType = builder.playerType;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public PlayerType getPlayerType() {
-        return playerType;
     }
 
 }

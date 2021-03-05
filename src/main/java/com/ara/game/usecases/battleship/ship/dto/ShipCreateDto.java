@@ -5,6 +5,14 @@ import com.ara.game.usecases.battleship.enums.ShipClass;
 public class ShipCreateDto {
     private final ShipClass shipClass;
 
+    private ShipCreateDto(Builder builder) {
+        this.shipClass = builder.shipClass;
+    }
+
+    public ShipClass getShipClass() {
+        return shipClass;
+    }
+
     public static class Builder {
         private ShipClass shipClass;
 
@@ -16,13 +24,5 @@ public class ShipCreateDto {
         public ShipCreateDto build() {
             return new ShipCreateDto(this);
         }
-    }
-
-    private ShipCreateDto(Builder builder) {
-        this.shipClass = builder.shipClass;
-    }
-
-    public ShipClass getShipClass() {
-        return shipClass;
     }
 }

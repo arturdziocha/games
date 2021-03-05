@@ -7,6 +7,20 @@ final class Ship extends Entity {
     private final ShipClass shipClass;
     private final Integer health;
 
+    private Ship(Builder builder) {
+        super(builder);
+        this.shipClass = builder.shipClass;
+        this.health = builder.health;
+    }
+
+    ShipClass getShipClass() {
+        return shipClass;
+    }
+
+    Integer getHealth() {
+        return health;
+    }
+
     static class Builder extends Entity.Builder<Builder> {
         private ShipClass shipClass;
         private Integer health;
@@ -26,20 +40,6 @@ final class Ship extends Entity {
         protected Builder self() {
             return this;
         }
-    }
-
-    private Ship(Builder builder) {
-        super(builder);
-        this.shipClass = builder.shipClass;
-        this.health = builder.health;
-    }
-
-    ShipClass getShipClass() {
-        return shipClass;
-    }
-
-    Integer getHealth() {
-        return health;
     }
 
 }

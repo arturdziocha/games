@@ -14,6 +14,9 @@ public enum PlayerType {
         this.id = id;
     }
 
+    public static Option<PlayerType> findById(final String id) {
+        return Stream.of(values()).find(val -> val.id.equals(id));
+    }
 
     public String getId() {
         return id;
@@ -21,9 +24,5 @@ public enum PlayerType {
 
     public String getName() {
         return name;
-    }
-
-    public static Option<PlayerType> findById(final String id) {
-        return Stream.of(values()).find(val -> val.id.equals(id));
     }
 }

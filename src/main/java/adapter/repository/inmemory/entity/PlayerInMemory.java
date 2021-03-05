@@ -7,6 +7,20 @@ public class PlayerInMemory extends EntityInMemory {
     private final String playerTypeId;
 
 
+    private PlayerInMemory(Builder builder) {
+        super(builder);
+        this.name = builder.name;
+        this.playerTypeId = builder.playerTypeId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPlayerTypeId() {
+        return playerTypeId;
+    }
+
     public static class Builder extends EntityInMemory.Builder<Builder> {
         private String name;
         private String playerTypeId;
@@ -31,19 +45,5 @@ public class PlayerInMemory extends EntityInMemory {
         protected Builder self() {
             return this;
         }
-    }
-
-    private PlayerInMemory(Builder builder) {
-        super(builder);
-        this.name = builder.name;
-        this.playerTypeId = builder.playerTypeId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPlayerTypeId() {
-        return playerTypeId;
     }
 }

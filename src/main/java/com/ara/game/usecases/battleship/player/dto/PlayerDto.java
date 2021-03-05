@@ -8,6 +8,24 @@ public final class PlayerDto {
     private final PlayerType playerType;
 
 
+    private PlayerDto(Builder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.playerType = builder.playerType;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public PlayerType getPlayerType() {
+        return playerType;
+    }
+
     public static class Builder {
         private String name;
         private String id;
@@ -31,23 +49,5 @@ public final class PlayerDto {
         public PlayerDto build() {
             return new PlayerDto(this);
         }
-    }
-
-    private PlayerDto(Builder builder) {
-        this.id = builder.id;
-        this.name = builder.name;
-        this.playerType = builder.playerType;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public PlayerType getPlayerType() {
-        return playerType;
     }
 }

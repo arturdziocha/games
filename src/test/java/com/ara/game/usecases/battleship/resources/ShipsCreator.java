@@ -169,13 +169,14 @@ public final class ShipsCreator {
                 .get();
         return shipPointsFacade.create(new ShipPointsCreateDto.Builder().ship(ship).points(points).build()).get();
     }
+
     public ShipPointsDto createBattleshipToClose() {
         Set<PointDto> points = pointFacade
                 .createPoints(new PointsCreateDto.Builder()
-                    .point(pointsCreator.createI10())
-                    .size(ShipClass.BATTLESHIP.getSize())
-                    .direction(Direction.UP)
-                    .build())
+                        .point(pointsCreator.createI10())
+                        .size(ShipClass.BATTLESHIP.getSize())
+                        .direction(Direction.UP)
+                        .build())
                 .map(l -> l.map(CreateDto::getId))
                 .map(w -> pointFacade.findAllById(w).get())
                 .get();

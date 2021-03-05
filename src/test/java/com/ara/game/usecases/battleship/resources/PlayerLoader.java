@@ -9,7 +9,6 @@ import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
 import com.google.inject.Inject;
-
 import io.vavr.collection.Set;
 import io.vavr.collection.Stream;
 import io.vavr.control.Either;
@@ -27,14 +26,14 @@ public final class PlayerLoader {
                 .name("Artur")
                 .playerType(PlayerType.HUMAN_PLAYER)
                 .build();
-        Either<Error, CreateDto> playerCreated = playerFacade.create(player);        
+        Either<Error, CreateDto> playerCreated = playerFacade.create(player);
         return playerFacade.find(playerCreated.get().getId()).get();
     }
 
     public Set<String> loadTwoPlayers() {
         PlayerCreateDto[] players = {
                 new PlayerCreateDto.Builder().name("Artur").playerType(PlayerType.HUMAN_PLAYER).build(),
-                new PlayerCreateDto.Builder().name("Jarek").playerType(PlayerType.HUMAN_PLAYER).build() };
+                new PlayerCreateDto.Builder().name("Jarek").playerType(PlayerType.HUMAN_PLAYER).build()};
         return Stream.of(players).map(player -> playerFacade.create(player).get()).map(CreateDto::getId).toSet();
     }
 

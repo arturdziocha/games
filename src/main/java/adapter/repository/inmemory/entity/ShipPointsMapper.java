@@ -3,7 +3,6 @@ package adapter.repository.inmemory.entity;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
-
 import io.vavr.collection.Set;
 
 public class ShipPointsMapper {

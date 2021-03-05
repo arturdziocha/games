@@ -1,14 +1,12 @@
 package com.ara.game.usecases.battleship.point;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.point.port.PointGateway;
 import com.ara.game.usecases.common.Error;
-
 import io.vavr.collection.Set;
 import io.vavr.collection.SortedSet;
 import io.vavr.control.Either;
+import org.apache.commons.lang3.StringUtils;
 
 class Finder {
     private final PointGateway pointGateway;

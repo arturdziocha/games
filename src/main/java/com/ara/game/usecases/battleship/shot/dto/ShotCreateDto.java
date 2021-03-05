@@ -9,6 +9,24 @@ public class ShotCreateDto {
     private final PointDto point;
     private final PlayerDto opponent;
 
+    private ShotCreateDto(Builder builder) {
+        this.player = builder.player;
+        this.point = builder.point;
+        this.opponent = builder.opponent;
+    }
+
+    public PlayerDto getPlayer() {
+        return player;
+    }
+
+    public PointDto getPoint() {
+        return point;
+    }
+
+    public PlayerDto getOpponent() {
+        return opponent;
+    }
+
     public static class Builder {
         private PlayerDto player;
         private PointDto point;
@@ -32,23 +50,5 @@ public class ShotCreateDto {
         public ShotCreateDto build() {
             return new ShotCreateDto(this);
         }
-    }
-
-    private ShotCreateDto(Builder builder) {
-        this.player = builder.player;
-        this.point = builder.point;
-        this.opponent = builder.opponent;
-    }
-
-    public PlayerDto getPlayer() {
-        return player;
-    }
-
-    public PointDto getPoint() {
-        return point;
-    }
-
-    public PlayerDto getOpponent() {
-        return opponent;
     }
 }
