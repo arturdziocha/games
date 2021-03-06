@@ -2,13 +2,16 @@ package com.ara.game.usecases.battleship.shot.port;
 
 import com.ara.game.usecases.battleship.shot.dto.ShotDto;
 import io.vavr.collection.Set;
+import io.vavr.control.Option;
 
 public interface ShotGateway {
     ShotDto save(ShotDto point);
 
     Set<ShotDto> findAll(String player);
 
-    ShotDto find(String player, String point);
+    Option<ShotDto> findByPointId(String player, String pointId);
+
+    Option<ShotDto> findByPointString(String player, String pointString);
 
     void remove(String player, String point);
 }
