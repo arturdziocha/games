@@ -1,5 +1,7 @@
 package com.ara.game.usecases.battleship.shot;
 
+import com.ara.game.usecases.battleship.player.dto.PlayerDto;
+import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.shot.dto.ShotCreateDto;
 import com.ara.game.usecases.battleship.shot.dto.ShotDto;
 import com.ara.game.usecases.battleship.shot.port.ShotGateway;
@@ -22,16 +24,14 @@ class Creator {
         if (validated.isDefined()) {
             return Either.left(validated.get());
         }
-        if (isAlreadyShooted(inputData)) {
+        if (isAlreadyShooted(inputData.getPlayer(), inputData.getPoint())) {
             return Either.left(ShotError.ALREADY_SHOOT);
         }
         return null;
     }
 
-    private boolean isAlreadyShooted(ShotCreateDto inputData) {
-        return shotGateway
-                .findByPointString(inputData.getPlayer().getId(), inputData.getPoint().getPointString())
-                .isDefined();
+    private boolean isAlreadyShooted(PlayerDto player, PointDto point) {
+        return shotGateway.findByPointString(player.getId(), point.getPointString()).isDefined();
     }
 
 }

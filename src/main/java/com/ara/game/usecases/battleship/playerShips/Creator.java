@@ -1,6 +1,7 @@
 package com.ara.game.usecases.battleship.playerShips;
 
 import com.ara.game.usecases.battleship.enums.ShipClass;
+import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipCreateDto;
 import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipDto;
 import com.ara.game.usecases.battleship.playerShips.port.PlayerShipGateway;
@@ -39,7 +40,7 @@ final class Creator {
         if (validation.isDefined()) {
             return Either.left(validation.get());
         }
-        if (isAllShipsPlaced(inputData.getPlayer().getId())) {
+        if (isAllShipsPlaced(inputData.getPlayer())) {
             removeShip(inputData.getShip().getId());
             return Either.left(PlayerShipError.ALL_SHIPS_ALREADY_PLACED);
         }
@@ -72,8 +73,8 @@ final class Creator {
         return playerShip;
     }
 
-    private boolean isAllShipsPlaced(String playerId) {
-        Option<Set<ShipPointsDto>> alreadyPlacedShips = playerShipGateway.findAllShips(playerId);
+    boolean isAllShipsPlaced(PlayerDto player) {
+        Option<Set<ShipPointsDto>> alreadyPlacedShips = playerShipGateway.findAllShips(player.getId());
         if (alreadyPlacedShips.isEmpty()) {
             return false;
         }
@@ -86,10 +87,10 @@ final class Creator {
         return alreadyPlacedShortNames.containsAll(shipClasses);
     }
 
-    private boolean isAlreadyPlaced(PlayerShipCreateDto playerShip) {
+    private boolean isAlreadyPlaced(PlayerShipCreateDto inputData) {
         return playerShipGateway
-                .findByPlayerIdAndShipClassShortName(playerShip.getPlayer().getId(),
-                        playerShip.getShip().getShipClass().getShortName())
+                .findByPlayerIdAndShipClassShortName(inputData.getPlayer().getId(),
+                        inputData.getShip().getShipClass().getShortName())
                 .isDefined();
     }
 

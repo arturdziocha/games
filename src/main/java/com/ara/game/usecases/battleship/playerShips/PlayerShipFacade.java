@@ -1,5 +1,6 @@
 package com.ara.game.usecases.battleship.playerShips;
 
+import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipCreateDto;
 import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipDto;
 import com.ara.game.usecases.battleship.playerShips.port.PlayerShipGateway;
@@ -18,7 +19,7 @@ public class PlayerShipFacade {
 
     @Inject
     public PlayerShipFacade(final PlayerShipGateway playerShipGateway, final ShipGateway shipGateway,
-                            final ShipPointsGateway shipPointsGateway) {
+            final ShipPointsGateway shipPointsGateway) {
         this.creator = new Creator(playerShipGateway, shipGateway, shipPointsGateway);
         this.finder = new Finder(playerShipGateway);
         this.remover = new Remover(playerShipGateway);
@@ -34,6 +35,10 @@ public class PlayerShipFacade {
 
     public void remove(final String playerId) {
         remover.remove(playerId);
+    }
+
+    public boolean isAllShipsPlaced(PlayerDto player) {
+        return creator.isAllShipsPlaced(player);
     }
 
 }
