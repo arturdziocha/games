@@ -15,5 +15,7 @@ public interface PlayerShipGateway {
 
     void remove(String playerId);
 
+    Option<ShipPointsDto> findByPlayerIdAndPointString(String playerId, String pointString);
+
 
 }

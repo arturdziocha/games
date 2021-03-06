@@ -57,4 +57,10 @@ public final class PlayerShipsInMemoryGateway implements PlayerShipGateway {
 
     }
 
+    @Override
+    public Option<ShipPointsDto> findByPlayerIdAndPointString(String playerId, String pointString) {
+        // TODO Must finish method
+        return null;
+    }
+
 }
