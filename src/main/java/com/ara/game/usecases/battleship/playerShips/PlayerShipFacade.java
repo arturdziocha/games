@@ -19,7 +19,7 @@ public class PlayerShipFacade {
 
     @Inject
     public PlayerShipFacade(final PlayerShipGateway playerShipGateway, final ShipGateway shipGateway,
-            final ShipPointsGateway shipPointsGateway) {
+                            final ShipPointsGateway shipPointsGateway) {
         this.creator = new Creator(playerShipGateway, shipGateway, shipPointsGateway);
         this.finder = new Finder(playerShipGateway);
         this.remover = new Remover(playerShipGateway);

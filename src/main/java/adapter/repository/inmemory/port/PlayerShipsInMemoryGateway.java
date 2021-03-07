@@ -2,6 +2,7 @@ package adapter.repository.inmemory.port;
 
 import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipDto;
 import com.ara.game.usecases.battleship.playerShips.port.PlayerShipGateway;
+import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 import com.google.inject.Inject;
@@ -52,15 +53,25 @@ public final class PlayerShipsInMemoryGateway implements PlayerShipGateway {
     }
 
     @Override
+    public Option<ShipPointsDto> findByPlayerIdAndPointString(String playerId, String pointString) {
+        Option<Set<ShipPointsDto>> all = findAllShips(playerId);
+        if (all.isDefined()) {
+            Set<ShipPointsDto> l = all.get();
+            for (ShipPointsDto ship : l) {
+                Option<PointDto> a = ship.getPoints().find(c -> c.getPointString().equals(pointString));
+                if (a.isDefined()) {
+                    return Option.some(ship);
+                }
+            }
+        }
+        return Option.none();
+    }
+
+    @Override
     public void remove(String playerId) {
         // TODO Auto-generated method stub
 
     }
 
-    @Override
-    public Option<ShipPointsDto> findByPlayerIdAndPointString(String playerId, String pointString) {
-        // TODO Must finish method
-        return null;
-    }
 
 }

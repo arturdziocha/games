@@ -24,18 +24,21 @@ public class AllShotsDto {
         return shots;
     }
 
-    public static class Builder{
+    public static class Builder {
         private PlayerDto player;
         private Map<PointDto, PointStatus> shots = HashMap.empty();
-        public Builder player(final PlayerDto player){
+
+        public Builder player(final PlayerDto player) {
             this.player = player;
             return this;
         }
-        public Builder add(final PointDto point, final PointStatus pointStatus){
+
+        public Builder add(final PointDto point, final PointStatus pointStatus) {
             shots = shots.put(point, pointStatus);
             return this;
         }
-        public AllShotsDto build(){
+
+        public AllShotsDto build() {
             return new AllShotsDto(this);
         }
     }

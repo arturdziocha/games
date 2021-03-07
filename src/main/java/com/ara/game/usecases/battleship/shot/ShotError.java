@@ -7,7 +7,8 @@ enum ShotError implements Error {
     ALREADY_SHOOT("Already shoot"),
     PLAYER_DATA_CANNOT_BE_EMPTY("Player data cannot be empty"),
     POINT_DATA_CANNOT_BE_EMPTY("Point data cannot be empty"),
-    OPPONENT_DATA_CANNOT_BE_EMPTY("Opponent data cannot be empty");
+    OPPONENT_DATA_CANNOT_BE_EMPTY("Opponent data cannot be empty"),
+    PERSISTENCE_FAILED("Persistence failed");
     private final String cause;
 
     ShotError(String cause) {

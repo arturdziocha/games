@@ -28,6 +28,11 @@ public class ShipInMemoryGateway implements ShipGateway {
     }
 
     @Override
+    public void update(final ShipDto shipDto) {
+        entities = entities.replaceValue(shipDto.getId(), mapper.mapToEntity(shipDto));
+    }
+
+    @Override
     public Option<ShipDto> findById(final String id) {
         Option<ShipInMemory> find = entities.get(id);
         if (find.isEmpty()) {
@@ -58,5 +63,6 @@ public class ShipInMemoryGateway implements ShipGateway {
     public void remove(String id) {
         entities = entities.remove(id);
     }
+
 
 }

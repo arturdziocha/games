@@ -33,7 +33,7 @@ final class Shot {
         private PointDto point;
         private PointStatus pointStatus;
 
-        Shot build(Builder builder) {
+        Shot build() {
             return new Shot(this);
         }
 

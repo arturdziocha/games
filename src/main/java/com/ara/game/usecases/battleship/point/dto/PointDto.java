@@ -43,6 +43,28 @@ public final class PointDto implements Comparable<PointDto> {
         return result;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PointDto pointDto = (PointDto) o;
+
+        if (!id.equals(pointDto.id)) return false;
+        if (!pointString.equals(pointDto.pointString)) return false;
+        if (!row.equals(pointDto.row)) return false;
+        return column.equals(pointDto.column);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + pointString.hashCode();
+        result = 31 * result + row.hashCode();
+        result = 31 * result + column.hashCode();
+        return result;
+    }
+
     public static class Builder {
         private String id;
         private String pointString;
