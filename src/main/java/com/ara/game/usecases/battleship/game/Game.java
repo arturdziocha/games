@@ -1,63 +1,49 @@
 package com.ara.game.usecases.battleship.game;
 
-import java.time.LocalDateTime;
-
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.common.domain.Entity;
 
 final class Game extends Entity {
-    private final PlayerDto firstPlayer;
-    private final PlayerDto secondPlayer;
+    private final PlayerDto player;
+    private final PlayerDto opponent;
     private final PlayerDto currentPlayer;
-    private final LocalDateTime startTime;
 
     private Game(Builder builder) {
         super(builder);
-        this.firstPlayer = builder.firstPlayer;
-        this.secondPlayer = builder.secondPlayer;
+        this.player = builder.player;
+        this.opponent = builder.opponent;
         this.currentPlayer = builder.currentPlayer;
-        this.startTime = builder.startTime;
     }
 
-    PlayerDto getFirstPlayer() {
-        return firstPlayer;
+    PlayerDto getPlayer() {
+        return player;
     }
 
-    PlayerDto getSecondPlayer() {
-        return secondPlayer;
+    PlayerDto getOpponent() {
+        return opponent;
     }
 
     PlayerDto getCurrentPlayer() {
         return currentPlayer;
     }
 
-    LocalDateTime getStartTime() {
-        return startTime;
-    }
-
     static class Builder extends Entity.Builder<Builder> {
-        private PlayerDto firstPlayer;
-        private PlayerDto secondPlayer;
+        private PlayerDto player;
+        private PlayerDto opponent;
         private PlayerDto currentPlayer;
-        private LocalDateTime startTime;
 
-        Builder firstPlayer(final PlayerDto firstPlayer) {
-            this.firstPlayer = firstPlayer;
+        Builder player(final PlayerDto firstPlayer) {
+            this.player = firstPlayer;
             return self();
         }
 
-        Builder secondPlayer(final PlayerDto secondPlayer) {
-            this.secondPlayer = secondPlayer;
+        Builder opponent(final PlayerDto secondPlayer) {
+            this.opponent = secondPlayer;
             return self();
         }
 
         Builder currentPlayer(final PlayerDto currentPlayer) {
             this.currentPlayer = currentPlayer;
-            return self();
-        }
-
-        Builder startTime(final LocalDateTime startTime) {
-            this.startTime = startTime;
             return self();
         }
 
