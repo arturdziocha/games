@@ -19,19 +19,19 @@ final class Game extends Entity {
         this.startTime = builder.startTime;
     }
 
-    public PlayerDto getFirstPlayer() {
+    PlayerDto getFirstPlayer() {
         return firstPlayer;
     }
 
-    public PlayerDto getSecondPlayer() {
+    PlayerDto getSecondPlayer() {
         return secondPlayer;
     }
 
-    public PlayerDto getCurrentPlayer() {
+    PlayerDto getCurrentPlayer() {
         return currentPlayer;
     }
 
-    public LocalDateTime getStartTime() {
+    LocalDateTime getStartTime() {
         return startTime;
     }
 
