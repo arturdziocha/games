@@ -6,7 +6,7 @@ import io.vavr.control.Option;
 public interface GameGateway {
     GameDto save(GameDto game);
 
-    GameDto join(GameDto game);
+    GameDto update(GameDto mapToDto);
 
     Option<GameDto> find(String gameId);
 

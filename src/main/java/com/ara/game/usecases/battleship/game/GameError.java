@@ -5,7 +5,8 @@ import com.ara.game.usecases.common.Error;
 enum GameError implements Error {
     DATA_CANNOT_BE_EMPTY("Data cannot be empty"),
     PLAYER_DATA_CANNOT_BE_EMPTY("Player data cannot be empty"),
-    PERSISTENCE_FAILED("Saving error");
+    PERSISTENCE_FAILED("Saving error"),
+    GAME_CANNOT_BE_EMPTY("Game cannot be empty");
     private final String cause;
 
     GameError(String cause) {
