@@ -7,7 +7,7 @@ public final class GameInMemory extends EntityInMemory {
     private final String secondPlayer;
     private final String currentPlayer;
 
-    public GameInMemory(Builder builder) {
+    private GameInMemory(Builder builder) {
         super(builder);
         this.firstPlayer = builder.firstPlayer;
         this.secondPlayer = builder.secondPlayer;

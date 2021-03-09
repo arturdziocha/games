@@ -8,7 +8,7 @@ final class Mapper {
         return new GameDto.Builder()
                 .id(game.getId())
                 .player(game.getPlayer())
-                .opponent(game.getOpponent())
+                .secondPlayer(game.getOpponent())
                 .currentPlayer(game.getCurrentPlayer())
                 .build();
     }
