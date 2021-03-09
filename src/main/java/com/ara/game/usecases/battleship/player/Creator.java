@@ -1,6 +1,7 @@
 package com.ara.game.usecases.battleship.player;
 
 import com.ara.game.usecases.battleship.player.dto.PlayerCreateDto;
+import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.battleship.player.port.PlayerGateway;
 import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
@@ -44,8 +45,8 @@ final class Creator {
                 .toEither(PlayerError.PERSISTENCE_FAILED);
     }
 
-    private Player save(Player player) {
-        playerGateway.save(mapper.mapToDto(player));
-        return player;
+    private PlayerDto save(Player player) {
+        return playerGateway.save(mapper.mapToDto(player));
+
     }
 }

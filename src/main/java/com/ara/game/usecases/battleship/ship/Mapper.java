@@ -13,8 +13,8 @@ class Mapper {
                 .build();
     }
 
-    CreateDto mapToCreateDto(final Ship s) {
-        return new CreateDto.Builder().id(s.getId()).build();
+    CreateDto mapToCreateDto(final ShipDto ship) {
+        return new CreateDto.Builder().id(ship.getId()).build();
     }
 
     Ship mapToEntity(final String id, final ShipClass shipClass) {

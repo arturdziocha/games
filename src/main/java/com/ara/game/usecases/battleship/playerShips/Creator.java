@@ -62,15 +62,14 @@ final class Creator {
 
     private Either<Error, PlayerShipDto> savePlayerShip(PlayerShip playerShip) {
         return Try
-                .of(() -> save(playerShip))
-                .map(mapper::mapToDto)
+                .of(() -> save(playerShip))                
                 .onFailure(e -> log.error(e.getMessage()))
                 .toEither(PlayerShipError.PERSISTENCE_FAILED);
     }
 
-    private PlayerShip save(PlayerShip playerShip) {
-        playerShipGateway.save(mapper.mapToDto(playerShip));
-        return playerShip;
+    private PlayerShipDto save(PlayerShip playerShip) {
+        return playerShipGateway.save(mapper.mapToDto(playerShip));
+        
     }
 
     boolean isAllShipsPlaced(PlayerDto player) {

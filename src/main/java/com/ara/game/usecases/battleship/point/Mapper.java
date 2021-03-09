@@ -5,7 +5,7 @@ import com.ara.game.usecases.common.CreateDto;
 
 class Mapper {
 
-    final CreateDto mapToCreatePointOutput(final Point point) {
+    final CreateDto mapToCreatePointOutput(final PointDto point) {
         return new CreateDto.Builder().id(point.getId()).build();
     }
 
@@ -16,16 +16,6 @@ class Mapper {
                 .row(point.getRow())
                 .column(point.getColumn())
                 .build();
-    }
-
-    final Point mapToEntity(final PointDto pointDto) {
-        return new Point.Builder()
-                .id(pointDto.getId())
-                .pointString(pointDto.getPointString())
-                .row(pointDto.getRow())
-                .column(pointDto.getColumn())
-                .build();
-
-    }
+    }   
 
 }

@@ -14,7 +14,7 @@ final class Mapper {
                 .build();
     }
 
-    final CreateDto mapToCreateDto(Player dto) {
+    final CreateDto mapToCreateDto(PlayerDto dto) {
         return new CreateDto.Builder().id(dto.getId()).build();
     }
 

@@ -34,13 +34,11 @@ class Creator {
     private Either<Error, ShipPointsDto> savePoints(ShipPoints shipPoints) {
         return Try
                 .of(() -> save(shipPoints))
-                .map(mapper::mapToDto)
                 .onFailure(e -> log.error(e.getMessage()))
                 .toEither(ShipPointsError.PERSISTENCE_FAILED);
     }
 
-    private ShipPoints save(ShipPoints shipPoints) {
-        shipPointsGateway.save(mapper.mapToDto(shipPoints));
-        return shipPoints;
+    private ShipPointsDto save(ShipPoints shipPoints) {
+        return shipPointsGateway.save(mapper.mapToDto(shipPoints));
     }
 }

@@ -45,19 +45,35 @@ class Creator {
         Option<ShipPointsDto> findShip = findOpponentShip(inputData.getOpponent(), inputData.getPoint());
         Shot shot;
         if (findShip.isEmpty()) {
-            shot = new Shot.Builder().player(inputData.getPlayer()).point(inputData.getPoint()).pointStatus(PointStatus.MISS).build();
+            shot = new Shot.Builder()
+                    .player(inputData.getPlayer())
+                    .point(inputData.getPoint())
+                    .pointStatus(PointStatus.MISS)
+                    .build();
         } else {
             ShipPointsDto ship = findShip.get();
             if (ship.getShip().getHealth() > 1) {
-                shot =
-                        new Shot.Builder().player(inputData.getPlayer()).point(inputData.getPoint()).pointStatus(PointStatus.HIT).build();
+                shot = new Shot.Builder()
+                        .player(inputData.getPlayer())
+                        .point(inputData.getPoint())
+                        .pointStatus(PointStatus.HIT)
+                        .build();
             } else {
-                ship.getPoints()
+                ship
+                        .getPoints()
                         .filter(p -> !p.equals(inputData.getPoint()))
-                        .map(z -> new Shot.Builder().player(inputData.getPlayer()).point(z).pointStatus(PointStatus.SUNK).build()).peek(this::saveShot);
-                shot =
-                        new Shot.Builder().player(inputData.getPlayer()).point(inputData.getPoint()).pointStatus(PointStatus.SUNK).build();
-                //TODO set Occupied points
+                        .map(z -> new Shot.Builder()
+                                .player(inputData.getPlayer())
+                                .point(z)
+                                .pointStatus(PointStatus.SUNK)
+                                .build())
+                        .peek(this::saveShot);
+                shot = new Shot.Builder()
+                        .player(inputData.getPlayer())
+                        .point(inputData.getPoint())
+                        .pointStatus(PointStatus.SUNK)
+                        .build();
+                // TODO set Occupied points
             }
             updateHealth(ship.getShip());
         }
@@ -73,20 +89,23 @@ class Creator {
     }
 
     private void updateHealth(ShipDto ship) {
-        shipGateway.update(new ShipDto.Builder().health(ship.getHealth() - 1).shipClass(ship.getShipClass()).id(ship.getId()).build());
+        shipGateway
+                .update(new ShipDto.Builder()
+                        .health(ship.getHealth() - 1)
+                        .shipClass(ship.getShipClass())
+                        .id(ship.getId())
+                        .build());
     }
 
     private Either<Error, ShotDto> saveShot(Shot shot) {
         return Try
                 .of(() -> save(shot))
-                .map(mapper::mapToDto)
                 .onFailure(e -> log.error(e.getMessage()))
                 .toEither(ShotError.PERSISTENCE_FAILED);
     }
 
-    private Shot save(Shot shot) {
-        shotGateway.save(mapper.mapToDto(shot));
-        return shot;
+    private ShotDto save(Shot shot) {
+        return shotGateway.save(mapper.mapToDto(shot));
     }
 
 }

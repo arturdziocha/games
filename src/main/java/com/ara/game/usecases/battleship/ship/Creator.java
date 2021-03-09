@@ -1,6 +1,7 @@
 package com.ara.game.usecases.battleship.ship;
 
 import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
+import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 import com.ara.game.usecases.battleship.ship.port.ShipGateway;
 import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
@@ -40,9 +41,8 @@ class Creator {
                 .toEither(ShipError.PERSISTENCE_FAILED);
     }
 
-    private Ship save(final Ship ship) {
-        shipGateway.save(mapper.mapToDto(ship));
-        return ship;
+    private ShipDto save(final Ship ship) {
+        return shipGateway.save(mapper.mapToDto(ship));
     }
 
 }

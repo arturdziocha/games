@@ -43,13 +43,11 @@ final class Joiner {
     private Either<Error, GameDto> updateGame(Game game) {
         return Try
                 .of(() -> update(game))
-                .map(mapper::mapToDto)
                 .onFailure(e -> log.error(e.getMessage()))
                 .toEither(GameError.PERSISTENCE_FAILED);
     }
 
-    private Game update(Game game) {
-        gameGateway.update(mapper.mapToDto(game));
-        return game;
+    private GameDto update(Game game) {
+        return gameGateway.update(mapper.mapToDto(game));
     }
 }

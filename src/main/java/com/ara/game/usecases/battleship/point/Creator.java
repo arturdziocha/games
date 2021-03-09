@@ -25,7 +25,7 @@ final class Creator {
 
     private final List<Character> chars = Arrays
             .asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-                    'U', 'W', 'X', 'Y', 'Z');
+                'U', 'W', 'X', 'Y', 'Z');
 
     Creator(final PointGateway pointGateway, final IdGenerator idGenerator, final Mapper mapper) {
         this.pointGateway = pointGateway;
@@ -43,7 +43,7 @@ final class Creator {
         String pointString = inputData.getPointString().toUpperCase();
         Option<PointDto> find = pointGateway.findByPointString(pointString);
         if (find.isDefined()) {
-            return Either.right(mapper.mapToCreatePointOutput(mapper.mapToEntity(find.get())));
+            return Either.right(mapper.mapToCreatePointOutput(find.get()));
         } else {
             Either<Error, CreateDto> output;
             Either<Error, Integer> row = createRow(pointString);
@@ -73,7 +73,7 @@ final class Creator {
         }
         Option<PointDto> find = pointGateway.findByRowAndColumn(inputData.getRow(), inputData.getColumn());
         if (find.isDefined()) {
-            return Either.right(mapper.mapToCreatePointOutput(mapper.mapToEntity(find.get())));
+            return Either.right(mapper.mapToCreatePointOutput(find.get()));
         } else {
             Either<Error, CreateDto> output;
             Either<Error, String> pointString = createPointString(inputData.getRow(), inputData.getColumn());
@@ -100,9 +100,8 @@ final class Creator {
                 .toEither(PointError.PERSISTENCE_FAILED);
     }
 
-    private Point save(final Point point) {
-        pointGateway.save(mapper.mapToDTO(point));
-        return point;
+    private PointDto save(final Point point) {
+        return pointGateway.save(mapper.mapToDTO(point));
     }
 
     private Either<Error, Integer> createColumn(final String pointString) {
