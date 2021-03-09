@@ -5,7 +5,8 @@ import io.vavr.control.Option;
 
 public enum PlayerType {
     HUMAN_PLAYER("1", "Human Player"),
-    COMPUTER_PLAYER("2", "Computer Player");
+    COMPUTER_PLAYER("2", "Computer Player"),
+    FANCY_PLAYER("3", "Computer Player");
     private final String id;
     private final String name;
 
