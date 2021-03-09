@@ -2,37 +2,48 @@ package adapter.repository.inmemory.port;
 
 import com.ara.game.usecases.battleship.game.dto.GameDto;
 import com.ara.game.usecases.battleship.game.port.GameGateway;
+import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.battleship.player.port.PlayerGateway;
 
 import adapter.repository.inmemory.entity.GameInMemory;
+import adapter.repository.inmemory.entity.GameMapper;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
 import io.vavr.control.Option;
 
 public class GameInMemoryGateway implements GameGateway {
     private Map<String, GameInMemory> entities;
+    private final GameMapper mapper;
     private final PlayerGateway playerGateway;
 
     public GameInMemoryGateway(final PlayerGateway playerGateway) {
-        this.entities = HashMap.empty();
         this.playerGateway = playerGateway;
+        this.mapper = new GameMapper();
+        this.entities = HashMap.empty();
+
     }
 
     @Override
     public GameDto save(GameDto game) {
-        // TODO Auto-generated method stub
-        return null;
+        entities = entities.put(game.getId(), mapper.mapToEntity(game));
+        return game;
     }
 
     @Override
-    public GameDto update(GameDto mapToDto) {
-        // TODO Auto-generated method stub
-        return null;
+    public GameDto update(GameDto game) {
+        entities = entities.replaceValue(game.getId(), mapper.mapToEntity(game));
+        return game;
     }
 
     @Override
     public Option<GameDto> find(String gameId) {
-        // TODO Auto-generated method stub
+        Option<GameInMemory> find = entities.get(gameId);
+        if(find.isEmpty()) {
+            return Option.none();
+        }
+        GameInMemory gameInMemory = find.get();
+        Option<PlayerDto> firstPlayerOption = playerGateway.findById(gameInMemory.getFirstPlayer());
+        
         return null;
     }
 
