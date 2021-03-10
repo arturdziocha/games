@@ -3,15 +3,17 @@ package com.ara.game.usecases.battleship.game;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.common.domain.Entity;
 
+import io.vavr.control.Option;
+
 final class Game extends Entity {
     private final PlayerDto player;
-    private final PlayerDto opponent;
+    private final Option<PlayerDto> secondPlayer;
     private final PlayerDto currentPlayer;
 
     private Game(Builder builder) {
         super(builder);
         this.player = builder.player;
-        this.opponent = builder.opponent;
+        this.secondPlayer = builder.secondPlayer;
         this.currentPlayer = builder.currentPlayer;
     }
 
@@ -19,8 +21,8 @@ final class Game extends Entity {
         return player;
     }
 
-    PlayerDto getOpponent() {
-        return opponent;
+    Option<PlayerDto> getSecondPLayer() {
+        return secondPlayer;
     }
 
     PlayerDto getCurrentPlayer() {
@@ -29,7 +31,7 @@ final class Game extends Entity {
 
     static class Builder extends Entity.Builder<Builder> {
         private PlayerDto player;
-        private PlayerDto opponent;
+        private Option<PlayerDto> secondPlayer;
         private PlayerDto currentPlayer;
 
         Builder player(final PlayerDto firstPlayer) {
@@ -37,8 +39,8 @@ final class Game extends Entity {
             return self();
         }
 
-        Builder opponent(final PlayerDto secondPlayer) {
-            this.opponent = secondPlayer;
+        Builder secondPlayer(final Option<PlayerDto> secondPlayer) {
+            this.secondPlayer = secondPlayer;
             return self();
         }
 

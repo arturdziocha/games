@@ -1,12 +1,12 @@
 package adapter.repository.inmemory.port;
 
-import adapter.repository.inmemory.entity.GameInMemory;
-import adapter.repository.inmemory.entity.GameMapper;
-import com.ara.game.usecases.battleship.enums.PlayerType;
 import com.ara.game.usecases.battleship.game.dto.GameDto;
 import com.ara.game.usecases.battleship.game.port.GameGateway;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.battleship.player.port.PlayerGateway;
+
+import adapter.repository.inmemory.entity.GameInMemory;
+import adapter.repository.inmemory.entity.GameMapper;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
 import io.vavr.control.Option;
@@ -42,20 +42,18 @@ public class GameInMemoryGateway implements GameGateway {
             return Option.none();
         }
         GameInMemory gameInMemory = find.get();
-        PlayerDto firstPlayer = playerGateway.findById(gameInMemory.getFirstPlayer()).getOrElse(fancyPlayer());
-        PlayerDto secondPlayer = playerGateway.findById(gameInMemory.getSecondPlayer()).getOrElse(fancyPlayer());
-        PlayerDto currentPlayer = playerGateway.findById(gameInMemory.getCurrentPlayer()).getOrElse(fancyPlayer());
-        return Option.of(mapper.mapToDto(gameId, firstPlayer, secondPlayer, currentPlayer));
+        Option<PlayerDto> firstPlayer = playerGateway.findById(gameInMemory.getFirstPlayer());
+        Option<PlayerDto> currentPlayer = playerGateway.findById(gameInMemory.getCurrentPlayer());
+        if (firstPlayer.isDefined() && currentPlayer.isDefined()) {
+            Option<PlayerDto> secondPlayer = playerGateway.findById(gameInMemory.getSecondPlayer());
+            return Option.of(mapper.mapToDto(gameId, firstPlayer.get(), secondPlayer, currentPlayer.get()));
+        }
+        return Option.none();
     }
 
     @Override
     public void remove(String gameId) {
         // TODO Auto-generated method stub
 
-    }
-
-    private PlayerDto fancyPlayer() {
-        return new PlayerDto.Builder().id("").playerType(PlayerType.FANCY_PLAYER).name("").build();
-    }
-
+    } 
 }

@@ -37,7 +37,7 @@ final class Creator {
         Game game = new Game.Builder()
                 .id(idGenerator.generate())
                 .player(inputData.getFirstPlayer())
-                .opponent(null)
+                .secondPlayer(Option.none())
                 .currentPlayer(inputData.getFirstPlayer())
                 .build();
         return saveGame(game);
