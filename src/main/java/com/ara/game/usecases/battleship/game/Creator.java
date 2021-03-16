@@ -41,9 +41,7 @@ final class Creator {
                 .currentPlayer(inputData.getFirstPlayer())
                 .build();
         return saveGame(game);
-    }
-
-    
+    }    
 
     private Either<Error, CreateDto> saveGame(Game game) {
         return Try
