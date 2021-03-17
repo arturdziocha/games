@@ -8,11 +8,11 @@ import org.apache.commons.lang3.StringUtils;
 
 class Validator {
 
-    final Option<Error> validatePointStrint(final PointCreateStringDto inputData) {
+    final Option<Error> validatePointString(final PointCreateStringDto inputData) {
         if (inputData == null) {
             return Option.some(PointError.DATA_CANNOT_BE_NULL);
         }
-        if (StringUtils.isEmpty(inputData.getPointString())) {
+        if (StringUtils.isBlank(inputData.getPointString())) {
             return Option.some(PointError.POINT_STRING_CANNOT_BE_EMPTY);
         }
         return Option.none();

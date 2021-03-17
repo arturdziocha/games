@@ -16,7 +16,7 @@ final class Finder {
     }
 
     Either<Error, GameDto> find(final String id) {
-        if (StringUtils.isEmpty(id)) {
+        if (StringUtils.isBlank(id)) {
             return Either.left(GameError.DATA_CANNOT_BE_EMPTY);
         }
         return gameGateway.find(id).toEither(GameError.CANNOT_FIND_GAME);

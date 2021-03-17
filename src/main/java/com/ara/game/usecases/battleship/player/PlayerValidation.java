@@ -1,10 +1,10 @@
 package com.ara.game.usecases.battleship.player;
 
 import com.ara.game.usecases.battleship.player.dto.PlayerCreateDto;
-import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.battleship.player.port.PlayerGateway;
 import com.ara.game.usecases.common.Error;
 import io.vavr.collection.Seq;
+import io.vavr.control.Either;
 import io.vavr.control.Validation;
 
 class PlayerValidation {
@@ -14,12 +14,13 @@ class PlayerValidation {
         this.playerGateway = playerGateway;
     }
 
-    Validation<Seq<String>, PlayerCreateDto> validatePlayer(PlayerCreateDto player) {
+    Either<Seq<Error>, PlayerCreateDto> validatePlayer(PlayerCreateDto player) {
         return Validation.combine(validateEmpty(player.getName(), PlayerError.PLAYER_NAME_CANNOT_BE_EMPTY),
-                validateExists(player.getName(), PlayerError.PLAYER_NAME_ALREADY_EXISTS)).ap((name, playerType)->new PlayerCreateDto.Builder().name(name).playerType(pla));
+                validateName(player.getName(), PlayerError.PLAYER_NAME_ALREADY_EXISTS)).ap((name, playerType) -> player).toEither();
     }
 
-    private Validation<Error, String> validateExists(String field, Error error) {
+    private Validation<Error, String> validateName(String field, Error error) {
+        boolean er = false;
         return playerGateway.findByName(field).isDefined() ? Validation.invalid(error) : Validation.valid(field);
     }
 

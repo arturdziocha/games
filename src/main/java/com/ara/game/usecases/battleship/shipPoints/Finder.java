@@ -14,7 +14,7 @@ class Finder {
     }
 
     Either<Error, ShipPointsDto> find(final String shipId) {
-        if (StringUtils.isEmpty(shipId)) {
+        if (StringUtils.isBlank(shipId)) {
             return Either.left(ShipPointsError.SHIP_NOT_SPECIFIED);
         }
         return shipPointsGateway.findById(shipId).toEither(ShipPointsError.CANNOT_FIND_RELATED_POINTS);

@@ -10,7 +10,7 @@ public final class GameJoinerDto {
 
     private GameJoinerDto(Builder builder) {
         this.game = builder.game;
-        this.secondPlayer = builder.opponent;
+        this.secondPlayer = builder.secondPlayer;
     }
 
     public GameDto getGame() {
@@ -23,7 +23,7 @@ public final class GameJoinerDto {
 
     public static class Builder {
         private GameDto game;
-        private Option<PlayerDto> opponent;
+        private Option<PlayerDto> secondPlayer;
 
         public Builder game(final GameDto game) {
             this.game = game;
@@ -31,7 +31,7 @@ public final class GameJoinerDto {
         }
 
         public Builder secondPlayer(final Option<PlayerDto> player) {
-            this.opponent = player;
+            this.secondPlayer = player;
             return this;
         }
 

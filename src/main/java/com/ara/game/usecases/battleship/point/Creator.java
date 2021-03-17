@@ -36,7 +36,7 @@ final class Creator {
     }
 
     final Either<Error, CreateDto> create(final PointCreateStringDto inputData) {
-        Option<Error> validation = validator.validatePointStrint(inputData);
+        Option<Error> validation = validator.validatePointString(inputData);
         if (validation.isDefined()) {
             return Either.left(validation.get());
         }
@@ -67,9 +67,9 @@ final class Creator {
     }
 
     final Either<Error, CreateDto> create(final PointCreateRowColDto inputData) {
-        Option<Error> validationCheck = validator.validateRowCol(inputData);
-        if (validationCheck.isDefined()) {
-            return Either.left(validationCheck.get());
+        Option<Error> validation = validator.validateRowCol(inputData);
+        if (validation.isDefined()) {
+            return Either.left(validation.get());
         }
         Option<PointDto> find = pointGateway.findByRowAndColumn(inputData.getRow(), inputData.getColumn());
         if (find.isDefined()) {

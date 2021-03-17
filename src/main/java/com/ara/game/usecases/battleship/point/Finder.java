@@ -16,7 +16,7 @@ class Finder {
     }
 
     final Either<Error, PointDto> findById(final String id) {
-        if (StringUtils.isEmpty(id)) {
+        if (StringUtils.isBlank(id)) {
             return Either.left(PointError.POINT_ID_CANNOT_BE_EMPTY);
         } else {
             return pointGateway.findById(id).toEither(PointError.CANNOT_FIND_POINT);
@@ -31,7 +31,7 @@ class Finder {
     }
 
     final Either<Error, PointDto> findByPointString(final String pointString) {
-        if (StringUtils.isEmpty(pointString)) {
+        if (StringUtils.isBlank(pointString)) {
             return Either.left(PointError.DATA_CANNOT_BE_NULL);
         }
         return pointGateway.findByPointString(pointString.toUpperCase()).toEither(PointError.CANNOT_FIND_POINT);
