@@ -4,7 +4,6 @@ import com.ara.game.usecases.battleship.enums.PlayerType;
 import com.ara.game.usecases.common.domain.Entity;
 
 final class Player extends Entity {
-
     private final String name;
     private final PlayerType playerType;
 

@@ -19,4 +19,5 @@ enum PlayerError implements Error {
     public String getCause() {
         return cause;
     }
+    public stat
 }
