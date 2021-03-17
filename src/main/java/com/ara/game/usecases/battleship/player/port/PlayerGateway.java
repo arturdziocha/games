@@ -7,4 +7,6 @@ public interface PlayerGateway {
     Option<PlayerDto> findById(String id);
 
     PlayerDto save(PlayerDto inputData);
+
+    Option<PlayerDto> findByName(String name);
 }

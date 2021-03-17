@@ -8,7 +8,7 @@ public final class PlayerDto {
     private final PlayerType playerType;
 
 
-    private PlayerDto(Builder builder) {
+    PlayerDto(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
         this.playerType = builder.playerType;

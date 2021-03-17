@@ -7,7 +7,8 @@ enum PlayerError implements Error {
     PLAYER_NAME_CANNOT_BE_EMPTY("Name cannot be empty"),
     PLAYER_TYPE_CANNOT_BE_EMPTY("Type of player cannot be empty"),
     CANNOT_FIND_PLAYER("Cannot find player id"),
-    PERSISTENCE_FAILED("SAVING ERROR");
+    PERSISTENCE_FAILED("SAVING ERROR"),
+    PLAYER_NAME_ALREADY_EXISTS("Player name already exists");
 
     private final String cause;
 
@@ -19,5 +20,4 @@ enum PlayerError implements Error {
     public String getCause() {
         return cause;
     }
-    public stat
 }

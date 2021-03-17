@@ -19,14 +19,12 @@ public class PlayerInMemoryGateway implements PlayerGateway {
 
     @Override
     public Option<PlayerDto> findById(final String id) {
-        Option<PlayerInMemory> find = entities.get(id);
-        if (find.isEmpty()) {
-            return Option.none();
-        }
-        return PlayerType
-                .findById(find.get().getPlayerTypeId())
-                .map(pT -> mapper.mapToDto(find.get(), pT))
-                .toOption();
+        return entities.get(id).flatMap(this::mapperHelper);
+    }
+
+    @Override
+    public Option<PlayerDto> findByName(String name) {
+        return entities.values().find(find -> find.getName().equals(name)).flatMap(this::mapperHelper);
     }
 
     @Override
@@ -34,4 +32,10 @@ public class PlayerInMemoryGateway implements PlayerGateway {
         entities = entities.put(inputData.getId(), mapper.mapToEntity(inputData));
         return inputData;
     }
+
+    private Option<PlayerDto> mapperHelper(PlayerInMemory player) {
+        return PlayerType.findById(player.getPlayerTypeId()).map(pT -> mapper.mapToDto(player, pT));
+    }
+
+
 }
