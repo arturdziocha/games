@@ -4,7 +4,7 @@ import adapter.repository.inmemory.entity.ShipPointsMapper;
 import com.ara.game.usecases.battleship.point.port.PointGateway;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 import com.ara.game.usecases.battleship.ship.port.ShipGateway;
-import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
+import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 import com.google.inject.Inject;
 import io.vavr.collection.HashMap;
@@ -31,13 +31,13 @@ public class ShipPointsInMemoryGateway implements ShipPointsGateway {
     }
 
     @Override
-    public ShipPointsDto save(ShipPointsDto shipPoints) {
+    public ShipWithPointsDto save(ShipWithPointsDto shipPoints) {
         entities = entities.put(shipPoints.getShip().getId(), mapper.mapToEntity(shipPoints));
         return shipPoints;
     }
 
     @Override
-    public Option<ShipPointsDto> findById(String shipId) {
+    public Option<ShipWithPointsDto> findById(String shipId) {
         Option<Set<String>> shipPoints = entities.get(shipId);
         if (shipPoints.isEmpty()) {
             return Option.none();
@@ -52,10 +52,10 @@ public class ShipPointsInMemoryGateway implements ShipPointsGateway {
     }
 
     @Override
-    public Option<Set<ShipPointsDto>> findAllById(Set<String> shipsIds) {
-        Set<ShipPointsDto> ships = HashSet.empty();
+    public Option<Set<ShipWithPointsDto>> findAllById(Set<String> shipsIds) {
+        Set<ShipWithPointsDto> ships = HashSet.empty();
         for (String id : shipsIds) {
-            Option<ShipPointsDto> ship = findById(id);
+            Option<ShipWithPointsDto> ship = findById(id);
             if (ship.isEmpty()) {
                 return Option.none();
             }

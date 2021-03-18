@@ -6,7 +6,7 @@ import com.ara.game.usecases.battleship.playerShips.port.PlayerShipGateway;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 import com.ara.game.usecases.battleship.ship.port.ShipGateway;
-import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
+import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 import com.ara.game.usecases.battleship.shot.dto.ShotCreateDto;
 import com.ara.game.usecases.battleship.shot.dto.ShotDto;
 import com.ara.game.usecases.battleship.shot.port.ShotGateway;
@@ -42,7 +42,7 @@ class Creator {
         if (isAlreadyShot(inputData.getPlayer(), inputData.getPoint())) {
             return Either.left(ShotError.ALREADY_SHOOT);
         }
-        Option<ShipPointsDto> findShip = findOpponentShip(inputData.getOpponent(), inputData.getPoint());
+        Option<ShipWithPointsDto> findShip = findOpponentShip(inputData.getOpponent(), inputData.getPoint());
         Shot shot;
         if (findShip.isEmpty()) {
             shot = new Shot.Builder()
@@ -51,7 +51,7 @@ class Creator {
                     .pointStatus(PointStatus.MISS)
                     .build();
         } else {
-            ShipPointsDto ship = findShip.get();
+            ShipWithPointsDto ship = findShip.get();
             if (ship.getShip().getHealth() > 1) {
                 shot = new Shot.Builder()
                         .player(inputData.getPlayer())
@@ -84,7 +84,7 @@ class Creator {
         return shotGateway.findByPointString(player.getId(), point.getPointString()).isDefined();
     }
 
-    private Option<ShipPointsDto> findOpponentShip(PlayerDto opponent, PointDto point) {
+    private Option<ShipWithPointsDto> findOpponentShip(PlayerDto opponent, PointDto point) {
         return playerShipGateway.findByPlayerIdAndPointString(opponent.getId(), point.getPointString());
     }
 

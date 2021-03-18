@@ -33,7 +33,7 @@ final class Joiner {
         Game game = new Game.Builder()
                 .id(inputData.getGame().getId())
                 .player(inputData.getGame().getFirstPlayer())
-                .secondPlayer(inputData.secondPlayer())
+                .secondPlayer(inputData.getSecondPlayer())
                 .currentPlayer(inputData.getGame().getCurrentPlayer())
                 .build();
         return updateGame(game);

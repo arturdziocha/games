@@ -5,7 +5,7 @@ import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipCreateDto;
 import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipDto;
 import com.ara.game.usecases.battleship.resources.PlayerLoader;
 import com.ara.game.usecases.battleship.resources.ShipsCreator;
-import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
+import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -34,13 +34,13 @@ class PlayerShipFacadeTest {
     void test1() {
         // Given
         PlayerDto playerId = playerLoader.loadFirstPlayer();
-        Set<ShipPointsDto> ships = shipsLoader.createNineShips();
+        Set<ShipWithPointsDto> ships = shipsLoader.createNineShips();
         // When
-        for (ShipPointsDto ship : ships) {
+        for (ShipWithPointsDto ship : ships) {
             playerShipFacade.create(new PlayerShipCreateDto.Builder().player(playerId).ship(ship.getShip()).build());
         }
         // Then
-        Either<Error, Set<ShipPointsDto>> findShips = playerShipFacade.find(playerId.getId());
+        Either<Error, Set<ShipWithPointsDto>> findShips = playerShipFacade.find(playerId.getId());
         assertThat(findShips.get().size()).isEqualTo(9);
     }
 
@@ -49,10 +49,10 @@ class PlayerShipFacadeTest {
     void test2() {
         // Given
         PlayerDto playerId = playerLoader.loadFirstPlayer();
-        Set<ShipPointsDto> ships = shipsLoader.createNineShips();
-        ShipPointsDto shipToPlace = shipsLoader.createBattleshipE10Up();
+        Set<ShipWithPointsDto> ships = shipsLoader.createNineShips();
+        ShipWithPointsDto shipToPlace = shipsLoader.createBattleshipE10Up();
         // When
-        for (ShipPointsDto ship : ships) {
+        for (ShipWithPointsDto ship : ships) {
             playerShipFacade.create(new PlayerShipCreateDto.Builder().player(playerId).ship(ship.getShip()).build());
         }
         Either<Error, PlayerShipDto> ship = playerShipFacade
@@ -66,8 +66,8 @@ class PlayerShipFacadeTest {
     void test3() {
         // Given
         PlayerDto playerId = playerLoader.loadFirstPlayer();
-        ShipPointsDto firstBattleship = shipsLoader.createBattleshipE10Up();
-        ShipPointsDto secondBattleship = shipsLoader.createBattleshipE10Up();
+        ShipWithPointsDto firstBattleship = shipsLoader.createBattleshipE10Up();
+        ShipWithPointsDto secondBattleship = shipsLoader.createBattleshipE10Up();
         playerShipFacade
                 .create(new PlayerShipCreateDto.Builder().ship(firstBattleship.getShip()).player(playerId).build());
 
@@ -83,8 +83,8 @@ class PlayerShipFacadeTest {
     void test4() {
         // Given
         PlayerDto playerId = playerLoader.loadFirstPlayer();
-        ShipPointsDto firstBattleship = shipsLoader.createCarrierJ10Up();
-        ShipPointsDto secondBattleship = shipsLoader.createBattleshipToClose();
+        ShipWithPointsDto firstBattleship = shipsLoader.createCarrierJ10Up();
+        ShipWithPointsDto secondBattleship = shipsLoader.createBattleshipToClose();
         playerShipFacade
                 .create(new PlayerShipCreateDto.Builder().ship(firstBattleship.getShip()).player(playerId).build());
 

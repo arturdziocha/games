@@ -1,7 +1,7 @@
 package com.ara.game.usecases.battleship.playerShips;
 
 import com.ara.game.usecases.battleship.playerShips.port.PlayerShipGateway;
-import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
+import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 import com.ara.game.usecases.common.Error;
 import io.vavr.collection.Set;
 import io.vavr.control.Either;
@@ -14,7 +14,7 @@ final class Finder {
         this.playerShipGateway = playerShipGateway;
     }
 
-    Either<Error, Set<ShipPointsDto>> findAll(final String playerId) {
+    Either<Error, Set<ShipWithPointsDto>> findAll(final String playerId) {
         if (StringUtils.isBlank(playerId)) {
             return Either.left(PlayerShipError.PLAYER_NOT_SPECIFIED);
         }

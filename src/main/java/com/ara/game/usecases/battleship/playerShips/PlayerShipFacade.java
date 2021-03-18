@@ -5,7 +5,7 @@ import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipCreateDto;
 import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipDto;
 import com.ara.game.usecases.battleship.playerShips.port.PlayerShipGateway;
 import com.ara.game.usecases.battleship.ship.port.ShipGateway;
-import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
+import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Inject;
@@ -29,7 +29,7 @@ public class PlayerShipFacade {
         return creator.create(inputData);
     }
 
-    public Either<Error, Set<ShipPointsDto>> find(final String playerId) {
+    public Either<Error, Set<ShipWithPointsDto>> find(final String playerId) {
         return finder.findAll(playerId);
     }
 

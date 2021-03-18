@@ -1,12 +1,12 @@
 package com.ara.game.usecases.battleship.shipPoints;
 
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsCreateDto;
-import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
+import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 
 class Mapper {
 
-    public ShipPointsDto mapToDto(ShipPoints shipPoints) {
-        return new ShipPointsDto.Builder().ship(shipPoints.getShip()).points(shipPoints.getPoints()).build();
+    public ShipWithPointsDto mapToDto(ShipPoints shipPoints) {
+        return new ShipWithPointsDto.Builder().ship(shipPoints.getShip()).points(shipPoints.getPoints()).build();
     }
 
     public ShipPoints mapToEntity(ShipPointsCreateDto shipPoints) {

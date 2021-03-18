@@ -4,11 +4,11 @@ import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 import io.vavr.collection.Set;
 
-public class ShipPointsDto {
+public class ShipWithPointsDto {
     private final ShipDto ship;
     private final Set<PointDto> points;
 
-    private ShipPointsDto(Builder builder) {
+    private ShipWithPointsDto(Builder builder) {
         this.ship = builder.ship;
         this.points = builder.points;
     }
@@ -43,8 +43,8 @@ public class ShipPointsDto {
             return this;
         }
 
-        public ShipPointsDto build() {
-            return new ShipPointsDto(this);
+        public ShipWithPointsDto build() {
+            return new ShipWithPointsDto(this);
         }
     }
 }

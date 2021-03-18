@@ -12,14 +12,14 @@ final class Validator {
         if (inputData == null) {
             return Option.some(PlayerError.DATA_CANNOT_BE_EMPTY);
         }
-        if (playerGateway.findByName(inputData.getName()).isDefined()) {
-            return Option.some(PlayerError.PLAYER_NAME_ALREADY_EXISTS);
-        }
         if (StringUtils.isBlank(inputData.getName())) {
             return Option.some(PlayerError.PLAYER_NAME_CANNOT_BE_EMPTY);
         }
         if (inputData.getPlayerType() == null) {
             return Option.some(PlayerError.PLAYER_TYPE_CANNOT_BE_EMPTY);
+        }
+        if (playerGateway.findByName(inputData.getName()).isDefined()) {
+            return Option.some(PlayerError.PLAYER_NAME_ALREADY_EXISTS);
         }
         return Option.none();
     }

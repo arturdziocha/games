@@ -3,7 +3,7 @@ package adapter.repository.inmemory.port;
 import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipDto;
 import com.ara.game.usecases.battleship.playerShips.port.PlayerShipGateway;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
-import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
+import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 import com.google.inject.Inject;
 import io.vavr.collection.HashMap;
@@ -37,12 +37,12 @@ public final class PlayerShipsInMemoryGateway implements PlayerShipGateway {
     }
 
     @Override
-    public Option<Set<ShipPointsDto>> findAllShips(String playerId) {
+    public Option<Set<ShipWithPointsDto>> findAllShips(String playerId) {
         return entities.get(playerId).flatMap(shipPointsGateway::findAllById);
     }
 
     @Override
-    public Option<ShipPointsDto> findByPlayerIdAndShipClassShortName(String playerId, String shipClassShortName) {
+    public Option<ShipWithPointsDto> findByPlayerIdAndShipClassShortName(String playerId, String shipClassShortName) {
         Option<Set<String>> playerShips = entities.get(playerId);
         if (playerShips.isEmpty()) {
             return Option.none();
@@ -53,11 +53,11 @@ public final class PlayerShipsInMemoryGateway implements PlayerShipGateway {
     }
 
     @Override
-    public Option<ShipPointsDto> findByPlayerIdAndPointString(String playerId, String pointString) {
-        Option<Set<ShipPointsDto>> all = findAllShips(playerId);
+    public Option<ShipWithPointsDto> findByPlayerIdAndPointString(String playerId, String pointString) {
+        Option<Set<ShipWithPointsDto>> all = findAllShips(playerId);
         if (all.isDefined()) {
-            Set<ShipPointsDto> l = all.get();
-            for (ShipPointsDto ship : l) {
+            Set<ShipWithPointsDto> l = all.get();
+            for (ShipWithPointsDto ship : l) {
                 Option<PointDto> a = ship.getPoints().find(c -> c.getPointString().equals(pointString));
                 if (a.isDefined()) {
                     return Option.some(ship);

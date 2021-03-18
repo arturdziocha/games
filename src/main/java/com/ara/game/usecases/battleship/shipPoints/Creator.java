@@ -1,7 +1,7 @@
 package com.ara.game.usecases.battleship.shipPoints;
 
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsCreateDto;
-import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
+import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Inject;
@@ -25,20 +25,20 @@ class Creator {
         this.log = LoggerFactory.getLogger(Creator.class);
     }
 
-    Either<Error, ShipPointsDto> createPoints(ShipPointsCreateDto shipPoints) {
+    Either<Error, ShipWithPointsDto> createPoints(ShipPointsCreateDto shipPoints) {
         Option<Error> validation = validator.validateAll(shipPoints);
 
         return validation.isDefined() ? Either.left(validation.get()) : savePoints(mapper.mapToEntity(shipPoints));
     }
 
-    private Either<Error, ShipPointsDto> savePoints(ShipPoints shipPoints) {
+    private Either<Error, ShipWithPointsDto> savePoints(ShipPoints shipPoints) {
         return Try
                 .of(() -> save(shipPoints))
                 .onFailure(e -> log.error(e.getMessage()))
                 .toEither(ShipPointsError.PERSISTENCE_FAILED);
     }
 
-    private ShipPointsDto save(ShipPoints shipPoints) {
+    private ShipWithPointsDto save(ShipPoints shipPoints) {
         return shipPointsGateway.save(mapper.mapToDto(shipPoints));
     }
 }

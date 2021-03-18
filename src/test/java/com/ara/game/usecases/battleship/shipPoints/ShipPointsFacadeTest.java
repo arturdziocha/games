@@ -10,7 +10,7 @@ import com.ara.game.usecases.battleship.ship.ShipFacade;
 import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsCreateDto;
-import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
+import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Guice;
@@ -61,7 +61,7 @@ public class ShipPointsFacadeTest {
         Either<Error, SortedSet<PointDto>> findPoints = pointFacade.findAllById(pointsIds);
         // When
         shipPointsFacade.create(new ShipPointsCreateDto.Builder().points(findPoints.get()).ship(ship.get()).build());
-        Either<Error, ShipPointsDto> shipPoints = shipPointsFacade.find(ship.get().getId());
+        Either<Error, ShipWithPointsDto> shipPoints = shipPointsFacade.find(ship.get().getId());
         Set<String> shipPointsIds = shipPoints.get().getPoints().map(PointDto::getId);
         // Then
         assertThat(pointsIds).containsAll(shipPointsIds);

@@ -23,7 +23,7 @@ class Validator {
         if (inputData.getGame() == null) {
             return Option.some(GameError.GAME_CANNOT_BE_EMPTY);
         }
-        if (inputData.secondPlayer() == null) {
+        if (inputData.getSecondPlayer() == null) {
             return Option.some(GameError.PLAYER_DATA_CANNOT_BE_EMPTY);
         }
         return Option.none();

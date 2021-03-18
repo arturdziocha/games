@@ -2,18 +2,16 @@ package com.ara.game.usecases.battleship.game.dto;
 
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 
-import io.vavr.control.Option;
+import io.vavr.collection.Set;
 
 public final class GameDto {
     private final String id;
-    private final PlayerDto firstPlayer;
-    private final Option<PlayerDto> secondPlayer;
+    private final Set<PlayerDto> players;
     private final PlayerDto currentPlayer;
 
     public GameDto(Builder builder) {
         this.id = builder.id;
-        this.firstPlayer = builder.player;
-        this.secondPlayer = builder.secondPlayer;
+        this.players = builder.players;
         this.currentPlayer = builder.currentPlayer;
 
     }
@@ -22,13 +20,9 @@ public final class GameDto {
         return id;
     }
 
-    public PlayerDto getFirstPlayer() {
-        return firstPlayer;
-    }
-
-    public Option<PlayerDto> getSecondPlayer() {
-        return secondPlayer;
-    }
+    public Set<PlayerDto> getPlayers() {
+        return players;
+    }   
 
     public PlayerDto getCurrentPlayer() {
         return currentPlayer;
@@ -36,8 +30,7 @@ public final class GameDto {
 
     public static class Builder {
         private String id;
-        private PlayerDto player;
-        private Option<PlayerDto> secondPlayer;
+        private Set<PlayerDto> players;
         private PlayerDto currentPlayer;
 
 
@@ -46,15 +39,10 @@ public final class GameDto {
             return this;
         }
 
-        public Builder player(final PlayerDto player) {
-            this.player = player;
+        public Builder players(final Set<PlayerDto> players) {
+            this.players = players;
             return this;
-        }
-
-        public Builder secondPlayer(final Option<PlayerDto> secondPlayer) {
-            this.secondPlayer = secondPlayer;
-            return this;
-        }
+        }        
 
         public Builder currentPlayer(final PlayerDto currentPlayer) {
             this.currentPlayer = currentPlayer;

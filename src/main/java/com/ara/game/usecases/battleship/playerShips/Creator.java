@@ -7,7 +7,7 @@ import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipDto;
 import com.ara.game.usecases.battleship.playerShips.port.PlayerShipGateway;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.ship.port.ShipGateway;
-import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
+import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 import com.ara.game.usecases.common.Error;
 import io.vavr.collection.Set;
@@ -48,10 +48,10 @@ final class Creator {
             return Either.left(PlayerShipError.SHIP_ALREADY_PLACED);
         }
 
-        Option<Set<ShipPointsDto>> placedShips = playerShipGateway.findAllShips(inputData.getPlayer().getId());
-        Option<ShipPointsDto> ship = shipPointsGateway.findById(inputData.getShip().getId());
+        Option<Set<ShipWithPointsDto>> placedShips = playerShipGateway.findAllShips(inputData.getPlayer().getId());
+        Option<ShipWithPointsDto> ship = shipPointsGateway.findById(inputData.getShip().getId());
         if (placedShips.isDefined()) {
-            Set<ShipPointsDto> alreadyPlacedPoints = placedShips.get();
+            Set<ShipWithPointsDto> alreadyPlacedPoints = placedShips.get();
             if (isToCloseTo(alreadyPlacedPoints, ship.get().getPoints())) {
                 removeShip(inputData.getShip().getId());
                 return Either.left(PlayerShipError.SHIP_IS_TO_CLOSE_OTHER);
@@ -73,7 +73,7 @@ final class Creator {
     }
 
     boolean isAllShipsPlaced(PlayerDto player) {
-        Option<Set<ShipPointsDto>> alreadyPlacedShips = playerShipGateway.findAllShips(player.getId());
+        Option<Set<ShipWithPointsDto>> alreadyPlacedShips = playerShipGateway.findAllShips(player.getId());
         if (alreadyPlacedShips.isEmpty()) {
             return false;
         }
@@ -97,8 +97,8 @@ final class Creator {
         shipGateway.remove(shipId);
     }
 
-    private boolean isToCloseTo(Set<ShipPointsDto> placedShips, Set<PointDto> shipPoints) {
-        Set<PointDto> placed = placedShips.flatMap(ShipPointsDto::getPoints);
+    private boolean isToCloseTo(Set<ShipWithPointsDto> placedShips, Set<PointDto> shipPoints) {
+        Set<PointDto> placed = placedShips.flatMap(ShipWithPointsDto::getPoints);
         for (PointDto point : placed) {
             for (PointDto shipPoint : shipPoints) {
                 if (isNeighbor(point, shipPoint)) {

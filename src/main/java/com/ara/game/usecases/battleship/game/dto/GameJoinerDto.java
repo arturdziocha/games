@@ -17,7 +17,7 @@ public final class GameJoinerDto {
         return game;
     }
 
-    public Option<PlayerDto> secondPlayer() {
+    public Option<PlayerDto> getSecondPlayer() {
         return secondPlayer;
     }
 

@@ -1,7 +1,7 @@
 package com.ara.game.usecases.battleship.shipPoints;
 
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsCreateDto;
-import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsDto;
+import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Inject;
@@ -19,11 +19,11 @@ public class ShipPointsFacade {
         this.creator = new Creator(shipPointsGateway);
     }
 
-    public Either<Error, ShipPointsDto> create(final ShipPointsCreateDto shipPoints) {
+    public Either<Error, ShipWithPointsDto> create(final ShipPointsCreateDto shipPoints) {
         return creator.createPoints(shipPoints);
     }
 
-    public Either<Error, ShipPointsDto> find(final String shipId) {
+    public Either<Error, ShipWithPointsDto> find(final String shipId) {
         return finder.find(shipId);
     }
 
