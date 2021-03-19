@@ -3,24 +3,24 @@ package adapter.repository.inmemory.entity;
 import com.ara.game.usecases.battleship.game.dto.GameDto;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 
-import io.vavr.control.Option;
+import io.vavr.collection.Set;
 
 public class GameMapper {
     public GameInMemory mapToEntity(GameDto game) {
         return new GameInMemory.Builder()
                 .id(game.getId())
-                .firstPlayer(game.getFirstPlayer().getId())
-                .secondPLayer(game.getSecondPlayer().isDefined()?game.getSecondPlayer().get().getId():"")
+                .players(game.getPlayers().map(PlayerDto::getId))
                 .currentPlayer(game.getCurrentPlayer().getId())
+                .isStarted(game.isStarted())
                 .build();
     }
 
-    public GameDto mapToDto(String gameId, PlayerDto firstPlayer, Option<PlayerDto> secondPlayer, PlayerDto currentPlayer) {
+    public GameDto mapToDto(GameInMemory game, Set<PlayerDto> players, PlayerDto currentPlayer) {
         return new GameDto.Builder()
-                .id(gameId)
-                .player(firstPlayer)
-                .secondPlayer(secondPlayer)
+                .id(game.getId())
+                .players(players)
                 .currentPlayer(currentPlayer)
+                .isStarted(game.isStarted())
                 .build();
     }
 }

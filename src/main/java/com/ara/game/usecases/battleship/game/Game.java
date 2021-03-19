@@ -20,6 +20,14 @@ final class Game extends Entity {
         return currentPlayer;
     }
 
+    public Set<PlayerDto> getPlayers() {
+        return players;
+    }
+
+    public boolean isStarted() {
+        return isStarted;
+    }
+
     static class Builder extends Entity.Builder<Builder> {
         private Set<PlayerDto> players;
         private PlayerDto currentPlayer;

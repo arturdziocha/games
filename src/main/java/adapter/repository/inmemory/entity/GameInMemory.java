@@ -1,49 +1,50 @@
 package adapter.repository.inmemory.entity;
 
 import adapter.repository.inmemory.EntityInMemory;
+import io.vavr.collection.Set;
 
 public final class GameInMemory extends EntityInMemory {
-    private final String firstPlayer;
-    private final String secondPlayer;
+    private final Set<String> players;
     private final String currentPlayer;
+    private final boolean isStarted;
 
     private GameInMemory(Builder builder) {
         super(builder);
-        this.firstPlayer = builder.firstPlayer;
-        this.secondPlayer = builder.secondPlayer;
+        this.players = builder.players;
         this.currentPlayer = builder.currentPlayer;
+        this.isStarted = builder.isStarted;
     }
 
-    public String getFirstPlayer() {
-        return firstPlayer;
-    }
-
-    public String getSecondPlayer() {
-        return secondPlayer;
+    public Set<String> getPlayers() {
+        return players;
     }
 
     public String getCurrentPlayer() {
         return currentPlayer;
     }
 
+    public boolean isStarted() {
+        return isStarted;
+    }
+
     public static class Builder extends EntityInMemory.Builder<Builder> {
-        private String firstPlayer;
-        private String secondPlayer;
+        private Set<String> players;
         private String currentPlayer;
+        private boolean isStarted;
 
-        public Builder firstPlayer(final String firstPlayer) {
-            this.firstPlayer = firstPlayer;
-            return self();
-        }
-
-        public Builder secondPLayer(final String secondPlayer) {
-            this.secondPlayer = secondPlayer;
+        public Builder players(final Set<String> players) {
+            this.players = players;
             return self();
         }
 
         public Builder currentPlayer(final String currentPlayer) {
             this.currentPlayer = currentPlayer;
             return self();
+        }
+
+        public Builder isStarted(final boolean isStarted) {
+            this.isStarted = isStarted;
+            return this;
         }
 
         @Override

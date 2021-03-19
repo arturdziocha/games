@@ -9,6 +9,7 @@ import adapter.repository.inmemory.entity.GameInMemory;
 import adapter.repository.inmemory.entity.GameMapper;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
+import io.vavr.collection.Set;
 import io.vavr.control.Option;
 
 public class GameInMemoryGateway implements GameGateway {
@@ -42,11 +43,11 @@ public class GameInMemoryGateway implements GameGateway {
             return Option.none();
         }
         GameInMemory gameInMemory = find.get();
-        Option<PlayerDto> firstPlayer = playerGateway.findById(gameInMemory.getFirstPlayer());
+        Set<PlayerDto> players = gameInMemory.getPlayers().flatMap(playerGateway::findById);
+
         Option<PlayerDto> currentPlayer = playerGateway.findById(gameInMemory.getCurrentPlayer());
-        if (firstPlayer.isDefined() && currentPlayer.isDefined()) {
-            Option<PlayerDto> secondPlayer = playerGateway.findById(gameInMemory.getSecondPlayer());
-            return Option.of(mapper.mapToDto(gameId, firstPlayer.get(), secondPlayer, currentPlayer.get()));
+        if (currentPlayer.isDefined()) {
+            return Option.of(mapper.mapToDto(gameInMemory, players, currentPlayer.get()));
         }
         return Option.none();
     }
@@ -55,5 +56,5 @@ public class GameInMemoryGateway implements GameGateway {
     public void remove(String gameId) {
         // TODO Auto-generated method stub
 
-    } 
+    }
 }

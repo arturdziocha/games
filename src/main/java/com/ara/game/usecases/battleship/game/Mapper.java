@@ -3,15 +3,16 @@ package com.ara.game.usecases.battleship.game;
 import com.ara.game.usecases.battleship.game.dto.GameCreateDto;
 import com.ara.game.usecases.battleship.game.dto.GameDto;
 import com.ara.game.usecases.common.CreateDto;
-import io.vavr.control.Option;
+
+import io.vavr.collection.HashSet;
 
 final class Mapper {
     GameDto mapToDto(Game game) {
         return new GameDto.Builder()
                 .id(game.getId())
-                .player(game.getPlayer())
-                .secondPlayer(game.getSecondPLayer())
+                .players(game.getPlayers())
                 .currentPlayer(game.getCurrentPlayer())
+                .isStarted(game.isStarted())
                 .build();
     }
 
@@ -20,6 +21,11 @@ final class Mapper {
     }
 
     public Game mapToCreateEntity(String id, GameCreateDto inputData) {
-        return new Game.Builder().id(id).player(inputData.getFirstPlayer()).secondPlayer(Option.none()).currentPlayer(inputData.getFirstPlayer()).build();
+        return new Game.Builder()
+                .id(id)
+                .players(HashSet.of(inputData.getFirstPlayer()))
+                .currentPlayer(inputData.getFirstPlayer())
+                .isStarted(false)
+                .build();
     }
 }
