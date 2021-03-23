@@ -1,4 +1,4 @@
-package com.ara.game.usecases.battleship.resources;
+package com.ara.game.usecases.battleship.dataLoader;
 
 import com.ara.game.usecases.battleship.point.PointFacade;
 import com.ara.game.usecases.battleship.point.dto.PointCreateStringDto;

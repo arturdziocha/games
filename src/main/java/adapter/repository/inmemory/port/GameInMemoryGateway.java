@@ -4,6 +4,7 @@ import com.ara.game.usecases.battleship.game.dto.GameDto;
 import com.ara.game.usecases.battleship.game.port.GameGateway;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.battleship.player.port.PlayerGateway;
+import com.google.inject.Inject;
 
 import adapter.repository.inmemory.entity.GameInMemory;
 import adapter.repository.inmemory.entity.GameMapper;
@@ -17,6 +18,7 @@ public class GameInMemoryGateway implements GameGateway {
     private final PlayerGateway playerGateway;
     private Map<String, GameInMemory> entities;
 
+    @Inject
     public GameInMemoryGateway(final PlayerGateway playerGateway) {
         this.playerGateway = playerGateway;
         this.mapper = new GameMapper();

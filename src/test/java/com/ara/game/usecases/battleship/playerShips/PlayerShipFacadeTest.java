@@ -1,10 +1,10 @@
 package com.ara.game.usecases.battleship.playerShips;
 
+import com.ara.game.usecases.battleship.dataLoader.PlayerLoader;
+import com.ara.game.usecases.battleship.dataLoader.ShipsCreator;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipCreateDto;
 import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipDto;
-import com.ara.game.usecases.battleship.resources.PlayerLoader;
-import com.ara.game.usecases.battleship.resources.ShipsCreator;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Guice;

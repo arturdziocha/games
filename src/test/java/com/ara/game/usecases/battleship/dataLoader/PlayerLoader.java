@@ -1,4 +1,4 @@
-package com.ara.game.usecases.battleship.resources;
+package com.ara.game.usecases.battleship.dataLoader;
 
 import com.ara.game.usecases.battleship.enums.PlayerType;
 import com.ara.game.usecases.battleship.player.PlayerFacade;

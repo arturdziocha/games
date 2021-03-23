@@ -26,7 +26,7 @@ class Creator {
     }
 
     Either<Error, ShipWithPointsDto> createPoints(ShipPointsCreateDto shipPoints) {
-        Option<Error> validation = validator.validateAll(shipPoints);
+        Option<Error> validation = validator.validate(shipPoints);
 
         return validation.isDefined() ? Either.left(validation.get()) : savePoints(mapper.mapToEntity(shipPoints));
     }

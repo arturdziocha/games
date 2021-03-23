@@ -6,13 +6,17 @@ import io.vavr.control.Option;
 
 final class Validator {
 
-    Option<Error> validateAll(final ShipPointsCreateDto inputData) {
+    Option<Error> validate(final ShipPointsCreateDto inputData) {
         if (inputData.getShip() == null) {
             return Option.some(ShipPointsError.SHIP_NOT_SPECIFIED);
+        }
+        if (inputData.getPoints() == null) {
+            return Option.some(ShipPointsError.POINTS_NOT_SPECIFIED);
         }
         if (inputData.getPoints().isEmpty()) {
             return Option.some(ShipPointsError.POINTS_NOT_SPECIFIED);
         }
+
         return Option.none();
     }
 

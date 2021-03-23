@@ -32,16 +32,7 @@ class PointFacadeTest {
         pointFacade = injector.getInstance(PointFacade.class);
     }
 
-    @Test
-    @DisplayName("Should return Either.left when inputData is null")
-    void test1() {
-        // Given
-        PointCreateStringDto inputData = null;
-        // When
-        Either<Error, CreateDto> point = pointFacade.create(inputData);
-        // Then
-        assertThat(point.getLeft().getCause()).isEqualTo("Data cannot be null");
-    }
+    
 
     @Test
     @DisplayName("Should return Either.left when pointString is null")
