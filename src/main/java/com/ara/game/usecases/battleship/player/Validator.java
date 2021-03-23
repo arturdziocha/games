@@ -7,8 +7,13 @@ import io.vavr.control.Option;
 import org.apache.commons.lang3.StringUtils;
 
 final class Validator {
+    private final PlayerGateway playerGateway;
 
-    public Option<Error> validate(PlayerCreateDto inputData, PlayerGateway playerGateway) {
+    Validator(final PlayerGateway playerGateway) {
+        this.playerGateway = playerGateway;
+    }
+
+    public Option<Error> validate(PlayerCreateDto inputData) {
         if (inputData == null) {
             return Option.some(PlayerError.DATA_CANNOT_BE_EMPTY);
         }
