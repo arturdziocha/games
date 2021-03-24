@@ -22,15 +22,17 @@ final class Creator {
     public Creator(final PlayerGateway playerGateway, final IdGenerator idGenerator) {
         this.playerGateway = playerGateway;
         this.idGenerator = idGenerator;
-        this.validator = new Validator(playerGateway);
+        this.validator = new Validator();
         this.mapper = new Mapper();
         this.log = LoggerFactory.getLogger(Creator.class);
     }
-//TODO check already existst name
+
     Either<Error, CreateDto> create(PlayerCreateDto inputData) {
         Option<Error> validation = validator.validate(inputData);
         return validation.isDefined() ? Either.left(validation.get())
-                : savePlayer(mapper.mapToEntity(idGenerator.generate(), inputData));
+                : playerGateway.findByName(inputData.getName()).isDefined()
+                        ? Either.left(PlayerError.PLAYER_NAME_ALREADY_EXISTS)
+                        : savePlayer(mapper.mapToEntity(idGenerator.generate(), inputData));
 
     }
 

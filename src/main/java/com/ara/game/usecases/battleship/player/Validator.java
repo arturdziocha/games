@@ -1,18 +1,13 @@
 package com.ara.game.usecases.battleship.player;
 
-import com.ara.game.usecases.battleship.player.dto.PlayerCreateDto;
-import com.ara.game.usecases.battleship.player.port.PlayerGateway;
-import com.ara.game.usecases.common.Error;
-import io.vavr.control.Option;
 import org.apache.commons.lang3.StringUtils;
 
+import com.ara.game.usecases.battleship.player.dto.PlayerCreateDto;
+import com.ara.game.usecases.common.Error;
+
+import io.vavr.control.Option;
+
 final class Validator {
-    private final PlayerGateway playerGateway;
-
-    Validator(final PlayerGateway playerGateway) {
-        this.playerGateway = playerGateway;
-    }
-
     public Option<Error> validate(PlayerCreateDto inputData) {
         if (inputData == null) {
             return Option.some(PlayerError.DATA_CANNOT_BE_EMPTY);
@@ -22,10 +17,7 @@ final class Validator {
         }
         if (inputData.getPlayerType() == null) {
             return Option.some(PlayerError.PLAYER_TYPE_CANNOT_BE_EMPTY);
-        }
-        if (playerGateway.findByName(inputData.getName()).isDefined()) {
-            return Option.some(PlayerError.PLAYER_NAME_ALREADY_EXISTS);
-        }
+        }        
         return Option.none();
     }
 }
