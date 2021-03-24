@@ -29,8 +29,8 @@ final class Creator {
 
     Either<Error, CreateDto> create(final GameCreateDto inputData) {
         Option<Error> validated = validator.validateCreate(inputData);
-        return validated.isDefined() ? Either.left(validated.get()) : saveGame(mapper.mapToCreateEntity(idGenerator.generate()
-                , inputData));
+        return validated.isDefined() ? Either.left(validated.get())
+                : saveGame(mapper.mapToCreateEntity(idGenerator.generate(), inputData));
     }
 
     private Either<Error, CreateDto> saveGame(Game game) {

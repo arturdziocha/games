@@ -12,7 +12,7 @@ final class Validator {
         if (playerShip.getPlayer() == null) {
             return Option.some(PlayerShipError.PLAYER_NOT_SPECIFIED);
         }
-        if (playerShip.getShip() == null) {
+        if (playerShip.getShipWithPoints() == null) {
             return Option.some(PlayerShipError.SHIP_NOT_SPECIFIED);
         }
         return Option.none();
