@@ -37,8 +37,8 @@ final class PointsCreator {
             Either<Error, DirectionStrategy> direction = getDirection(pointsCreateInputData.getDirection());
             if (direction.isRight()) {
                 RowColumn rowColumn = calculate(direction.get(), new RowColumn(
-                                pointsCreateInputData.getPoint().getRow(), pointsCreateInputData.getPoint().getColumn()),
-                        i);
+                        pointsCreateInputData.getPoint().getRow(), pointsCreateInputData.getPoint().getColumn()),
+                    i);
                 Either<Error, CreateDto> created = finder
                         .findByRowAndColumn(rowColumn.getRow(), rowColumn.getColumn())
                         .map(p -> new CreateDto.Builder().id(p.getId()).build())

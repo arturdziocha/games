@@ -32,11 +32,9 @@ class PointFacadeTest {
         pointFacade = injector.getInstance(PointFacade.class);
     }
 
-
-
     @Test
     @DisplayName("Should create and save valid point from string")
-    void test4() {
+    void test1() {
         // Given
         PointCreateStringDto inputData = new PointCreateStringDto.Builder().pointString("a2").build();
 
@@ -50,43 +48,8 @@ class PointFacadeTest {
     }
 
     @Test
-    @DisplayName("Should return Either.left Point string cannot be parsed")
-    void test5() {
-        // Given
-        PointCreateStringDto inputData = new PointCreateStringDto.Builder().pointString("aa2").build();
-
-        // When
-        Either<Error, CreateDto> point = pointFacade.create(inputData);
-
-        // Then
-        assertThat(point.getLeft().getCause()).isEqualTo("Point string cannot be parsed");
-    }
-
-    @Test
-    @DisplayName("Should return Either.left When column is null")
-    void test6() {
-        // Given
-        PointCreateRowColDto inputData = new PointCreateRowColDto.Builder().row(1).column(null).build();
-        // When
-        Either<Error, CreateDto> point = pointFacade.create(inputData);
-        // Then
-        assertThat(point.getLeft().getCause()).isEqualTo("Column cannot be null");
-    }
-
-    @Test
-    @DisplayName("Should return Either.left When column is negative")
-    void test7() {
-        // Given
-        PointCreateRowColDto inputData = new PointCreateRowColDto.Builder().row(1).column(-1).build();
-        // When
-        Either<Error, CreateDto> point = pointFacade.create(inputData);
-        // Then
-        assertThat(point.getLeft().getCause()).isEqualTo("Column cannot be negative");
-    }
-
-    @Test
     @DisplayName("Should create and save valid point from row=1, column=2")
-    void test8() {
+    void test2() {
         // Given
         PointCreateRowColDto inputData = new PointCreateRowColDto.Builder().row(1).column(2).build();
 
@@ -100,17 +63,7 @@ class PointFacadeTest {
         assertThat(point.get().getColumn()).isEqualByComparingTo(2);
     }
 
-    @Test
-    @DisplayName("Should return Either.left Wrong column specified when row=40, column=1")
-    void test9() {
-        // Given
-        PointCreateRowColDto inputData = new PointCreateRowColDto.Builder().row(1).column(40).build();
-        // When
-        Either<Error, CreateDto> pointId = pointFacade.create(inputData);
-
-        // Then
-        assertThat(pointId.getLeft().getCause()).isEqualTo("Wrong column specified");
-    }
+    
 
     @Test
     @DisplayName("Should create 4 points down")
