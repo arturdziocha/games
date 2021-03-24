@@ -10,7 +10,7 @@ final class Remover {
     }
 
     void remove(final String playerId) {
-        playerShipGateway.remove(playerId);
+        playerShipGateway.removeAll(playerId);
     }
 
 }

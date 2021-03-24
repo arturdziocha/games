@@ -28,8 +28,9 @@ public class ShipInMemoryGateway implements ShipGateway {
     }
 
     @Override
-    public void update(final ShipDto shipDto) {
+    public ShipDto update(final ShipDto shipDto) {
         entities = entities.replaceValue(shipDto.getId(), mapper.mapToEntity(shipDto));
+        return shipDto;
     }
 
     @Override
@@ -60,8 +61,9 @@ public class ShipInMemoryGateway implements ShipGateway {
     }
 
     @Override
-    public void remove(String id) {
+    public String remove(String id) {
         entities = entities.remove(id);
+        return id;
     }
 
 

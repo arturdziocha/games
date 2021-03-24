@@ -16,5 +16,5 @@ public interface PointGateway {
 
     Option<SortedSet<PointDto>> findAllById(Set<String> points);
 
-    void removeAll(Set<String> points);
+    Set<String> removeAll(Set<String> points);
 }

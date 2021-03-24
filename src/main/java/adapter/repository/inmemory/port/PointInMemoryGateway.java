@@ -53,8 +53,8 @@ public class PointInMemoryGateway implements PointGateway {
     }
 
     @Override
-    public void removeAll(Set<String> points) {
-        entities.removeAll(points);
-
+    public Set<String> removeAll(Set<String> points) {        
+        entities = entities.removeAll(points);
+        return points;
     }
 }

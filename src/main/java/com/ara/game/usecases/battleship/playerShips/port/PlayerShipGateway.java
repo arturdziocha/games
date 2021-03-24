@@ -13,7 +13,7 @@ public interface PlayerShipGateway {
 
     Option<ShipWithPointsDto> findByPlayerIdAndShipClassShortName(String playerId, String shipClassShortName);
 
-    void remove(String playerId);
+    Set<String> removeAll(String playerId);
 
     Option<ShipWithPointsDto> findByPlayerIdAndPointString(String playerId, String pointString);
 

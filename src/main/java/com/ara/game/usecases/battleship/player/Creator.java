@@ -26,7 +26,7 @@ final class Creator {
         this.mapper = new Mapper();
         this.log = LoggerFactory.getLogger(Creator.class);
     }
-
+//TODO check already existst name
     Either<Error, CreateDto> create(PlayerCreateDto inputData) {
         Option<Error> validation = validator.validate(inputData);
         return validation.isDefined() ? Either.left(validation.get())

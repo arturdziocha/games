@@ -6,6 +6,7 @@ import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 import com.google.inject.Inject;
+
 import io.vavr.collection.HashMap;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Map;
@@ -68,10 +69,11 @@ public final class PlayerShipsInMemoryGateway implements PlayerShipGateway {
     }
 
     @Override
-    public void remove(String playerId) {
-        // TODO Auto-generated method stub
+    public Set<String> removeAll(String playerId) {
+        Set<String> ids = entities.getOrElse(playerId, HashSet.empty());
+        entities = entities.remove(playerId);
+        return ids;
 
     }
-
 
 }

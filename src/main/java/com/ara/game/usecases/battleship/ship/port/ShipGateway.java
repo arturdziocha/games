@@ -11,7 +11,7 @@ public interface ShipGateway {
 
     Option<Set<ShipDto>> findAllById(Set<String> shipsId);
 
-    void remove(String id);
+    String remove(String id);
 
-    void update(ShipDto build);
+    ShipDto update(ShipDto build);
 }

@@ -33,9 +33,14 @@ public class PlayerInMemoryGateway implements PlayerGateway {
         return inputData;
     }
 
+    @Override
+    public String remove(String id) {
+        entities = entities.remove(id);
+        return id;
+    }
+
     private Option<PlayerDto> mapperHelper(PlayerInMemory player) {
         return PlayerType.findById(player.getPlayerTypeId()).map(pT -> mapper.mapToDto(player, pT));
     }
-
 
 }

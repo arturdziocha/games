@@ -1,12 +1,13 @@
 package adapter.repository.inmemory.port;
 
-import adapter.repository.inmemory.entity.ShipPointsMapper;
 import com.ara.game.usecases.battleship.point.port.PointGateway;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 import com.ara.game.usecases.battleship.ship.port.ShipGateway;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 import com.google.inject.Inject;
+
+import adapter.repository.inmemory.entity.ShipPointsMapper;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Map;
@@ -65,8 +66,10 @@ public class ShipPointsInMemoryGateway implements ShipPointsGateway {
     }
 
     @Override
-    public void remove(String shipId) {
+    public Set<String> remove(String shipId) {
+        Set<String> ids = entities.getOrElse(shipId, HashSet.empty());
         entities = entities.remove(shipId);
+        return ids;
     }
 
 }

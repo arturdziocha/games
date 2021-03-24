@@ -10,7 +10,7 @@ public interface ShipPointsGateway {
 
     Option<ShipWithPointsDto> findById(String shipId);
 
-    void remove(String shipId);
+    Set<String> remove(String shipId);
 
     Option<Set<ShipWithPointsDto>> findAllById(Set<String> shipsIds);
 }
