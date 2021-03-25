@@ -5,11 +5,11 @@ import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 
 public class PlayerShipCreateDto {
     private final PlayerDto player;
-    private final ShipWithPointsDto getShipWithPoints;
+    private final ShipWithPointsDto shipWithPoints;
 
     private PlayerShipCreateDto(Builder builder) {
         this.player = builder.player;
-        this.getShipWithPoints = builder.ship;
+        this.shipWithPoints = builder.ship;
     }
 
     public PlayerDto getPlayer() {
@@ -17,7 +17,7 @@ public class PlayerShipCreateDto {
     }
 
     public ShipWithPointsDto getShipWithPoints() {
-        return getShipWithPoints;
+        return shipWithPoints;
     }
 
     public static class Builder {
