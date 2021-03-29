@@ -10,7 +10,7 @@ public final class GameDto {
     private final PlayerDto currentPlayer;
     private final boolean isStarted;
 
-    public GameDto(Builder builder) {
+    private GameDto(Builder builder) {
         this.id = builder.id;
         this.players = builder.players;
         this.currentPlayer = builder.currentPlayer;
