@@ -63,7 +63,7 @@ class ValidatorTest {
         assertThat(validated.get()).isEqualTo(GameError.DATA_CANNOT_BE_EMPTY);
     }
 
-    @DisplayName("Should return GameError.GAME_CANNOT_BE_EMPTY when joinig and  game  is null")
+    @DisplayName("Should return GameError.GAME_CANNOT_BE_EMPTY when joining and  game  is null")
     @Test
     void test4() {
         // Given
@@ -74,7 +74,7 @@ class ValidatorTest {
         assertThat(validated.get()).isEqualTo(GameError.GAME_CANNOT_BE_EMPTY);
     }
 
-    @DisplayName("Should return GameError.PLAYER_DATA_CANNOT_BE_EMPTY when joinig and player joiner data is null")
+    @DisplayName("Should return GameError.PLAYER_DATA_CANNOT_BE_EMPTY when joining and player joiner data is null")
     @Test
     void test5() {
         PlayerDto firstPlayer = playerLoader.loadFirstPlayer();
