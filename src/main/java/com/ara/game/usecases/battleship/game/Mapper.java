@@ -15,6 +15,7 @@ final class Mapper {
                 .size(game.getSize())
                 .currentPlayer(game.getCurrentPlayer())
                 .isStarted(game.isStarted())
+                .isFinished(game.isFinished())
                 .build();
     }
 
@@ -28,6 +29,7 @@ final class Mapper {
                 .players(HashSet.of(inputData.getFirstPlayer()))
                 .currentPlayer(inputData.getFirstPlayer())
                 .isStarted(false)
+                .isFinished(false)
                 .build();
     }
 
@@ -38,6 +40,7 @@ final class Mapper {
                 .size(game.getSize())
                 .currentPlayer(game.getCurrentPlayer())
                 .isStarted(game.isStarted())
+                .isFinished(game.isFinished())
                 .build();
     }
 }

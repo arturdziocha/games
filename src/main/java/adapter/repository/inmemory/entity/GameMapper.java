@@ -12,6 +12,8 @@ public class GameMapper {
                 .players(game.getPlayers().map(PlayerDto::getId))
                 .currentPlayer(game.getCurrentPlayer().getId())
                 .isStarted(game.isStarted())
+                .size(game.getSize())
+                .isFinished(game.isFinished())
                 .build();
     }
 
@@ -21,6 +23,8 @@ public class GameMapper {
                 .players(players)
                 .currentPlayer(currentPlayer)
                 .isStarted(game.isStarted())
+                .size(game.getSize())
+                .isFinished(game.isFinished())
                 .build();
     }
 }

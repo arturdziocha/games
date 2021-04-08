@@ -10,6 +10,7 @@ public final class GameDto {
     private final Integer size;
     private final PlayerDto currentPlayer;
     private final boolean isStarted;
+    private final boolean isFinished;
 
     private GameDto(Builder builder) {
         this.id = builder.id;
@@ -17,6 +18,7 @@ public final class GameDto {
         this.size = builder.size;
         this.currentPlayer = builder.currentPlayer;
         this.isStarted = builder.isStarted;
+        this.isFinished = builder.isFinished;
     }
 
     public String getId() {
@@ -38,6 +40,9 @@ public final class GameDto {
     public boolean isStarted() {
         return isStarted;
     }
+    public boolean isFinished() {
+        return isFinished;
+    }
 
     public static class Builder {
         private String id;
@@ -45,6 +50,7 @@ public final class GameDto {
         private Integer size;
         private PlayerDto currentPlayer;
         private boolean isStarted;
+        private boolean isFinished;
 
         public Builder id(final String id) {
             this.id = id;
@@ -68,6 +74,10 @@ public final class GameDto {
 
         public Builder isStarted(final boolean isStarted) {
             this.isStarted = isStarted;
+            return this;
+        }
+        public Builder isFinished(final boolean isFinished) {
+            this.isFinished = isFinished;
             return this;
         }
 

@@ -2,13 +2,15 @@ package com.ara.game.usecases.battleship.game;
 
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.common.domain.Entity;
-import io.vavr.collection.Set;
 
+import io.vavr.collection.Set;
+//TODO add start time and endtime;
 final class Game extends Entity {
     private final Set<PlayerDto> players;
     private final PlayerDto currentPlayer;
     private final Integer size;
     private final boolean isStarted;
+    private final boolean isFinished;
 
     private Game(Builder builder) {
         super(builder);
@@ -16,6 +18,7 @@ final class Game extends Entity {
         this.size = builder.size;
         this.currentPlayer = builder.currentPlayer;
         this.isStarted = builder.isStarted;
+        this.isFinished = builder.isFinished;
     }
 
     PlayerDto getCurrentPlayer() {
@@ -25,6 +28,7 @@ final class Game extends Entity {
     public Set<PlayerDto> getPlayers() {
         return players;
     }
+
     public Integer getSize() {
         return size;
     }
@@ -33,16 +37,22 @@ final class Game extends Entity {
         return isStarted;
     }
 
+    public boolean isFinished() {
+        return isFinished;
+    }
+
     static class Builder extends Entity.Builder<Builder> {
         private Set<PlayerDto> players;
         private Integer size;
         private PlayerDto currentPlayer;
         private boolean isStarted;
+        private boolean isFinished;
 
         Builder players(final Set<PlayerDto> players) {
             this.players = players;
             return self();
         }
+
         Builder size(final Integer size) {
             this.size = size;
             return self();
@@ -55,6 +65,11 @@ final class Game extends Entity {
 
         Builder isStarted(final boolean isStarted) {
             this.isStarted = isStarted;
+            return this;
+        }
+
+        Builder isFinished(final boolean isFinished) {
+            this.isFinished = isFinished;
             return this;
         }
 

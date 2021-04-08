@@ -6,6 +6,7 @@ import com.ara.game.usecases.common.Error;
 import io.vavr.control.Option;
 
 class Validator {
+    //TODO add validation to size between 8-12
     Option<Error> validateCreate(GameCreateDto inputData) {
         if (inputData == null) {
             return Option.some(GameError.DATA_CANNOT_BE_EMPTY);
