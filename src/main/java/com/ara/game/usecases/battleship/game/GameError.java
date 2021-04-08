@@ -7,7 +7,8 @@ enum GameError implements Error {
     PLAYER_DATA_CANNOT_BE_EMPTY("Player data cannot be empty"),
     PERSISTENCE_FAILED("Saving error"),
     GAME_CANNOT_BE_EMPTY("Game cannot be empty"),
-    CANNOT_FIND_GAME("Cannot find game");
+    CANNOT_FIND_GAME("Cannot find game"),
+    PLAYER_JOINER_HAS_THE_SAME_ID("Player to Join cannot have the same id as owner the game");
     private final String cause;
 
     GameError(String cause) {

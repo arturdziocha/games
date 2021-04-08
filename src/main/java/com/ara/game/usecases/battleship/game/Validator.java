@@ -26,6 +26,9 @@ class Validator {
         if (inputData.getPlayerToJoin() == null) {
             return Option.some(GameError.PLAYER_DATA_CANNOT_BE_EMPTY);
         }
+        if(inputData.getGame().getPlayers().contains(inputData.getPlayerToJoin())) {
+            return Option.some(GameError.PLAYER_JOINER_HAS_THE_SAME_ID);
+        }
         return Option.none();
     }
 }

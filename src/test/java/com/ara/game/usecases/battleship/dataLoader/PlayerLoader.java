@@ -29,6 +29,14 @@ public final class PlayerLoader {
         Either<Error, CreateDto> playerCreated = playerFacade.create(player);
         return playerFacade.find(playerCreated.get().getId()).get();
     }
+    public PlayerDto loadSecondPlayer() {
+        PlayerCreateDto player = new PlayerCreateDto.Builder()
+                .name("Jarek")
+                .playerType(PlayerType.HUMAN_PLAYER)
+                .build();
+        Either<Error, CreateDto> playerCreated = playerFacade.create(player);
+        return playerFacade.find(playerCreated.get().getId()).get();
+    }
 
     public Set<String> loadTwoPlayers() {
         PlayerCreateDto[] players = {

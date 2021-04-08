@@ -91,4 +91,21 @@ class ValidatorTest {
         // Then
         assertThat(validated.get()).isEqualTo(GameError.PLAYER_DATA_CANNOT_BE_EMPTY);
     }
+    @DisplayName("Should return GameError.PLAYER_JOINER_HAS_THE_SAME_ID when joining and player to join is the same as first player")
+    @Test
+    void test6() {
+        PlayerDto firstPlayer = playerLoader.loadFirstPlayer();
+        GameDto game = new GameDto.Builder()
+                .currentPlayer(firstPlayer)
+                .currentPlayer(firstPlayer)
+                .isStarted(false)
+                .players(HashSet.of(firstPlayer))
+                .build();
+        // Given
+        GameJoinerDto inputData = new GameJoinerDto.Builder().game(game).playerToJoin(firstPlayer).build();
+        // When
+        Option<Error> validated = validator.validateJoin(inputData);
+        // Then
+        assertThat(validated.get()).isEqualTo(GameError.PLAYER_JOINER_HAS_THE_SAME_ID);
+    }
 }
