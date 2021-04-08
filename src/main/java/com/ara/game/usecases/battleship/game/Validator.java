@@ -6,13 +6,18 @@ import com.ara.game.usecases.common.Error;
 import io.vavr.control.Option;
 
 class Validator {
-    //TODO add validation to size between 8-12
     Option<Error> validateCreate(GameCreateDto inputData) {
         if (inputData == null) {
             return Option.some(GameError.DATA_CANNOT_BE_EMPTY);
         }
         if (inputData.getFirstPlayer() == null) {
             return Option.some(GameError.PLAYER_DATA_CANNOT_BE_EMPTY);
+        }
+        if (inputData.getSize() < 8) {
+            return Option.some(GameError.TO_SMALL_BOARD_SIZE);
+        }
+        if (inputData.getSize() > 12) {
+            return Option.some(GameError.TO_BIG_BOARD);
         }
         return Option.none();
     }
@@ -27,7 +32,7 @@ class Validator {
         if (inputData.getPlayerToJoin() == null) {
             return Option.some(GameError.PLAYER_DATA_CANNOT_BE_EMPTY);
         }
-        if(inputData.getGame().getPlayers().contains(inputData.getPlayerToJoin())) {
+        if (inputData.getGame().getPlayers().contains(inputData.getPlayerToJoin())) {
             return Option.some(GameError.PLAYER_JOINER_HAS_THE_SAME_ID);
         }
         return Option.none();

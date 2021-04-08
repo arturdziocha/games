@@ -1,11 +1,5 @@
 package com.ara.game.usecases.battleship.game;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import com.ara.game.usecases.battleship.dataLoader.PlayerLoader;
 import com.ara.game.usecases.battleship.game.dto.GameCreateDto;
 import com.ara.game.usecases.battleship.game.dto.GameDto;
@@ -14,10 +8,14 @@ import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-
 import external.ConsoleModule;
 import io.vavr.collection.HashSet;
 import io.vavr.control.Option;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ValidatorTest {
     private Validator validator;
@@ -91,11 +89,13 @@ class ValidatorTest {
         // Then
         assertThat(validated.get()).isEqualTo(GameError.PLAYER_DATA_CANNOT_BE_EMPTY);
     }
+
     @DisplayName("Should return GameError.PLAYER_JOINER_HAS_THE_SAME_ID when joining and player to join is the same as first player")
     @Test
     void test6() {
         PlayerDto firstPlayer = playerLoader.loadFirstPlayer();
         GameDto game = new GameDto.Builder()
+                .id("12345")
                 .currentPlayer(firstPlayer)
                 .currentPlayer(firstPlayer)
                 .isStarted(false)
@@ -107,5 +107,28 @@ class ValidatorTest {
         Option<Error> validated = validator.validateJoin(inputData);
         // Then
         assertThat(validated.get()).isEqualTo(GameError.PLAYER_JOINER_HAS_THE_SAME_ID);
+    }
+
+    @DisplayName("Should return GameError.TO_SMALL_BOARD when creating the game")
+    @Test
+    void test7() {
+        // Given
+        PlayerDto firstPlayer = playerLoader.loadFirstPlayer();
+        GameCreateDto inputData = new GameCreateDto.Builder().firstPlayer(firstPlayer).size(7).build();
+        // When
+        Option<Error> validated = validator.validateCreate(inputData);
+        // Then
+        assertThat(validated.get()).isEqualTo(GameError.TO_SMALL_BOARD_SIZE);
+    }
+    @DisplayName("Should return GameError.TO_BIG_BOARD_SIZE when creating the game")
+    @Test
+    void test8() {
+        // Given
+        PlayerDto firstPlayer = playerLoader.loadFirstPlayer();
+        GameCreateDto inputData = new GameCreateDto.Builder().firstPlayer(firstPlayer).size(13).build();
+        // When
+        Option<Error> validated = validator.validateCreate(inputData);
+        // Then
+        assertThat(validated.get()).isEqualTo(GameError.TO_BIG_BOARD);
     }
 }

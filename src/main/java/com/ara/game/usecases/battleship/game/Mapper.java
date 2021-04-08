@@ -4,8 +4,9 @@ import com.ara.game.usecases.battleship.game.dto.GameCreateDto;
 import com.ara.game.usecases.battleship.game.dto.GameDto;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.common.CreateDto;
-
 import io.vavr.collection.HashSet;
+
+import java.time.LocalDateTime;
 
 final class Mapper {
     GameDto mapToDto(Game game) {
@@ -16,6 +17,7 @@ final class Mapper {
                 .currentPlayer(game.getCurrentPlayer())
                 .isStarted(game.isStarted())
                 .isFinished(game.isFinished())
+                .startTime(game.getStartTime())
                 .build();
     }
 
@@ -30,6 +32,7 @@ final class Mapper {
                 .currentPlayer(inputData.getFirstPlayer())
                 .isStarted(false)
                 .isFinished(false)
+                .startTime(LocalDateTime.now())
                 .build();
     }
 
@@ -41,6 +44,7 @@ final class Mapper {
                 .currentPlayer(game.getCurrentPlayer())
                 .isStarted(game.isStarted())
                 .isFinished(game.isFinished())
+                .startTime(game.getStartTime())
                 .build();
     }
 }

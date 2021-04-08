@@ -8,7 +8,9 @@ enum GameError implements Error {
     PERSISTENCE_FAILED("Saving error"),
     GAME_CANNOT_BE_EMPTY("Game cannot be empty"),
     CANNOT_FIND_GAME("Cannot find game"),
-    PLAYER_JOINER_HAS_THE_SAME_ID("Player to Join cannot have the same id as owner the game");
+    PLAYER_JOINER_HAS_THE_SAME_ID("Player to Join cannot have the same id as owner the game"),
+    TO_SMALL_BOARD_SIZE("To small board"),
+    TO_BIG_BOARD("To big board");
     private final String cause;
 
     GameError(String cause) {
