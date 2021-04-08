@@ -4,7 +4,8 @@ import com.ara.game.usecases.common.Error;
 
 enum ShotError implements Error {
     DATA_CANNOT_BE_EMPTY("Data cannot be empty"),
-    ALREADY_SHOOT("Already shoot"),
+    GAME_NOT_STARTED("Game not started"),
+    POINT_ALREADY_SHOOTED("Point is already shooted"),
     PLAYER_DATA_CANNOT_BE_EMPTY("Player data cannot be empty"),
     POINT_DATA_CANNOT_BE_EMPTY("Point data cannot be empty"),
     OPPONENT_DATA_CANNOT_BE_EMPTY("Opponent data cannot be empty"),

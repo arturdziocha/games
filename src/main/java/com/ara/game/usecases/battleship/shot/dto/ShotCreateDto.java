@@ -1,49 +1,36 @@
 package com.ara.game.usecases.battleship.shot.dto;
 
-import com.ara.game.usecases.battleship.player.dto.PlayerDto;
+import com.ara.game.usecases.battleship.game.dto.GameDto;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
 
 public class ShotCreateDto {
-
-    private final PlayerDto player;
+    private final GameDto game;
     private final PointDto point;
-    private final PlayerDto opponent;
 
     private ShotCreateDto(Builder builder) {
-        this.player = builder.player;
+        this.game = builder.game;
         this.point = builder.point;
-        this.opponent = builder.opponent;
     }
 
-    public PlayerDto getPlayer() {
-        return player;
+    public GameDto getGame() {
+        return game;
     }
 
     public PointDto getPoint() {
         return point;
     }
 
-    public PlayerDto getOpponent() {
-        return opponent;
-    }
-
     public static class Builder {
-        private PlayerDto player;
+        private GameDto game;
         private PointDto point;
-        private PlayerDto opponent;
 
-        public Builder player(final PlayerDto player) {
-            this.player = player;
+        public Builder game(final GameDto game) {
+            this.game = game;
             return this;
         }
 
         public Builder point(final PointDto point) {
             this.point = point;
-            return this;
-        }
-
-        public Builder opponent(final PlayerDto opponent) {
-            this.opponent = opponent;
             return this;
         }
 
