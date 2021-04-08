@@ -30,14 +30,9 @@ final class Joiner {
         if (validated.isDefined()) {
             return Either.left(validated.get());
         }
-        //TODO refactor to mapper
-        Game game = new Game.Builder()
-                .id(inputData.getGame().getId())
-                .players(inputData.getGame().getPlayers().add(inputData.getPlayerToJoin()))
-                .currentPlayer(inputData.getGame().getCurrentPlayer())
-                .isStarted(inputData.getGame().isStarted())
-                .build();
-        return updateGame(game);
+        // TODO refactor to mapper
+
+        return updateGame(mapper.mapToJoinEntity(inputData.getGame(), inputData.getPlayerToJoin()));
 
     }
 

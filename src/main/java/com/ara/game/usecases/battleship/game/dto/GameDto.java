@@ -7,12 +7,14 @@ import io.vavr.collection.Set;
 public final class GameDto {
     private final String id;
     private final Set<PlayerDto> players;
+    private final Integer size;
     private final PlayerDto currentPlayer;
     private final boolean isStarted;
 
     private GameDto(Builder builder) {
         this.id = builder.id;
         this.players = builder.players;
+        this.size = builder.size;
         this.currentPlayer = builder.currentPlayer;
         this.isStarted = builder.isStarted;
     }
@@ -23,6 +25,10 @@ public final class GameDto {
 
     public Set<PlayerDto> getPlayers() {
         return players;
+    }
+
+    public Integer getSize() {
+        return size;
     }
 
     public PlayerDto getCurrentPlayer() {
@@ -36,6 +42,7 @@ public final class GameDto {
     public static class Builder {
         private String id;
         private Set<PlayerDto> players;
+        private Integer size;
         private PlayerDto currentPlayer;
         private boolean isStarted;
 
@@ -46,6 +53,11 @@ public final class GameDto {
 
         public Builder players(final Set<PlayerDto> players) {
             this.players = players;
+            return this;
+        }
+
+        public Builder size(final Integer size) {
+            this.size = size;
             return this;
         }
 
