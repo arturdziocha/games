@@ -3,9 +3,7 @@ package com.ara.game.usecases.battleship.game;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.common.domain.Entity;
 import io.vavr.collection.Set;
-import jdk.vm.ci.meta.Local;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 final class Game extends Entity {
@@ -14,7 +12,7 @@ final class Game extends Entity {
     private final Integer size;
     private final boolean isStarted;
     private final boolean isFinished;
-    private final LocalDateTime startTime;
+    private final LocalDateTime createdTime;
 
     private Game(Builder builder) {
         super(builder);
@@ -23,7 +21,7 @@ final class Game extends Entity {
         this.size = builder.size;
         this.isStarted = builder.isStarted;
         this.isFinished = builder.isFinished;
-        this.startTime = builder.startTime;
+        this.createdTime = builder.createdTime;
     }
 
     PlayerDto getCurrentPlayer() {
@@ -46,8 +44,8 @@ final class Game extends Entity {
         return isFinished;
     }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
     }
 
     static class Builder extends Entity.Builder<Builder> {
@@ -56,7 +54,7 @@ final class Game extends Entity {
         private Integer size;
         private boolean isStarted;
         private boolean isFinished;
-        private LocalDateTime startTime;
+        private LocalDateTime createdTime;
 
         Builder players(final Set<PlayerDto> players) {
             this.players = players;
@@ -82,8 +80,9 @@ final class Game extends Entity {
             this.isFinished = isFinished;
             return self();
         }
-        Builder startTime(final LocalDateTime startTime){
-            this.startTime = startTime;
+
+        Builder createdTime(final LocalDateTime createdTime) {
+            this.createdTime = createdTime;
             return self();
         }
 

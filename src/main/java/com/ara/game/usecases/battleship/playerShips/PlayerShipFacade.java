@@ -8,7 +8,6 @@ import com.ara.game.usecases.battleship.ship.port.ShipGateway;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Inject;
-
 import io.vavr.collection.Set;
 import io.vavr.control.Either;
 

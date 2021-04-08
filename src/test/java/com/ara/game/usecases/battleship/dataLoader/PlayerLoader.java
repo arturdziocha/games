@@ -29,6 +29,7 @@ public final class PlayerLoader {
         Either<Error, CreateDto> playerCreated = playerFacade.create(player);
         return playerFacade.find(playerCreated.get().getId()).get();
     }
+
     public PlayerDto loadSecondPlayer() {
         PlayerCreateDto player = new PlayerCreateDto.Builder()
                 .name("Jarek")

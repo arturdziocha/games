@@ -25,31 +25,6 @@ public final class PlayerDto {
         return playerType;
     }
 
-    public static class Builder {
-        private String name;
-        private String id;
-        private PlayerType playerType;
-
-        public Builder id(final String id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder name(final String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Builder playerType(final PlayerType playerType) {
-            this.playerType = playerType;
-            return this;
-        }
-
-        public PlayerDto build() {
-            return new PlayerDto(this);
-        }
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -79,9 +54,32 @@ public final class PlayerDto {
                 return false;
         } else if (!name.equals(other.name))
             return false;
-        if (playerType != other.playerType)
-            return false;
-        return true;
+        return playerType == other.playerType;
+    }
+
+    public static class Builder {
+        private String name;
+        private String id;
+        private PlayerType playerType;
+
+        public Builder id(final String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder name(final String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder playerType(final PlayerType playerType) {
+            this.playerType = playerType;
+            return this;
+        }
+
+        public PlayerDto build() {
+            return new PlayerDto(this);
+        }
     }
 
 }

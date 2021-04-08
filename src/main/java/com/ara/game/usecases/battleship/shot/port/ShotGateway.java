@@ -13,7 +13,7 @@ public interface ShotGateway {
 
     Option<ShotDto> findByPointString(String player, String pointString);
 
-    void remove(String player, String point);
+    ShotDto remove(String player, String point);
 
     ShotDto update(ShotDto mapToDto);
 }

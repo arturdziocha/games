@@ -1,11 +1,9 @@
 package com.ara.game.usecases.battleship.player;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.ara.game.usecases.battleship.player.dto.PlayerCreateDto;
 import com.ara.game.usecases.common.Error;
-
 import io.vavr.control.Option;
+import org.apache.commons.lang3.StringUtils;
 
 final class Validator {
     public Option<Error> validate(PlayerCreateDto inputData) {
@@ -17,7 +15,7 @@ final class Validator {
         }
         if (inputData.getPlayerType() == null) {
             return Option.some(PlayerError.PLAYER_TYPE_CANNOT_BE_EMPTY);
-        }        
+        }
         return Option.none();
     }
 }

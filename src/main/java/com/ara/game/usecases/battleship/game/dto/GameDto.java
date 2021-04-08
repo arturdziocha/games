@@ -1,7 +1,6 @@
 package com.ara.game.usecases.battleship.game.dto;
 
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
-
 import io.vavr.collection.Set;
 
 import java.time.LocalDateTime;
@@ -13,7 +12,7 @@ public final class GameDto {
     private final PlayerDto currentPlayer;
     private final boolean isStarted;
     private final boolean isFinished;
-    private final LocalDateTime startTime;
+    private final LocalDateTime createdTime;
 
     private GameDto(Builder builder) {
         this.id = builder.id;
@@ -22,7 +21,7 @@ public final class GameDto {
         this.currentPlayer = builder.currentPlayer;
         this.isStarted = builder.isStarted;
         this.isFinished = builder.isFinished;
-        this.startTime = builder.startTime;
+        this.createdTime = builder.createdTime;
     }
 
     public String getId() {
@@ -44,12 +43,13 @@ public final class GameDto {
     public boolean isStarted() {
         return isStarted;
     }
+
     public boolean isFinished() {
         return isFinished;
     }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
     }
 
     public static class Builder {
@@ -59,7 +59,7 @@ public final class GameDto {
         private PlayerDto currentPlayer;
         private boolean isStarted;
         private boolean isFinished;
-        private LocalDateTime startTime;
+        private LocalDateTime createdTime;
 
         public Builder id(final String id) {
             this.id = id;
@@ -85,12 +85,14 @@ public final class GameDto {
             this.isStarted = isStarted;
             return this;
         }
+
         public Builder isFinished(final boolean isFinished) {
             this.isFinished = isFinished;
             return this;
         }
-        public Builder startTime(final LocalDateTime startTime){
-            this.startTime = startTime;
+
+        public Builder createdTime(final LocalDateTime createdTime) {
+            this.createdTime = createdTime;
             return this;
         }
 

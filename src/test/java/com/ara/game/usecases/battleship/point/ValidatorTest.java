@@ -1,16 +1,14 @@
 package com.ara.game.usecases.battleship.point;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
+import com.ara.game.usecases.battleship.point.dto.PointCreateStringDto;
+import com.ara.game.usecases.common.Error;
+import io.vavr.control.Option;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
-import com.ara.game.usecases.battleship.point.dto.PointCreateStringDto;
-import com.ara.game.usecases.common.Error;
-
-import io.vavr.control.Option;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ValidatorTest {
     private Validator validator;
@@ -121,6 +119,6 @@ class ValidatorTest {
 
         // Then
         assertThat(validated.get().getCause()).isEqualTo("Wrong column specified");
-    }    
+    }
 
 }

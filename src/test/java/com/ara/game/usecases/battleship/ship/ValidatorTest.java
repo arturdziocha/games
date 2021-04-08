@@ -1,23 +1,22 @@
 package com.ara.game.usecases.battleship.ship;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
+import com.ara.game.usecases.common.Error;
+import io.vavr.control.Option;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
-import com.ara.game.usecases.common.Error;
-
-import io.vavr.control.Option;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ValidatorTest {
     private Validator validator;
 
     @BeforeEach
-    void before() {      
+    void before() {
         this.validator = new Validator();
     }
+
     @Test
     @DisplayName("Should return Option<Error> when inputData is null")
     void test1() {

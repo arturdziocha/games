@@ -1,16 +1,14 @@
 package com.ara.game.usecases.battleship.game;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.ara.game.usecases.battleship.game.dto.GameDto;
 import com.ara.game.usecases.battleship.game.dto.GameJoinerDto;
 import com.ara.game.usecases.battleship.game.port.GameGateway;
 import com.ara.game.usecases.common.Error;
-
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class Joiner {
     private final GameGateway gameGateway;

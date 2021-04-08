@@ -3,17 +3,15 @@ package com.ara.game.usecases.battleship.point;
 import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
 import com.ara.game.usecases.battleship.point.dto.PointCreateStringDto;
 import com.ara.game.usecases.common.Error;
-
 import io.vavr.collection.List;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
-
 import org.apache.commons.lang3.StringUtils;
 
 class Validator {
     static final List<Character> chars = List
             .of('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
-                'W', 'X', 'Y', 'Z');
+                    'W', 'X', 'Y', 'Z');
 
     final Option<Error> validatePointString(final PointCreateStringDto inputData) {
 

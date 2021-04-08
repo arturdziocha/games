@@ -120,6 +120,7 @@ class ValidatorTest {
         // Then
         assertThat(validated.get()).isEqualTo(GameError.TO_SMALL_BOARD_SIZE);
     }
+
     @DisplayName("Should return GameError.TO_BIG_BOARD_SIZE when creating the game")
     @Test
     void test8() {

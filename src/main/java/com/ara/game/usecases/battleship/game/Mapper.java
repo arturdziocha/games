@@ -1,12 +1,8 @@
 package com.ara.game.usecases.battleship.game;
 
-import com.ara.game.usecases.battleship.game.dto.GameCreateDto;
 import com.ara.game.usecases.battleship.game.dto.GameDto;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.common.CreateDto;
-import io.vavr.collection.HashSet;
-
-import java.time.LocalDateTime;
 
 final class Mapper {
     GameDto mapToDto(Game game) {
@@ -17,23 +13,12 @@ final class Mapper {
                 .currentPlayer(game.getCurrentPlayer())
                 .isStarted(game.isStarted())
                 .isFinished(game.isFinished())
-                .startTime(game.getStartTime())
+                .createdTime(game.getCreatedTime())
                 .build();
     }
 
     CreateDto mapToCreateDto(GameDto game) {
         return new CreateDto.Builder().id(game.getId()).build();
-    }
-
-    public Game mapToCreateEntity(String id, GameCreateDto inputData) {
-        return new Game.Builder()
-                .id(id)
-                .players(HashSet.of(inputData.getFirstPlayer()))
-                .currentPlayer(inputData.getFirstPlayer())
-                .isStarted(false)
-                .isFinished(false)
-                .startTime(LocalDateTime.now())
-                .build();
     }
 
     public Game mapToJoinEntity(GameDto game, PlayerDto player) {
@@ -44,7 +29,7 @@ final class Mapper {
                 .currentPlayer(game.getCurrentPlayer())
                 .isStarted(game.isStarted())
                 .isFinished(game.isFinished())
-                .startTime(game.getStartTime())
+                .createdTime(game.getCreatedTime())
                 .build();
     }
 }

@@ -1,12 +1,10 @@
 package com.ara.game.usecases.battleship.game;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.ara.game.usecases.battleship.game.dto.GameDto;
 import com.ara.game.usecases.battleship.game.port.GameGateway;
 import com.ara.game.usecases.common.Error;
-
 import io.vavr.control.Either;
+import org.apache.commons.lang3.StringUtils;
 
 final class Finder {
     private final GameGateway gameGateway;

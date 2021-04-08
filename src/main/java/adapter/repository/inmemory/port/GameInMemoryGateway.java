@@ -1,13 +1,12 @@
 package adapter.repository.inmemory.port;
 
+import adapter.repository.inmemory.entity.GameInMemory;
+import adapter.repository.inmemory.entity.GameMapper;
 import com.ara.game.usecases.battleship.game.dto.GameDto;
 import com.ara.game.usecases.battleship.game.port.GameGateway;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.battleship.player.port.PlayerGateway;
 import com.google.inject.Inject;
-
-import adapter.repository.inmemory.entity.GameInMemory;
-import adapter.repository.inmemory.entity.GameMapper;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.Map;
 import io.vavr.collection.Set;

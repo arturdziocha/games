@@ -31,8 +31,8 @@ final class Creator {
         Option<Error> validation = validator.validate(inputData);
         return validation.isDefined() ? Either.left(validation.get())
                 : playerGateway.findByName(inputData.getName()).isDefined()
-                        ? Either.left(PlayerError.PLAYER_NAME_ALREADY_EXISTS)
-                        : savePlayer(mapper.mapToEntity(idGenerator.generate(), inputData));
+                ? Either.left(PlayerError.PLAYER_NAME_ALREADY_EXISTS)
+                : savePlayer(mapper.mapToEntity(idGenerator.generate(), inputData));
 
     }
 

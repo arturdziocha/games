@@ -1,8 +1,5 @@
 package com.ara.game.usecases.battleship.playerShips;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.ara.game.usecases.battleship.enums.ShipClass;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.battleship.playerShips.dto.PlayerShipCreateDto;
@@ -12,12 +9,13 @@ import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.ship.port.ShipGateway;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 import com.ara.game.usecases.common.Error;
-
 import io.vavr.collection.Set;
 import io.vavr.collection.TreeSet;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class Creator {
     private final PlayerShipGateway playerShipGateway;
@@ -83,7 +81,7 @@ final class Creator {
             shipClassesPlaced = shipClassesPlaced
                     .addAll(placedShips.get().map(q -> q.getShip().getShipClass().getShortName()));
         }
-        
+
 
         Set<String> shipClasses = ShipClass.findAllShortName();
         return shipClassesPlaced.containsAll(shipClasses);
@@ -92,7 +90,7 @@ final class Creator {
     private boolean isAlreadyPlaced(PlayerShipCreateDto inputData) {
         return playerShipGateway
                 .findByPlayerIdAndShipClassShortName(inputData.getPlayer().getId(),
-                    inputData.getShipWithPoints().getShip().getShipClass().getShortName())
+                        inputData.getShipWithPoints().getShip().getShipClass().getShortName())
                 .isDefined();
     }
 

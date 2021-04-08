@@ -16,6 +16,6 @@ class Mapper {
                 .row(point.getRow())
                 .column(point.getColumn())
                 .build();
-    }   
+    }
 
 }

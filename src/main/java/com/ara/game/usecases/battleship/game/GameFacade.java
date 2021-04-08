@@ -8,7 +8,6 @@ import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
 import com.google.inject.Inject;
-
 import io.vavr.control.Either;
 
 public class GameFacade {

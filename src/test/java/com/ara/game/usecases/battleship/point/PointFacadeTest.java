@@ -63,7 +63,6 @@ class PointFacadeTest {
         assertThat(point.get().getColumn()).isEqualByComparingTo(2);
     }
 
-    
 
     @Test
     @DisplayName("Should create 4 points down")

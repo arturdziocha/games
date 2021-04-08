@@ -1,8 +1,5 @@
 package com.ara.game.usecases.battleship.point;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
 import com.ara.game.usecases.battleship.point.dto.PointCreateStringDto;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
@@ -10,10 +7,11 @@ import com.ara.game.usecases.battleship.point.port.PointGateway;
 import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
-
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class Creator {
     private final PointGateway pointGateway;

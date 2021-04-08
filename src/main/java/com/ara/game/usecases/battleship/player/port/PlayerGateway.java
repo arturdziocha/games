@@ -9,6 +9,6 @@ public interface PlayerGateway {
     PlayerDto save(PlayerDto inputData);
 
     Option<PlayerDto> findByName(String name);
-    
+
     String remove(String id);
 }

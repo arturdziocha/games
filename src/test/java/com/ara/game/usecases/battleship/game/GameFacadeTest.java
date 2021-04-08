@@ -1,24 +1,22 @@
 package com.ara.game.usecases.battleship.game;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import com.ara.game.usecases.battleship.dataLoader.PlayerLoader;
 import com.ara.game.usecases.battleship.game.dto.GameCreateDto;
 import com.ara.game.usecases.battleship.game.dto.GameDto;
 import com.ara.game.usecases.battleship.game.dto.GameJoinerDto;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.common.CreateDto;
+import com.ara.game.usecases.common.Error;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-
 import external.ConsoleModule;
 import io.vavr.control.Either;
-import com.ara.game.usecases.common.Error;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GameFacadeTest {
     private GameFacade gameFacade;
@@ -43,16 +41,17 @@ class GameFacadeTest {
         assertTrue(created.isRight());
 
     }
+
     @Test
     @DisplayName("Should join to created game")
     void test2() {
         // Given
-        PlayerDto firstPlayer = playerLoader.loadFirstPlayer();        
-        PlayerDto secondPlayer = playerLoader.loadSecondPlayer();        
-        GameCreateDto inputData = new GameCreateDto.Builder().firstPlayer(firstPlayer).build();        
+        PlayerDto firstPlayer = playerLoader.loadFirstPlayer();
+        PlayerDto secondPlayer = playerLoader.loadSecondPlayer();
+        GameCreateDto inputData = new GameCreateDto.Builder().firstPlayer(firstPlayer).build();
         Either<Error, CreateDto> created = gameFacade.create(inputData);
         Either<Error, GameDto> findGame = gameFacade.find(created.get().getId());
-        
+
         GameJoinerDto joiner = new GameJoinerDto.Builder().game(findGame.get()).playerToJoin(secondPlayer).build();
         //When
         Either<Error, GameDto> joined = gameFacade.join(joiner);
