@@ -4,6 +4,7 @@ import com.ara.game.usecases.battleship.enums.PointStatus;
 import com.ara.game.usecases.battleship.game.dto.GameDto;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.battleship.playerShips.port.PlayerShipGateway;
+import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 import com.ara.game.usecases.battleship.ship.port.ShipGateway;
@@ -12,12 +13,15 @@ import com.ara.game.usecases.battleship.shot.dto.ShotCreateDto;
 import com.ara.game.usecases.battleship.shot.dto.ShotDto;
 import com.ara.game.usecases.battleship.shot.port.ShotGateway;
 import com.ara.game.usecases.common.Error;
+import io.vavr.collection.HashSet;
+import io.vavr.collection.Set;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.time.LocalDateTime;
 
 public class Creator {
@@ -134,5 +138,14 @@ public class Creator {
 
     private ShotDto save(Shot shot) {
         return shotGateway.save(mapper.mapToDto(shot));
+    }
+
+    private Set<PointDto> calculateOccupiesPoints(Set<PointDto> pointsToCalculate, Integer size){
+        Set<PointCreateRowColDto> pointsToCreate = HashSet.empty();
+        for(PointDto point : pointsToCalculate){
+
+        }
+        //TODO make calculations
+        return null;
     }
 }
