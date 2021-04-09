@@ -9,15 +9,20 @@ import com.ara.game.usecases.battleship.enums.PointStatus;
 import com.ara.game.usecases.battleship.game.dto.GameDto;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.battleship.playerShips.port.PlayerShipGateway;
+import com.ara.game.usecases.battleship.point.PointFacade;
 import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
+import com.ara.game.usecases.battleship.point.port.PointGateway;
+import com.ara.game.usecases.battleship.ship.ShipFacade;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 import com.ara.game.usecases.battleship.ship.port.ShipGateway;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 import com.ara.game.usecases.battleship.shot.dto.ShotCreateDto;
 import com.ara.game.usecases.battleship.shot.dto.ShotDto;
 import com.ara.game.usecases.battleship.shot.port.ShotGateway;
+import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
+import com.ara.game.usecases.common.port.IdGenerator;
 
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
@@ -29,14 +34,17 @@ public class Creator {
     private final ShotGateway shotGateway;
     private final PlayerShipGateway playerShipGateway;
     private final ShipGateway shipGateway;
+    private final PointFacade pointFacade;
     private final Validator validator;
     private final Mapper mapper;
     private final Logger log;
 
-    Creator(final ShotGateway shotGateway, final PlayerShipGateway playerShipGateway, final ShipGateway shipGateway) {
+    Creator(final ShotGateway shotGateway, final PlayerShipGateway playerShipGateway, final ShipGateway shipGateway,
+            final PointGateway pointGateway, final IdGenerator idGenerator) {
         this.shotGateway = shotGateway;
         this.playerShipGateway = playerShipGateway;
         this.shipGateway = shipGateway;
+        this.pointFacade = new PointFacade(pointGateway, idGenerator);
         this.validator = new Validator();
         this.mapper = new Mapper();
         this.log = LoggerFactory.getLogger(Creator.class);
@@ -161,7 +169,23 @@ public class Creator {
             pointsToCreate = pointsToCreate
                     .add(new PointCreateRowColDto.Builder().row(point.getRow()).column(point.getColumn() + 1).build());
         }
-        // TODO make calculations
+        pointsToCreate = pointsToCreate.removeAll(shipPointsToCreateRowCol(pointsToCalculate));
+        pointsToCreate = pointsToCreate
+                .filter(p -> p.getRow() >= 0 && p.getColumn() >= 0 && p.getRow() < size && p.getColumn() < 0);
+        Set<PointDto> toReturn = HashSet.empty();
+        for(PointCreateRowColDto point : pointsToCreate) {
+            Either<Error, PointDto> find = pointFacade.findByRowAndColumn(point.getRow(), point.getColumn());
+            if(find.isRight()) {
+                toReturn = toReturn.add(find.get());
+            }else {
+                Either<Error, CreateDto> created = pointFacade.create(point);
+                //TODO finish find created Point
+            }
+        }
         return null;
+    }
+
+    private Set<PointCreateRowColDto> shipPointsToCreateRowCol(Set<PointDto> points) {
+        return points.map(p -> new PointCreateRowColDto.Builder().row(p.getRow()).column(p.getColumn()).build());
     }
 }
