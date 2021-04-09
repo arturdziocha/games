@@ -19,9 +19,8 @@ public class PointFacade {
     private final PointsCreator pointsCreator;
 
     @Inject
-    public PointFacade(PointGateway pointGateway, IdGenerator idGenerator) {
-        Mapper mapper = new Mapper();
-        creator = new Creator(pointGateway, idGenerator, mapper);
+    public PointFacade(PointGateway pointGateway, IdGenerator idGenerator) {        
+        creator = new Creator(pointGateway, idGenerator);
         finder = new Finder(pointGateway);
         pointsCreator = new PointsCreator(finder, creator);
     }

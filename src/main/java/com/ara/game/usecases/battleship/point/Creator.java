@@ -20,10 +20,10 @@ final class Creator {
     private final Validator validator;
     private final Logger log;
 
-    Creator(final PointGateway pointGateway, final IdGenerator idGenerator, final Mapper mapper) {
+    Creator(final PointGateway pointGateway, final IdGenerator idGenerator) {
         this.pointGateway = pointGateway;
         this.idGenerator = idGenerator;
-        this.mapper = mapper;
+        this.mapper = new Mapper();
         this.validator = new Validator();
         this.log = LoggerFactory.getLogger(Creator.class);
     }

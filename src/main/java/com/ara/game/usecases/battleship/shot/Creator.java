@@ -1,5 +1,10 @@
 package com.ara.game.usecases.battleship.shot;
 
+import java.time.LocalDateTime;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.ara.game.usecases.battleship.enums.PointStatus;
 import com.ara.game.usecases.battleship.game.dto.GameDto;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
@@ -13,16 +18,12 @@ import com.ara.game.usecases.battleship.shot.dto.ShotCreateDto;
 import com.ara.game.usecases.battleship.shot.dto.ShotDto;
 import com.ara.game.usecases.battleship.shot.port.ShotGateway;
 import com.ara.game.usecases.common.Error;
+
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.awt.*;
-import java.time.LocalDateTime;
 
 public class Creator {
     private final ShotGateway shotGateway;
@@ -88,7 +89,7 @@ public class Creator {
                         .pointStatus(PointStatus.SUNK)
                         .shotTime(LocalDateTime.now())
                         .build();
-                //TODO Set occupied points
+                // TODO Set occupied points
 
             }
             updateHealth(ship.getShip());
@@ -140,12 +141,27 @@ public class Creator {
         return shotGateway.save(mapper.mapToDto(shot));
     }
 
-    private Set<PointDto> calculateOccupiesPoints(Set<PointDto> pointsToCalculate, Integer size){
+    private Set<PointDto> calculateOccupiesPoints(Set<PointDto> pointsToCalculate, Integer size) {
         Set<PointCreateRowColDto> pointsToCreate = HashSet.empty();
-        for(PointDto point : pointsToCalculate){
-
+        for (PointDto point : pointsToCalculate) {
+            for (int i = -1; i <= 1; i++) {
+                pointsToCreate = pointsToCreate
+                        .add(new PointCreateRowColDto.Builder()
+                                .row(point.getRow() - 1)
+                                .column(point.getColumn() + i)
+                                .build());
+                pointsToCreate = pointsToCreate
+                        .add(new PointCreateRowColDto.Builder()
+                                .row(point.getRow() + 1)
+                                .column(point.getColumn() + i)
+                                .build());
+            }
+            pointsToCreate = pointsToCreate
+                    .add(new PointCreateRowColDto.Builder().row(point.getRow()).column(point.getColumn() - 1).build());
+            pointsToCreate = pointsToCreate
+                    .add(new PointCreateRowColDto.Builder().row(point.getRow()).column(point.getColumn() + 1).build());
         }
-        //TODO make calculations
+        // TODO make calculations
         return null;
     }
 }
