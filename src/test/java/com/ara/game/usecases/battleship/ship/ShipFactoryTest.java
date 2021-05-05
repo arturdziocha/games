@@ -1,19 +1,20 @@
 package com.ara.game.usecases.battleship.ship;
 
-import com.ara.game.usecases.battleship.enums.ShipClass;
-import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
-import com.ara.game.usecases.battleship.ship.dto.ShipDto;
-import com.ara.game.usecases.common.CreateDto;
-import com.ara.game.usecases.common.Error;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import external.ConsoleModule;
-import io.vavr.control.Either;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.ara.game.usecases.battleship.enums.ShipClass;
+import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
+import com.ara.game.usecases.battleship.ship.dto.ShipDto;
+import com.ara.game.usecases.common.Error;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
+import external.ConsoleModule;
+import io.vavr.control.Either;
 
 public class ShipFactoryTest {
     private ShipFacade shipFacade;
@@ -31,10 +32,10 @@ public class ShipFactoryTest {
         ShipClass shipClass = ShipClass.SUBMARINE;
         ShipCreateDto createInputData = new ShipCreateDto.Builder().shipClass(shipClass).build();
         // When
-        Either<Error, CreateDto> ship = shipFacade.create(createInputData);
+        Either<Error, ShipDto> ship = shipFacade.create(createInputData);
         // Then
-        Either<Error, ShipDto> findShip = shipFacade.find(ship.get().getId());
-        assertThat(findShip.get().getHealth()).isEqualByComparingTo(3);
-        assertThat(findShip.get().getShipClass().getName()).isEqualTo("Submarine");
+        
+        assertThat(ship.get().getHealth()).isEqualByComparingTo(3);
+        assertThat(ship.get().getShipClass().getName()).isEqualTo("Submarine");
     }
 }

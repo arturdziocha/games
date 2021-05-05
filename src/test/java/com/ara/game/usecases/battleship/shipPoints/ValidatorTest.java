@@ -1,5 +1,11 @@
 package com.ara.game.usecases.battleship.shipPoints;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import com.ara.game.usecases.battleship.enums.ShipClass;
 import com.ara.game.usecases.battleship.point.PointFacade;
 import com.ara.game.usecases.battleship.point.dto.PointCreateStringDto;
@@ -12,15 +18,11 @@ import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
 import external.ConsoleModule;
 import io.vavr.collection.HashSet;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class ValidatorTest {
     private Validator validator;
@@ -56,9 +58,8 @@ class ValidatorTest {
     @DisplayName("Should return No points specified when points is empty")
     void test2() {
         // Given
-        Either<Error, CreateDto> shipId = shipFacade
-                .create(new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build());
-        Either<Error, ShipDto> ship = shipFacade.find(shipId.get().getId());
+        Either<Error, ShipDto> ship = shipFacade
+                .create(new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build());        
         ShipPointsCreateDto inputData = new ShipPointsCreateDto.Builder()
                 .ship(ship.get())
                 .points(HashSet.empty())
@@ -73,9 +74,8 @@ class ValidatorTest {
     @DisplayName("Should return No points specified when points is null")
     void test3() {
         // Given
-        Either<Error, CreateDto> shipId = shipFacade
-                .create(new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build());
-        Either<Error, ShipDto> ship = shipFacade.find(shipId.get().getId());
+        Either<Error, ShipDto> ship = shipFacade
+                .create(new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build());        
         ShipPointsCreateDto inputData = new ShipPointsCreateDto.Builder().ship(ship.get()).points(null).build();
         // When
         Option<Error> validated = validator.validate(inputData);

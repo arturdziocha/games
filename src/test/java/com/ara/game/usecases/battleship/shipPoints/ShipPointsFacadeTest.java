@@ -42,10 +42,9 @@ public class ShipPointsFacadeTest {
     @DisplayName("Should create Carrier with startPoint A1 and direction down")
     void test1() {
         // Given
-        Either<Error, CreateDto> createShip = shipFacade
+        Either<Error, ShipDto> ship = shipFacade
                 .create(new ShipCreateDto.Builder().shipClass(ShipClass.CARRIER).build());
-        Either<Error, ShipDto> ship = shipFacade.find(createShip.get().getId());
-
+        
         Either<Error, CreateDto> createPoint = pointFacade
                 .create(new PointCreateRowColDto.Builder().row(0).column(0).build());
         Either<Error, PointDto> startPoint = pointFacade.findById(createPoint.get().getId());
