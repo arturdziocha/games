@@ -28,13 +28,14 @@ final class Creator {
         this.log = LoggerFactory.getLogger(Creator.class);
     }
 
-    final Either<Error, CreateDto> create(final PointCreateStringDto inputData) {
+    final Either<Error, PointDto> create(final PointCreateStringDto inputData) {
         Option<Error> validation = validator.validatePointString(inputData);
         if (validation.isDefined()) {
             return Either.left(validation.get());
         }
         String pointString = inputData.getPointString().toUpperCase();
         Option<PointDto> find = pointGateway.findByPointString(pointString);
+        
         if (find.isDefined()) {
             return Either.right(mapper.mapToCreatePointOutput(find.get()));
         } else {
@@ -51,6 +52,7 @@ final class Creator {
             return savePoint(point);
         }
     }
+    private 
 
     final Either<Error, CreateDto> create(final PointCreateRowColDto inputData) {
         Option<Error> validation = validator.validateRowCol(inputData);
