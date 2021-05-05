@@ -1,16 +1,17 @@
 package com.ara.game.usecases.battleship.player;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.ara.game.usecases.battleship.player.dto.PlayerCreateDto;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.battleship.player.port.PlayerGateway;
-import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
+
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 final class Creator {
     private final PlayerGateway playerGateway;
@@ -27,7 +28,7 @@ final class Creator {
         this.log = LoggerFactory.getLogger(Creator.class);
     }
 
-    Either<Error, CreateDto> create(PlayerCreateDto inputData) {
+    Either<Error, PlayerDto> create(PlayerCreateDto inputData) {
         Option<Error> validation = validator.validate(inputData);
         return validation.isDefined() ? Either.left(validation.get())
                 : playerGateway.findByName(inputData.getName()).isDefined()
@@ -36,10 +37,9 @@ final class Creator {
 
     }
 
-    Either<Error, CreateDto> savePlayer(final Player player) {
+    Either<Error, PlayerDto> savePlayer(final Player player) {
         return Try
-                .of(() -> save(player))
-                .map(mapper::mapToCreateDto)
+                .of(() -> save(player))                
                 .onFailure(e -> log.error(e.getMessage()))
                 .toEither(PlayerError.PERSISTENCE_FAILED);
     }

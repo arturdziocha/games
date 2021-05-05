@@ -60,7 +60,7 @@ public class Creator {
         }
 
         PlayerDto currentPlayer = inputData.getGame().getCurrentPlayer();
-        PlayerDto opponent = calculateOpponent(inputData.getGame());
+        PlayerDto opponent = getOpponent(inputData.getGame());
 
         Option<ShipWithPointsDto> findShip = findOpponentShip(opponent, inputData.getPoint());
         Shot shot;
@@ -110,7 +110,7 @@ public class Creator {
         return shotGateway.findByPointString(player.getId(), point.getPointString()).isDefined();
     }
 
-    private PlayerDto calculateOpponent(GameDto game) {
+    private PlayerDto getOpponent(GameDto game) {
         return game.getPlayers().findLast(player -> !player.equals(game.getCurrentPlayer())).get();
     }
 
@@ -149,9 +149,9 @@ public class Creator {
         return shotGateway.save(mapper.mapToDto(shot));
     }
 
-    private Set<PointDto> calculateOccupiesPoints(Set<PointDto> pointsToCalculate, Integer size) {
+    private Set<PointDto> calculateOccupiesPoints(Set<PointDto> shipPoints, Integer boardSize) {
         Set<PointCreateRowColDto> pointsToCreate = HashSet.empty();
-        for (PointDto point : pointsToCalculate) {
+        for (PointDto point : shipPoints) {
             for (int i = -1; i <= 1; i++) {
                 pointsToCreate = pointsToCreate
                         .add(new PointCreateRowColDto.Builder()
@@ -169,20 +169,20 @@ public class Creator {
             pointsToCreate = pointsToCreate
                     .add(new PointCreateRowColDto.Builder().row(point.getRow()).column(point.getColumn() + 1).build());
         }
-        pointsToCreate = pointsToCreate.removeAll(shipPointsToCreateRowCol(pointsToCalculate));
+        pointsToCreate = pointsToCreate.removeAll(shipPointsToCreateRowCol(shipPoints));
         pointsToCreate = pointsToCreate
-                .filter(p -> p.getRow() >= 0 && p.getColumn() >= 0 && p.getRow() < size && p.getColumn() < 0);
+                .filter(p -> p.getRow() >= 0 && p.getColumn() >= 0 && p.getRow() < boardSize && p.getColumn() < 0);
         Set<PointDto> toReturn = HashSet.empty();
         for(PointCreateRowColDto point : pointsToCreate) {
             Either<Error, PointDto> find = pointFacade.findByRowAndColumn(point.getRow(), point.getColumn());
             if(find.isRight()) {
                 toReturn = toReturn.add(find.get());
             }else {
-                Either<Error, CreateDto> created = pointFacade.create(point);
-                //TODO finish find created Point
+                Either<Error, PointDto> created = pointFacade.create(point);
+                toReturn = toReturn.add(created.get());                
             }
         }
-        return null;
+        return toReturn;
     }
 
     private Set<PointCreateRowColDto> shipPointsToCreateRowCol(Set<PointDto> points) {

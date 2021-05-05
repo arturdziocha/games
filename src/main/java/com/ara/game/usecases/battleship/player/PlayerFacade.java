@@ -19,7 +19,7 @@ public class PlayerFacade {
         this.finder = new Finder(playerGateway);
     }
 
-    public Either<Error, CreateDto> create(final PlayerCreateDto inputData) {
+    public Either<Error, PlayerDto> create(final PlayerCreateDto inputData) {
         return creator.create(inputData);
     }
 
