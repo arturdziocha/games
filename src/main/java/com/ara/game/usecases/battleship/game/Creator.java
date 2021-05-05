@@ -1,19 +1,20 @@
 package com.ara.game.usecases.battleship.game;
 
+import java.time.LocalDateTime;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.ara.game.usecases.battleship.game.dto.GameCreateDto;
 import com.ara.game.usecases.battleship.game.dto.GameDto;
 import com.ara.game.usecases.battleship.game.port.GameGateway;
-import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
+
 import io.vavr.collection.HashSet;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.time.LocalDateTime;
 
 final class Creator {
     private final GameGateway gameGateway;
@@ -30,7 +31,7 @@ final class Creator {
         this.log = LoggerFactory.getLogger(Creator.class);
     }
 
-    Either<Error, CreateDto> create(final GameCreateDto inputData) {
+    Either<Error, GameDto> create(final GameCreateDto inputData) {
         Option<Error> validated = validator.validateCreate(inputData);
         return validated.isDefined() ? Either.left(validated.get())
                 :
@@ -44,10 +45,9 @@ final class Creator {
                         .players(HashSet.of(inputData.getFirstPlayer())).build());
     }
 
-    private Either<Error, CreateDto> saveGame(Game game) {
+    private Either<Error, GameDto> saveGame(Game game) {
         return Try
-                .of(() -> save(game))
-                .map(mapper::mapToCreateDto)
+                .of(() -> save(game))                
                 .onFailure(e -> log.error(e.getMessage()))
                 .toEither(GameError.PERSISTENCE_FAILED);
     }
