@@ -70,10 +70,7 @@ final class Creator {
                     .build();
             return savePoint(point);
         }
-    }
-    final Either<Error, CreateDto> createPointsForGame(final Integer size){
-        for(int i )
-    }
+    }    
 
     private Either<Error, CreateDto> savePoint(final Point point) {
         return Try
