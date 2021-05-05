@@ -2,9 +2,10 @@ package com.ara.game.usecases.battleship.point;
 
 import com.ara.game.usecases.battleship.enums.Direction;
 import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
+import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.point.dto.PointsCreateDto;
-import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
+
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 import io.vavr.control.Either;
@@ -18,30 +19,29 @@ final class PointsCreator {
         this.creator = creator;
     }
 
-    final Either<Error, Set<CreateDto>> create(final PointsCreateDto inputData) {
+    final Either<Error, Set<PointDto>> create(final PointsCreateDto inputData) {
         return fill(inputData);
     }
 
-    final Either<Error, Set<CreateDto>> createRandom(final PointsCreateDto inputData) {
+    final Either<Error, Set<PointDto>> createRandom(final PointsCreateDto inputData) {
         // TODO It's not generating Random points. Have to change
-        Either<Error, Set<CreateDto>> chooser = fill(inputData);
+        Either<Error, Set<PointDto>> chooser = fill(inputData);
         while (chooser.isLeft()) {
             chooser = fill(inputData);
         }
         return chooser;
     }
 
-    private Either<Error, Set<CreateDto>> fill(final PointsCreateDto pointsCreateInputData) {
-        Set<CreateDto> points = HashSet.empty();
+    private Either<Error, Set<PointDto>> fill(final PointsCreateDto pointsCreateInputData) {
+        Set<PointDto> points = HashSet.empty();
         for (int i = 0; i < pointsCreateInputData.getSize(); i++) {
             Either<Error, DirectionStrategy> direction = getDirection(pointsCreateInputData.getDirection());
             if (direction.isRight()) {
                 RowColumn rowColumn = calculate(direction.get(), new RowColumn(
                                 pointsCreateInputData.getPoint().getRow(), pointsCreateInputData.getPoint().getColumn()),
                         i);
-                Either<Error, CreateDto> created = finder
-                        .findByRowAndColumn(rowColumn.getRow(), rowColumn.getColumn())
-                        .map(p -> new CreateDto.Builder().id(p.getId()).build())
+                Either<Error, PointDto> created = finder
+                        .findByRowAndColumn(rowColumn.getRow(), rowColumn.getColumn())                        
                         .orElse(create(rowColumn.getRow(), rowColumn.getColumn()));
                 if (created.isLeft()) {
                     return Either.left(created.getLeft());
@@ -54,7 +54,7 @@ final class PointsCreator {
         return Either.right(points);
     }
 
-    private Either<Error, CreateDto> create(final Integer row, final Integer column) {
+    private Either<Error, PointDto> create(final Integer row, final Integer column) {
         return creator.create(new PointCreateRowColDto.Builder().row(row).column(column).build());
     }
 

@@ -5,10 +5,10 @@ import com.ara.game.usecases.battleship.point.dto.PointCreateStringDto;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.point.dto.PointsCreateDto;
 import com.ara.game.usecases.battleship.point.port.PointGateway;
-import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
 import com.google.inject.Inject;
+
 import io.vavr.collection.Set;
 import io.vavr.collection.SortedSet;
 import io.vavr.control.Either;
@@ -25,19 +25,19 @@ public class PointFacade {
         pointsCreator = new PointsCreator(finder, creator);
     }
 
-    public final Either<Error, CreateDto> create(final PointCreateStringDto inputData) {
+    public final Either<Error, PointDto> create(final PointCreateStringDto inputData) {
         return creator.create(inputData);
     }
 
-    public final Either<Error, CreateDto> create(final PointCreateRowColDto inputData) {
+    public final Either<Error, PointDto> create(final PointCreateRowColDto inputData) {
         return creator.create(inputData);
     }
 
-    public Either<Error, Set<CreateDto>> createPoints(final PointsCreateDto inputData) {
+    public Either<Error, Set<PointDto>> createPoints(final PointsCreateDto inputData) {
         return pointsCreator.create(inputData);
     }
 
-    public Either<Error, Set<CreateDto>> createRandomPoints(final PointsCreateDto inputData) {
+    public Either<Error, Set<PointDto>> createRandomPoints(final PointsCreateDto inputData) {
         return pointsCreator.createRandom(inputData);
     }
 

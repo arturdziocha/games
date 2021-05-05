@@ -14,7 +14,6 @@ import com.ara.game.usecases.battleship.ship.ShipFacade;
 import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsCreateDto;
-import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -41,9 +40,9 @@ class ValidatorTest {
     @DisplayName("Should return Ship not specified when ship not specified")
     void test1() {
         // Given
-        Either<Error, CreateDto> pointId = pointFacade
+        Either<Error, PointDto> point = pointFacade
                 .create(new PointCreateStringDto.Builder().pointString("a1").build());
-        Either<Error, PointDto> point = pointFacade.findById(pointId.get().getId());
+        
         ShipPointsCreateDto inputData = new ShipPointsCreateDto.Builder()
                 .ship(null)
                 .points(HashSet.of(point.get()))

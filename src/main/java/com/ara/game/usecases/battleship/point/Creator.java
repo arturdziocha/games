@@ -1,17 +1,18 @@
 package com.ara.game.usecases.battleship.point;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
 import com.ara.game.usecases.battleship.point.dto.PointCreateStringDto;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.point.port.PointGateway;
-import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
+
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 final class Creator {
     private final PointGateway pointGateway;
@@ -35,12 +36,12 @@ final class Creator {
         }
         String pointString = inputData.getPointString().toUpperCase();
         Option<PointDto> find = pointGateway.findByPointString(pointString);
-        
+
         if (find.isDefined()) {
-            return Either.right(mapper.mapToCreatePointOutput(find.get()));
+            return Either.right(find.get());
         } else {
-            Integer row = createRow(pointString);
-            Integer column = createColumn(pointString);
+            Integer row = createRowFromString(pointString);
+            Integer column = createColumnFromString(pointString);
 
             Point point = new Point.Builder()
                     .id(idGenerator.generate())
@@ -52,16 +53,15 @@ final class Creator {
             return savePoint(point);
         }
     }
-    private 
 
-    final Either<Error, CreateDto> create(final PointCreateRowColDto inputData) {
+    final Either<Error, PointDto> create(final PointCreateRowColDto inputData) {
         Option<Error> validation = validator.validateRowCol(inputData);
         if (validation.isDefined()) {
             return Either.left(validation.get());
         }
         Option<PointDto> find = pointGateway.findByRowAndColumn(inputData.getRow(), inputData.getColumn());
         if (find.isDefined()) {
-            return Either.right(mapper.mapToCreatePointOutput(find.get()));
+            return Either.right(find.get());
         } else {
             String pointString = createStringFromRowAndColumn(inputData.getRow(), inputData.getColumn());
             Point point = new Point.Builder()
@@ -72,12 +72,11 @@ final class Creator {
                     .build();
             return savePoint(point);
         }
-    }    
+    }
 
-    private Either<Error, CreateDto> savePoint(final Point point) {
+    private Either<Error, PointDto> savePoint(final Point point) {
         return Try
                 .of(() -> save(point))
-                .map(mapper::mapToCreatePointOutput)
                 .onFailure(e -> log.error(e.getMessage()))
                 .toEither(PointError.PERSISTENCE_FAILED);
     }
@@ -86,12 +85,12 @@ final class Creator {
         return pointGateway.save(mapper.mapToDTO(point));
     }
 
-    private Integer createColumn(final String pointString) {
+    private Integer createColumnFromString(final String pointString) {
         return Validator.chars.indexOf(pointString.toUpperCase().charAt(0));
 
     }
 
-    private Integer createRow(final String pointString) {
+    private Integer createRowFromString(final String pointString) {
         return Integer.parseInt(pointString.substring(1)) - 1;
 
     }
