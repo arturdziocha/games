@@ -51,7 +51,7 @@ class PlayerFacadeTest {
 
         // Then
         Either<Error, PlayerDto> output = playerFacade.find(player.get().getId());
-        assertThat(output.get().getName()).isEqualTo("Artur");
+        assertThat(player.get()).isEqualTo(output.get());
 
     }
 }

@@ -35,7 +35,7 @@ class GameFacadeTest {
     void test1() {
         // Given
         PlayerDto firstPlayer = playerLoader.loadFirstPlayer();
-        GameCreateDto inputData = new GameCreateDto.Builder().firstPlayer(firstPlayer).build();
+        GameCreateDto inputData = new GameCreateDto.Builder().firstPlayer(firstPlayer).size(10).build();
         // When
         Either<Error, GameDto> created = gameFacade.create(inputData);
         // Then
@@ -49,7 +49,7 @@ class GameFacadeTest {
         // Given
         PlayerDto firstPlayer = playerLoader.loadFirstPlayer();
         PlayerDto secondPlayer = playerLoader.loadSecondPlayer();
-        GameCreateDto inputData = new GameCreateDto.Builder().firstPlayer(firstPlayer).build();
+        GameCreateDto inputData = new GameCreateDto.Builder().firstPlayer(firstPlayer).size(10).build();
         Either<Error, GameDto> game = gameFacade.create(inputData);
 
         GameJoinerDto joiner = new GameJoinerDto.Builder().game(game.get()).playerToJoin(secondPlayer).build();

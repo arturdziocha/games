@@ -1,26 +1,25 @@
 package com.ara.game.usecases.battleship.point;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import com.ara.game.usecases.battleship.enums.Direction;
 import com.ara.game.usecases.battleship.enums.ShipClass;
 import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
 import com.ara.game.usecases.battleship.point.dto.PointCreateStringDto;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.point.dto.PointsCreateDto;
-import com.ara.game.usecases.common.CreateDto;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
 import external.ConsoleModule;
+import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 import io.vavr.control.Either;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class PointFacadeTest {
 
@@ -39,8 +38,7 @@ class PointFacadeTest {
         PointCreateStringDto inputData = new PointCreateStringDto.Builder().pointString("a2").build();
 
         // When
-        Either<Error, CreateDto> pointId = pointFacade.create(inputData);
-        Either<Error, PointDto> point = pointFacade.findById(pointId.get().getId());
+        Either<Error, PointDto> point = pointFacade.create(inputData);
         // Then
         assertThat(point.get().getPointString()).isEqualTo("A2");
         assertThat(point.get().getRow()).isEqualByComparingTo(1);
@@ -54,8 +52,7 @@ class PointFacadeTest {
         PointCreateRowColDto inputData = new PointCreateRowColDto.Builder().row(1).column(2).build();
 
         // When
-        Either<Error, CreateDto> pointId = pointFacade.create(inputData);
-        Either<Error, PointDto> point = pointFacade.findById(pointId.get().getId());
+        Either<Error, PointDto> point = pointFacade.create(inputData);
 
         // Then
         assertThat(point.get().getPointString()).isEqualTo("C2");
@@ -63,34 +60,26 @@ class PointFacadeTest {
         assertThat(point.get().getColumn()).isEqualByComparingTo(2);
     }
 
-
     @Test
     @DisplayName("Should create 4 points down")
     void shouldCreate4PointsDown() {
         // Given
         ShipClass shipClass = ShipClass.BATTLESHIP;
         Direction direction = Direction.DOWN;
-        Either<Error, CreateDto> point = pointFacade
+        Either<Error, PointDto> point = pointFacade
                 .create(new PointCreateStringDto.Builder().pointString("b2").build());
-        Either<Error, PointDto> findPoint = pointFacade.findById(point.get().getId());
-
         PointsCreateDto spcid = new PointsCreateDto.Builder()
                 .size(shipClass.getSize())
-                .point(findPoint.get())
+                .point(point.get())
                 .direction(direction)
                 .build();
 
         // When
-        Either<Error, Set<CreateDto>> createdPoints = pointFacade.createPoints(spcid);
-        List<String> pointStrings = createdPoints
-                .get()
-                .map(p -> pointFacade.findById(p.getId()))
-                .map(Either::get)
-                .map(PointDto::getPointString)
-                .toJavaList();
+        Either<Error, Set<PointDto>> createdPoints = pointFacade.createPoints(spcid);
+        Set<String> pointStrings = createdPoints.get().map(PointDto::getPointString);
 
         // Then
-        List<String> pStrings = Arrays.asList("B2", "B3", "B4", "B5");
+        Set<String> pStrings = HashSet.of("B2", "B3", "B4", "B5");
         assertThat(pointStrings).hasSameElementsAs(pStrings);
     }
 
@@ -100,7 +89,7 @@ class PointFacadeTest {
         // Given
         ShipClass shipClass = ShipClass.BATTLESHIP;
         Direction direction = Direction.UP;
-        Either<Error, CreateDto> point = pointFacade
+        Either<Error, PointDto> point = pointFacade
                 .create(new PointCreateStringDto.Builder().pointString("b5").build());
         Either<Error, PointDto> findPoint = pointFacade.findById(point.get().getId());
 
@@ -111,16 +100,11 @@ class PointFacadeTest {
                 .build();
 
         // When
-        Either<Error, Set<CreateDto>> createdPoints = pointFacade.createPoints(spcid);
-        List<String> pointStrings = createdPoints
-                .get()
-                .map(p -> pointFacade.findById(p.getId()))
-                .map(Either::get)
-                .map(PointDto::getPointString)
-                .toJavaList();
+        Either<Error, Set<PointDto>> createdPoints = pointFacade.createPoints(spcid);
+        Set<String> pointStrings = createdPoints.get().map(PointDto::getPointString);
 
         // Then
-        List<String> pStrings = Arrays.asList("B2", "B3", "B4", "B5");
+        Set<String> pStrings = HashSet.of("B2", "B3", "B4", "B5");
         assertThat(pointStrings).hasSameElementsAs(pStrings);
     }
 }

@@ -2,7 +2,6 @@ package com.ara.game.usecases.battleship.ship;
 
 import com.ara.game.usecases.battleship.enums.ShipClass;
 import com.ara.game.usecases.battleship.ship.dto.ShipDto;
-import com.ara.game.usecases.common.CreateDto;
 
 class Mapper {
     ShipDto mapToDto(final Ship ship) {
@@ -11,11 +10,7 @@ class Mapper {
                 .shipClass(ship.getShipClass())
                 .health(ship.getHealth())
                 .build();
-    }
-
-    CreateDto mapToCreateDto(final ShipDto ship) {
-        return new CreateDto.Builder().id(ship.getId()).build();
-    }
+    }   
 
     Ship mapToEntity(final String id, final ShipClass shipClass) {
         return new Ship.Builder().id(id).shipClass(shipClass).build();

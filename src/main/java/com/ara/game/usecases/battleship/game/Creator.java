@@ -52,7 +52,7 @@ final class Creator {
                 .toEither(GameError.PERSISTENCE_FAILED);
     }
 
-    private GameDto save(Game game) {
+    private GameDto save(Game game) {        
         return gameGateway.save(mapper.mapToDto(game));
     }
 
