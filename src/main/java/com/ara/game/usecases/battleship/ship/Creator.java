@@ -10,7 +10,6 @@ import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
 
 import io.vavr.control.Either;
-import io.vavr.control.Option;
 import io.vavr.control.Try;
 
 class Creator {
@@ -29,14 +28,15 @@ class Creator {
     }
 
     Either<Error, ShipDto> create(final ShipCreateDto shipCreateDto) {
-        Option<Error> validation = validator.validate(shipCreateDto);
-        return validation.isDefined() ? Either.left(validation.get())
-                : saveShip(mapper.mapToEntity(idGenerator.generate(), shipCreateDto.getShipClass()));
+        return validator
+                .validate(shipCreateDto)
+                .flatMap(
+                    v -> saveShip(new Ship.Builder().id(idGenerator.generate()).shipClass(v.getShipClass()).build()));
     }
 
     private Either<Error, ShipDto> saveShip(final Ship ship) {
         return Try
-                .of(() -> save(ship))                
+                .of(() -> save(ship))
                 .onFailure(e -> log.error(e.getMessage()))
                 .toEither(ShipError.PERSISTENCE_FAILED);
     }

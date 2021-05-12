@@ -1,13 +1,15 @@
 package com.ara.game.usecases.battleship.ship;
 
-import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
-import com.ara.game.usecases.common.Error;
-import io.vavr.control.Option;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
+import com.ara.game.usecases.common.Error;
+
+import io.vavr.control.Either;
 
 class ValidatorTest {
     private Validator validator;
@@ -23,9 +25,9 @@ class ValidatorTest {
         // Given
         ShipCreateDto createInputData = null;
         // When
-        Option<Error> validated = validator.validate(createInputData);
+        Either<Error, ShipCreateDto> validated = validator.validate(createInputData);
         // Then
-        assertThat(validated.get().getCause()).isEqualTo("Data cannot be null");
+        assertThat(validated.getLeft().getCause()).isEqualTo("Data cannot be null");
     }
 
     @Test
@@ -34,9 +36,9 @@ class ValidatorTest {
         // Given
         ShipCreateDto createInputData = new ShipCreateDto.Builder().shipClass(null).build();
         // When
-        Option<Error> validated = validator.validate(createInputData);
+        Either<Error, ShipCreateDto> validated = validator.validate(createInputData);
         // Then
-        assertThat(validated.get().getCause()).isEqualTo("Class of ship cannot be empty");
+        assertThat(validated.getLeft().getCause()).isEqualTo("Class of ship cannot be empty");
     }
 
 }
