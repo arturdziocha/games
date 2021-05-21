@@ -25,6 +25,7 @@ public class ShipFactoryTest {
         shipFacade = injector.getInstance(ShipFacade.class);
     }
 
+
     @Test
     @DisplayName("Should create Ship Submarine")
     void test1() {
