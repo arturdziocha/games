@@ -25,7 +25,6 @@ public class ShipFactoryTest {
         shipFacade = injector.getInstance(ShipFacade.class);
     }
 
-
     @Test
     @DisplayName("Should create Ship Submarine")
     void test1() {
@@ -35,7 +34,7 @@ public class ShipFactoryTest {
         // When
         Either<Error, ShipDto> ship = shipFacade.create(createInputData);
         // Then
-        
+
         assertThat(ship.get().getHealth()).isEqualByComparingTo(3);
         assertThat(ship.get().getShipClass().getName()).isEqualTo("Submarine");
     }
