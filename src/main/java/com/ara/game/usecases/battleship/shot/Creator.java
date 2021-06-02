@@ -49,9 +49,9 @@ public class Creator {
     }
 
     Either<Error, ShotDto> create(ShotCreateDto inputData) {
-        Option<Error> validated = validator.validate(inputData);
-        if (validated.isDefined()) {
-            return Either.left(validated.get());
+        Either<Error, ShotCreateDto> validated = validator.validate(inputData);
+        if (validated.isLeft()) {
+            return Either.left(validated.getLeft());
         }
         if (isPointAlreadyShot(inputData.getGame().getCurrentPlayer(), inputData.getPoint())) {
             return Either.left(ShotError.POINT_ALREADY_SHOOTED);
@@ -169,15 +169,15 @@ public class Creator {
         }
         pointsToCreate = pointsToCreate.removeAll(shipPointsToCreateRowCol(shipPoints));
         pointsToCreate = pointsToCreate
-                .filter(p -> p.getRow() >= 0 && p.getColumn() >= 0 && p.getRow() < boardSize && p.getColumn() < 0);
+                .filter(p -> p.getRow() >= 0 && p.getColumn() >= 0 && p.getRow() < boardSize && p.getColumn() < boardSize);
         Set<PointDto> toReturn = HashSet.empty();
-        for(PointCreateRowColDto point : pointsToCreate) {
+        for (PointCreateRowColDto point : pointsToCreate) {
             Either<Error, PointDto> find = pointFacade.findByRowAndColumn(point.getRow(), point.getColumn());
-            if(find.isRight()) {
+            if (find.isRight()) {
                 toReturn = toReturn.add(find.get());
-            }else {
+            } else {
                 Either<Error, PointDto> created = pointFacade.create(point);
-                toReturn = toReturn.add(created.get());                
+                toReturn = toReturn.add(created.get());
             }
         }
         return toReturn;

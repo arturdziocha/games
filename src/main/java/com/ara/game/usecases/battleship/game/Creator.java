@@ -32,27 +32,24 @@ final class Creator {
     }
 
     Either<Error, GameDto> create(final GameCreateDto inputData) {
-        Option<Error> validated = validator.validateCreate(inputData);
-        return validated.isDefined() ? Either.left(validated.get())
-                :
-                saveGame(new Game.Builder()
-                        .id(idGenerator.generate())
-                        .createdTime(LocalDateTime.now())
-                        .isStarted(false)
-                        .isFinished(false)
-                        .currentPlayer(inputData.getFirstPlayer())
-                        .size(inputData.getSize())
-                        .players(HashSet.of(inputData.getFirstPlayer())).build());
+        return validator.validateCreate(inputData).flatMap(v -> saveGame(new Game.Builder()
+                .id(idGenerator.generate())
+                .createdTime(LocalDateTime.now())
+                .isStarted(false)
+                .isFinished(false)
+                .currentPlayer(v.getFirstPlayer())
+                .size(v.getSize())
+                .players(HashSet.of(v.getFirstPlayer())).build()));
     }
 
     private Either<Error, GameDto> saveGame(Game game) {
         return Try
-                .of(() -> save(game))                
+                .of(() -> save(game))
                 .onFailure(e -> log.error(e.getMessage()))
                 .toEither(GameError.PERSISTENCE_FAILED);
     }
 
-    private GameDto save(Game game) {        
+    private GameDto save(Game game) {
         return gameGateway.save(mapper.mapToDto(game));
     }
 

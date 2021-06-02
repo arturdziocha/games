@@ -3,38 +3,39 @@ package com.ara.game.usecases.battleship.game;
 import com.ara.game.usecases.battleship.game.dto.GameCreateDto;
 import com.ara.game.usecases.battleship.game.dto.GameJoinerDto;
 import com.ara.game.usecases.common.Error;
+import io.vavr.control.Either;
 import io.vavr.control.Option;
 
 class Validator {
-    Option<Error> validateCreate(GameCreateDto inputData) {
+    Either<Error, GameCreateDto> validateCreate(GameCreateDto inputData) {
         if (inputData == null) {
-            return Option.some(GameError.DATA_CANNOT_BE_EMPTY);
+            return Either.left(GameError.DATA_CANNOT_BE_EMPTY);
         }
         if (inputData.getFirstPlayer() == null) {
-            return Option.some(GameError.PLAYER_DATA_CANNOT_BE_EMPTY);
+            return Either.left(GameError.PLAYER_DATA_CANNOT_BE_EMPTY);
         }
         if (inputData.getSize() < 8) {
-            return Option.some(GameError.TO_SMALL_BOARD_SIZE);
+            return Either.left(GameError.TO_SMALL_BOARD_SIZE);
         }
         if (inputData.getSize() > 12) {
-            return Option.some(GameError.TO_BIG_BOARD);
+            return Either.left(GameError.TO_BIG_BOARD);
         }
-        return Option.none();
+        return Either.right(inputData);
     }
 
-    public Option<Error> validateJoin(GameJoinerDto inputData) {
+    public Either<Error, GameJoinerDto> validateJoin(GameJoinerDto inputData) {
         if (inputData == null) {
-            return Option.some(GameError.DATA_CANNOT_BE_EMPTY);
+            return Either.left(GameError.DATA_CANNOT_BE_EMPTY);
         }
         if (inputData.getGame() == null) {
-            return Option.some(GameError.GAME_CANNOT_BE_EMPTY);
+            return Either.left(GameError.GAME_CANNOT_BE_EMPTY);
         }
         if (inputData.getPlayerToJoin() == null) {
-            return Option.some(GameError.PLAYER_DATA_CANNOT_BE_EMPTY);
+            return Either.left(GameError.PLAYER_DATA_CANNOT_BE_EMPTY);
         }
         if (inputData.getGame().getPlayers().contains(inputData.getPlayerToJoin())) {
-            return Option.some(GameError.PLAYER_JOINER_HAS_THE_SAME_ID);
+            return Either.left(GameError.PLAYER_JOINER_HAS_THE_SAME_ID);
         }
-        return Option.none();
+        return Either.right(inputData);
     }
 }

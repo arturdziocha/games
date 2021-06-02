@@ -10,6 +10,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import external.ConsoleModule;
 import io.vavr.collection.HashSet;
+import io.vavr.control.Either;
 import io.vavr.control.Option;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -34,9 +35,9 @@ class ValidatorTest {
         // Given
         GameCreateDto inputData = null;
         // When
-        Option<Error> validated = validator.validateCreate(inputData);
+        Either<Error, GameCreateDto> validated = validator.validateCreate(inputData);
         // Then
-        assertThat(validated.get()).isEqualTo(GameError.DATA_CANNOT_BE_EMPTY);
+        assertThat(validated.getLeft()).isEqualTo(GameError.DATA_CANNOT_BE_EMPTY);
     }
 
     @DisplayName("Should return GameError.PLAYER_DATA_CANNOT_BE_EMPTY when creating and  first player is null")
@@ -45,9 +46,9 @@ class ValidatorTest {
         // Given
         GameCreateDto inputData = new GameCreateDto.Builder().firstPlayer(null).build();
         // When
-        Option<Error> validated = validator.validateCreate(inputData);
+        Either<Error, GameCreateDto> validated = validator.validateCreate(inputData);
         // Then
-        assertThat(validated.get()).isEqualTo(GameError.PLAYER_DATA_CANNOT_BE_EMPTY);
+        assertThat(validated.getLeft()).isEqualTo(GameError.PLAYER_DATA_CANNOT_BE_EMPTY);
     }
 
     @DisplayName("Should return GameError.DATA_CANNOT_BE_EMPTY when joining to game and data is null")
@@ -56,9 +57,9 @@ class ValidatorTest {
         // Given
         GameJoinerDto inputData = null;
         // When
-        Option<Error> validated = validator.validateJoin(inputData);
+        Either<Error, GameJoinerDto> validated = validator.validateJoin(inputData);
         // Then
-        assertThat(validated.get()).isEqualTo(GameError.DATA_CANNOT_BE_EMPTY);
+        assertThat(validated.getLeft()).isEqualTo(GameError.DATA_CANNOT_BE_EMPTY);
     }
 
     @DisplayName("Should return GameError.GAME_CANNOT_BE_EMPTY when joining and  game  is null")
@@ -67,9 +68,9 @@ class ValidatorTest {
         // Given
         GameJoinerDto inputData = new GameJoinerDto.Builder().game(null).playerToJoin(null).build();
         // When
-        Option<Error> validated = validator.validateJoin(inputData);
+        Either<Error, GameJoinerDto> validated= validator.validateJoin(inputData);
         // Then
-        assertThat(validated.get()).isEqualTo(GameError.GAME_CANNOT_BE_EMPTY);
+        assertThat(validated.getLeft()).isEqualTo(GameError.GAME_CANNOT_BE_EMPTY);
     }
 
     @DisplayName("Should return GameError.PLAYER_DATA_CANNOT_BE_EMPTY when joining and player joiner data is null")
@@ -85,9 +86,9 @@ class ValidatorTest {
         // Given
         GameJoinerDto inputData = new GameJoinerDto.Builder().game(game).playerToJoin(null).build();
         // When
-        Option<Error> validated = validator.validateJoin(inputData);
+        Either<Error, GameJoinerDto> validated= validator.validateJoin(inputData);
         // Then
-        assertThat(validated.get()).isEqualTo(GameError.PLAYER_DATA_CANNOT_BE_EMPTY);
+        assertThat(validated.getLeft()).isEqualTo(GameError.PLAYER_DATA_CANNOT_BE_EMPTY);
     }
 
     @DisplayName("Should return GameError.PLAYER_JOINER_HAS_THE_SAME_ID when joining and player to join is the same as first player")
@@ -104,9 +105,9 @@ class ValidatorTest {
         // Given
         GameJoinerDto inputData = new GameJoinerDto.Builder().game(game).playerToJoin(firstPlayer).build();
         // When
-        Option<Error> validated = validator.validateJoin(inputData);
+        Either<Error, GameJoinerDto> validated = validator.validateJoin(inputData);
         // Then
-        assertThat(validated.get()).isEqualTo(GameError.PLAYER_JOINER_HAS_THE_SAME_ID);
+        assertThat(validated.getLeft()).isEqualTo(GameError.PLAYER_JOINER_HAS_THE_SAME_ID);
     }
 
     @DisplayName("Should return GameError.TO_SMALL_BOARD when creating the game")
@@ -116,9 +117,9 @@ class ValidatorTest {
         PlayerDto firstPlayer = playerLoader.loadFirstPlayer();
         GameCreateDto inputData = new GameCreateDto.Builder().firstPlayer(firstPlayer).size(7).build();
         // When
-        Option<Error> validated = validator.validateCreate(inputData);
+        Either<Error, GameCreateDto> validated= validator.validateCreate(inputData);
         // Then
-        assertThat(validated.get()).isEqualTo(GameError.TO_SMALL_BOARD_SIZE);
+        assertThat(validated.getLeft()).isEqualTo(GameError.TO_SMALL_BOARD_SIZE);
     }
 
     @DisplayName("Should return GameError.TO_BIG_BOARD_SIZE when creating the game")
@@ -128,8 +129,8 @@ class ValidatorTest {
         PlayerDto firstPlayer = playerLoader.loadFirstPlayer();
         GameCreateDto inputData = new GameCreateDto.Builder().firstPlayer(firstPlayer).size(13).build();
         // When
-        Option<Error> validated = validator.validateCreate(inputData);
+        Either<Error, GameCreateDto> validated = validator.validateCreate(inputData);
         // Then
-        assertThat(validated.get()).isEqualTo(GameError.TO_BIG_BOARD);
+        assertThat(validated.getLeft()).isEqualTo(GameError.TO_BIG_BOARD);
     }
 }

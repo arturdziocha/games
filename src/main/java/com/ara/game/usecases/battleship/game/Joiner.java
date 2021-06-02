@@ -24,11 +24,10 @@ final class Joiner {
     }
 
     Either<Error, GameDto> join(GameJoinerDto inputData) {
-        Option<Error> validated = validator.validateJoin(inputData);
-        if (validated.isDefined()) {
-            return Either.left(validated.get());
-        }
-        return updateGame(mapper.mapToJoinEntity(inputData.getGame(), inputData.getPlayerToJoin()));
+        return validator.validateJoin(inputData).flatMap(
+                v -> updateGame(mapper.mapToJoinEntity(v.getGame(), v.getPlayerToJoin()))
+        );
+
     }
 
     private Either<Error, GameDto> updateGame(Game game) {
