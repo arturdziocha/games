@@ -11,7 +11,6 @@ import com.google.inject.Injector;
 import external.ConsoleModule;
 import io.vavr.collection.HashSet;
 import io.vavr.control.Either;
-import io.vavr.control.Option;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -68,7 +67,7 @@ class ValidatorTest {
         // Given
         GameJoinerDto inputData = new GameJoinerDto.Builder().game(null).playerToJoin(null).build();
         // When
-        Either<Error, GameJoinerDto> validated= validator.validateJoin(inputData);
+        Either<Error, GameJoinerDto> validated = validator.validateJoin(inputData);
         // Then
         assertThat(validated.getLeft()).isEqualTo(GameError.GAME_CANNOT_BE_EMPTY);
     }
@@ -86,7 +85,7 @@ class ValidatorTest {
         // Given
         GameJoinerDto inputData = new GameJoinerDto.Builder().game(game).playerToJoin(null).build();
         // When
-        Either<Error, GameJoinerDto> validated= validator.validateJoin(inputData);
+        Either<Error, GameJoinerDto> validated = validator.validateJoin(inputData);
         // Then
         assertThat(validated.getLeft()).isEqualTo(GameError.PLAYER_DATA_CANNOT_BE_EMPTY);
     }
@@ -117,7 +116,7 @@ class ValidatorTest {
         PlayerDto firstPlayer = playerLoader.loadFirstPlayer();
         GameCreateDto inputData = new GameCreateDto.Builder().firstPlayer(firstPlayer).size(7).build();
         // When
-        Either<Error, GameCreateDto> validated= validator.validateCreate(inputData);
+        Either<Error, GameCreateDto> validated = validator.validateCreate(inputData);
         // Then
         assertThat(validated.getLeft()).isEqualTo(GameError.TO_SMALL_BOARD_SIZE);
     }

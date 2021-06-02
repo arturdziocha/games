@@ -8,7 +8,6 @@ import com.ara.game.usecases.battleship.point.port.PointGateway;
 import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
 import com.google.inject.Inject;
-
 import io.vavr.collection.Set;
 import io.vavr.collection.SortedSet;
 import io.vavr.control.Either;
@@ -19,7 +18,7 @@ public class PointFacade {
     private final PointsCreator pointsCreator;
 
     @Inject
-    public PointFacade(PointGateway pointGateway, IdGenerator idGenerator) {        
+    public PointFacade(PointGateway pointGateway, IdGenerator idGenerator) {
         creator = new Creator(pointGateway, idGenerator);
         finder = new Finder(pointGateway);
         pointsCreator = new PointsCreator(finder, creator);

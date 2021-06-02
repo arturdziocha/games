@@ -1,15 +1,13 @@
 package com.ara.game.usecases.battleship.ship;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
+import com.ara.game.usecases.common.Error;
+import io.vavr.control.Either;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
-import com.ara.game.usecases.common.Error;
-
-import io.vavr.control.Either;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ValidatorTest {
     private Validator validator;

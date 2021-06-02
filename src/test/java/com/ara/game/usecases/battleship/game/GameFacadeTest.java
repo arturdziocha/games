@@ -1,12 +1,5 @@
 package com.ara.game.usecases.battleship.game;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import com.ara.game.usecases.battleship.dataLoader.PlayerLoader;
 import com.ara.game.usecases.battleship.game.dto.GameCreateDto;
 import com.ara.game.usecases.battleship.game.dto.GameDto;
@@ -15,9 +8,14 @@ import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-
 import external.ConsoleModule;
 import io.vavr.control.Either;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GameFacadeTest {
     private GameFacade gameFacade;

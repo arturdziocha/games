@@ -4,7 +4,6 @@ import com.ara.game.usecases.battleship.game.dto.GameCreateDto;
 import com.ara.game.usecases.battleship.game.dto.GameJoinerDto;
 import com.ara.game.usecases.common.Error;
 import io.vavr.control.Either;
-import io.vavr.control.Option;
 
 class Validator {
     Either<Error, GameCreateDto> validateCreate(GameCreateDto inputData) {

@@ -5,7 +5,6 @@ import com.ara.game.usecases.battleship.point.dto.PointCreateRowColDto;
 import com.ara.game.usecases.battleship.point.dto.PointDto;
 import com.ara.game.usecases.battleship.point.dto.PointsCreateDto;
 import com.ara.game.usecases.common.Error;
-
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 import io.vavr.control.Either;
@@ -41,7 +40,7 @@ final class PointsCreator {
                                 pointsCreateInputData.getPoint().getRow(), pointsCreateInputData.getPoint().getColumn()),
                         i);
                 Either<Error, PointDto> created = finder
-                        .findByRowAndColumn(rowColumn.getRow(), rowColumn.getColumn())                        
+                        .findByRowAndColumn(rowColumn.getRow(), rowColumn.getColumn())
                         .orElse(create(rowColumn.getRow(), rowColumn.getColumn()));
                 if (created.isLeft()) {
                     return Either.left(created.getLeft());

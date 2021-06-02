@@ -1,11 +1,5 @@
 package com.ara.game.usecases.battleship.shipPoints;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import com.ara.game.usecases.battleship.enums.ShipClass;
 import com.ara.game.usecases.battleship.point.PointFacade;
 import com.ara.game.usecases.battleship.point.dto.PointCreateStringDto;
@@ -17,11 +11,15 @@ import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsCreateDto;
 import com.ara.game.usecases.common.Error;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-
 import external.ConsoleModule;
 import io.vavr.collection.HashSet;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ValidatorTest {
     private Validator validator;
@@ -42,7 +40,7 @@ class ValidatorTest {
         // Given
         Either<Error, PointDto> point = pointFacade
                 .create(new PointCreateStringDto.Builder().pointString("a1").build());
-        
+
         ShipPointsCreateDto inputData = new ShipPointsCreateDto.Builder()
                 .ship(null)
                 .points(HashSet.of(point.get()))
@@ -58,7 +56,7 @@ class ValidatorTest {
     void test2() {
         // Given
         Either<Error, ShipDto> ship = shipFacade
-                .create(new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build());        
+                .create(new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build());
         ShipPointsCreateDto inputData = new ShipPointsCreateDto.Builder()
                 .ship(ship.get())
                 .points(HashSet.empty())
@@ -74,7 +72,7 @@ class ValidatorTest {
     void test3() {
         // Given
         Either<Error, ShipDto> ship = shipFacade
-                .create(new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build());        
+                .create(new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build());
         ShipPointsCreateDto inputData = new ShipPointsCreateDto.Builder().ship(ship.get()).points(null).build();
         // When
         Option<Error> validated = validator.validate(inputData);

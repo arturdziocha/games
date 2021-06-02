@@ -1,10 +1,5 @@
 package com.ara.game.usecases.battleship.shot;
 
-import java.time.LocalDateTime;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.ara.game.usecases.battleship.enums.PointStatus;
 import com.ara.game.usecases.battleship.game.dto.GameDto;
 import com.ara.game.usecases.battleship.player.dto.PlayerDto;
@@ -21,12 +16,15 @@ import com.ara.game.usecases.battleship.shot.dto.ShotDto;
 import com.ara.game.usecases.battleship.shot.port.ShotGateway;
 import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
-
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.time.LocalDateTime;
 
 public class Creator {
     private final ShotGateway shotGateway;

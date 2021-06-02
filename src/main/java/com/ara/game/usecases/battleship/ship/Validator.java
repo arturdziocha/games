@@ -2,7 +2,6 @@ package com.ara.game.usecases.battleship.ship;
 
 import com.ara.game.usecases.battleship.ship.dto.ShipCreateDto;
 import com.ara.game.usecases.common.Error;
-
 import io.vavr.control.Either;
 
 final class Validator {

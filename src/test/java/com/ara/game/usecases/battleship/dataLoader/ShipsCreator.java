@@ -16,7 +16,6 @@ import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 import com.ara.game.usecases.battleship.shipPoints.port.ShipPointsGateway;
 import com.ara.game.usecases.common.port.IdGenerator;
 import com.google.inject.Inject;
-
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 
@@ -28,7 +27,7 @@ public final class ShipsCreator {
 
     @Inject
     ShipsCreator(final ShipGateway shipGateway, final IdGenerator idGenerator, final PointGateway pointGateway,
-            final ShipPointsGateway shipPointsGateway) {
+                 final ShipPointsGateway shipPointsGateway) {
         shipFacade = new ShipFacade(shipGateway, idGenerator);
         pointsCreator = new PointsCreator(pointGateway, idGenerator);
         pointFacade = new PointFacade(pointGateway, idGenerator);
@@ -176,13 +175,13 @@ public final class ShipsCreator {
     public Set<ShipWithPointsDto> createNineShips() {
         return HashSet
                 .of(createBarca1A1Down(), createBarca2C1Down(), createBarca3E1Down(), createPatrolBoat1G1Down(),
-                    createPatrolBoat2I1Down(), createSubmarineA10Up(), createDestroyerC10Up(), createBattleshipE10Up(),
-                    createCarrierJ10Up());
+                        createPatrolBoat2I1Down(), createSubmarineA10Up(), createDestroyerC10Up(), createBattleshipE10Up(),
+                        createCarrierJ10Up());
     }
 
     public Set<ShipWithPointsDto> createEightShips() {
         return HashSet
                 .of(createBarca1A1Down(), createBarca2C1Down(), createBarca3E1Down(), createPatrolBoat1G1Down(),
-                    createPatrolBoat2I1Down(), createSubmarineA10Up(), createDestroyerC10Up(), createBattleshipE10Up());
+                        createPatrolBoat2I1Down(), createSubmarineA10Up(), createDestroyerC10Up(), createBattleshipE10Up());
     }
 }

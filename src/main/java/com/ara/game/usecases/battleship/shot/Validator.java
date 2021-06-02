@@ -3,7 +3,6 @@ package com.ara.game.usecases.battleship.shot;
 import com.ara.game.usecases.battleship.shot.dto.ShotCreateDto;
 import com.ara.game.usecases.common.Error;
 import io.vavr.control.Either;
-import io.vavr.control.Option;
 
 final class Validator {
     Either<Error, ShotCreateDto> validate(ShotCreateDto inputData) {

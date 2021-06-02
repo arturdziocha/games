@@ -6,7 +6,6 @@ import com.ara.game.usecases.battleship.ship.port.ShipGateway;
 import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
 import com.google.inject.Inject;
-
 import io.vavr.control.Either;
 
 public class ShipFacade {
