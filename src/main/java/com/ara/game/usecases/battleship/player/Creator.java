@@ -6,7 +6,6 @@ import com.ara.game.usecases.battleship.player.port.PlayerGateway;
 import com.ara.game.usecases.common.Error;
 import com.ara.game.usecases.common.port.IdGenerator;
 import io.vavr.control.Either;
-import io.vavr.control.Option;
 import io.vavr.control.Try;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +26,9 @@ final class Creator {
     }
 
     Either<Error, PlayerDto> create(PlayerCreateDto inputData) {
-        Option<Error> validation = validator.validate(inputData);
-        return validation.isDefined() ? Either.left(validation.get())
+        Either<Error, PlayerCreateDto> validation = validator.validate(inputData);
+        return validation.isLeft() ?
+                Either.left(validation.getLeft())
                 : playerGateway.findByName(inputData.getName()).isDefined()
                 ? Either.left(PlayerError.PLAYER_NAME_ALREADY_EXISTS)
                 : savePlayer(mapper.mapToEntity(idGenerator.generate(), inputData));

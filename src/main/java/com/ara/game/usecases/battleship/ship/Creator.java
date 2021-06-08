@@ -25,9 +25,9 @@ class Creator {
         this.validator = new Validator();
     }
 
-    Either<Error, ShipDto> create(final ShipCreateDto shipCreateDto) {
+    Either<Error, ShipDto> create(final ShipCreateDto inputData) {
         return validator
-                .validate(shipCreateDto)
+                .validate(inputData)
                 .flatMap(
                         v -> saveShip(new Ship.Builder().id(idGenerator.generate()).shipClass(v.getShipClass()).build()));
     }

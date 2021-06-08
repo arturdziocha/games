@@ -3,6 +3,7 @@ package com.ara.game.usecases.battleship.player;
 import com.ara.game.usecases.battleship.enums.PlayerType;
 import com.ara.game.usecases.battleship.player.dto.PlayerCreateDto;
 import com.ara.game.usecases.common.Error;
+import io.vavr.control.Either;
 import io.vavr.control.Option;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,9 +25,9 @@ public class ValidatorTest {
         // Given
         PlayerCreateDto input = null;
         // When
-        Option<Error> validated = validator.validate(input);
+        Either<Error, PlayerCreateDto> validated = validator.validate(input);
         // Then
-        assertThat(validated.get().getCause()).isEqualTo("Data cannot be empty");
+        assertThat(validated.getLeft()).isEqualTo(PlayerError.DATA_CANNOT_BE_EMPTY);
     }
 
     @Test
@@ -35,9 +36,9 @@ public class ValidatorTest {
         // Given
         PlayerCreateDto input = new PlayerCreateDto.Builder().name(null).playerType(PlayerType.HUMAN_PLAYER).build();
         // When
-        Option<Error> validated = validator.validate(input);
+        Either<Error, PlayerCreateDto> validated = validator.validate(input);
         // Then
-        assertThat(validated.get().getCause()).isEqualTo("Name cannot be empty");
+        assertThat(validated.getLeft()).isEqualTo(PlayerError.PLAYER_NAME_CANNOT_BE_EMPTY);
     }
 
     @Test
@@ -46,9 +47,9 @@ public class ValidatorTest {
         // Given
         PlayerCreateDto input = new PlayerCreateDto.Builder().name("Artur").playerType(null).build();
         // When
-        Option<Error> validated = validator.validate(input);
+        Either<Error, PlayerCreateDto> validated = validator.validate(input);
         // Then
-        assertThat(validated.get().getCause()).isEqualTo("Type of player cannot be empty");
+        assertThat(validated.getLeft()).isEqualTo(PlayerError.PLAYER_TYPE_CANNOT_BE_EMPTY);
     }
 
 }

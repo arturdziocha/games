@@ -46,9 +46,9 @@ class ValidatorTest {
                 .points(HashSet.of(point.get()))
                 .build();
         // When
-        Option<Error> validated = validator.validate(inputData);
+        Either<Error, ShipPointsCreateDto> validated = validator.validate(inputData);
         // Then
-        assertThat(validated.get().getCause()).isEqualTo("Ship not specified");
+        assertThat(validated.getLeft()).isEqualTo(ShipPointsError.SHIP_NOT_SPECIFIED);
     }
 
     @Test
@@ -62,9 +62,9 @@ class ValidatorTest {
                 .points(HashSet.empty())
                 .build();
         // When
-        Option<Error> validated = validator.validate(inputData);
+        Either<Error, ShipPointsCreateDto> validated = validator.validate(inputData);
         // Then
-        assertThat(validated.get().getCause()).isEqualTo("No points specified");
+        assertThat(validated.getLeft()).isEqualTo(ShipPointsError.POINTS_NOT_SPECIFIED);
     }
 
     @Test
@@ -75,9 +75,9 @@ class ValidatorTest {
                 .create(new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build());
         ShipPointsCreateDto inputData = new ShipPointsCreateDto.Builder().ship(ship.get()).points(null).build();
         // When
-        Option<Error> validated = validator.validate(inputData);
+        Either<Error, ShipPointsCreateDto> validated = validator.validate(inputData);
         // Then
-        assertThat(validated.get().getCause()).isEqualTo("No points specified");
+        assertThat(validated.getLeft()).isEqualTo(ShipPointsError.POINTS_NOT_SPECIFIED);
     }
 
 }
