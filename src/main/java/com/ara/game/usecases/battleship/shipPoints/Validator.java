@@ -3,7 +3,6 @@ package com.ara.game.usecases.battleship.shipPoints;
 import com.ara.game.usecases.battleship.shipPoints.dto.ShipPointsCreateDto;
 import com.ara.game.usecases.common.Error;
 import io.vavr.control.Either;
-import io.vavr.control.Option;
 
 final class Validator {
 

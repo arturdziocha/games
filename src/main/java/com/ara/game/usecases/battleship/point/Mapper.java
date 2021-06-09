@@ -5,7 +5,7 @@ import com.ara.game.usecases.battleship.point.dto.PointDto;
 class Mapper {
 
     final PointDto mapToDTO(final Point point) {
-        return new PointDto.Builder()
+        return PointDto.builder()
                 .id(point.getId())
                 .pointString(point.getPointString())
                 .row(point.getRow())

@@ -32,7 +32,7 @@ class ValidatorTest {
     @DisplayName("Should return Option<Error> when shipClass is null")
     void test2() {
         // Given
-        ShipCreateDto createInputData = new ShipCreateDto.Builder().shipClass(null).build();
+        ShipCreateDto createInputData = ShipCreateDto.builder().shipClass(null).build();
         // When
         Either<Error, ShipCreateDto> validated = validator.validate(createInputData);
         // Then

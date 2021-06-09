@@ -13,6 +13,10 @@ public class ShipCreateDto {
         return shipClass;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private ShipClass shipClass;
 

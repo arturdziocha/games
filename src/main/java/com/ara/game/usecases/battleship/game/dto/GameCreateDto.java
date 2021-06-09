@@ -20,7 +20,7 @@ public final class GameCreateDto {
         return size;
     }
 
-    public static Builder builder(){
+    public static Builder builder() {
         return new Builder();
     }
 

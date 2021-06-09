@@ -26,6 +26,10 @@ public final class PointsCreateDto {
         return direction;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private Integer size;
         private PointDto point;

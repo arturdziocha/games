@@ -37,7 +37,7 @@ public final class ShipsCreator {
     public ShipWithPointsDto createBarca1A1Down() {
         PointDto startPoint = pointsCreator.createA1();
         ShipDto ship = shipFacade
-                .create(new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build())
+                .create(ShipCreateDto.builder().shipClass(ShipClass.BARCA1).build())
                 .map(l -> shipFacade.find(l.getId()).get())
                 .get();
         return shipPointsFacade
@@ -48,7 +48,7 @@ public final class ShipsCreator {
     public ShipWithPointsDto createBarca2C1Down() {
         PointDto startPoint = pointsCreator.createC1();
         ShipDto ship = shipFacade
-                .create(new ShipCreateDto.Builder().shipClass(ShipClass.BARCA2).build())
+                .create(ShipCreateDto.builder().shipClass(ShipClass.BARCA2).build())
                 .map(l -> shipFacade.find(l.getId()).get())
                 .get();
         return shipPointsFacade
@@ -59,7 +59,7 @@ public final class ShipsCreator {
     public ShipWithPointsDto createBarca3E1Down() {
         PointDto startPoint = pointsCreator.createE1();
         ShipDto ship = shipFacade
-                .create(new ShipCreateDto.Builder().shipClass(ShipClass.BARCA3).build())
+                .create(ShipCreateDto.builder().shipClass(ShipClass.BARCA3).build())
                 .map(l -> shipFacade.find(l.getId()).get())
                 .get();
         return shipPointsFacade
@@ -69,14 +69,14 @@ public final class ShipsCreator {
 
     public ShipWithPointsDto createPatrolBoat1G1Down() {
         Set<PointDto> points = pointFacade
-                .createPoints(new PointsCreateDto.Builder()
+                .createPoints(PointsCreateDto.builder()
                         .point(pointsCreator.createG1())
                         .size(ShipClass.PATROL_BOAT1.getSize())
                         .direction(Direction.DOWN)
                         .build())
                 .get();
         ShipDto ship = shipFacade
-                .create(new ShipCreateDto.Builder().shipClass(ShipClass.PATROL_BOAT1).build())
+                .create(ShipCreateDto.builder().shipClass(ShipClass.PATROL_BOAT1).build())
                 .map(l -> shipFacade.find(l.getId()).get())
                 .get();
         return shipPointsFacade.create(new ShipPointsCreateDto.Builder().ship(ship).points(points).build()).get();
@@ -84,14 +84,14 @@ public final class ShipsCreator {
 
     public ShipWithPointsDto createPatrolBoat2I1Down() {
         Set<PointDto> points = pointFacade
-                .createPoints(new PointsCreateDto.Builder()
+                .createPoints(PointsCreateDto.builder()
                         .point(pointsCreator.createI1())
                         .size(ShipClass.PATROL_BOAT2.getSize())
                         .direction(Direction.DOWN)
                         .build())
                 .get();
         ShipDto ship = shipFacade
-                .create(new ShipCreateDto.Builder().shipClass(ShipClass.PATROL_BOAT2).build())
+                .create(ShipCreateDto.builder().shipClass(ShipClass.PATROL_BOAT2).build())
                 .map(l -> shipFacade.find(l.getId()).get())
                 .get();
         return shipPointsFacade.create(new ShipPointsCreateDto.Builder().ship(ship).points(points).build()).get();
@@ -99,14 +99,14 @@ public final class ShipsCreator {
 
     public ShipWithPointsDto createSubmarineA10Up() {
         Set<PointDto> points = pointFacade
-                .createPoints(new PointsCreateDto.Builder()
+                .createPoints(PointsCreateDto.builder()
                         .point(pointsCreator.createA10())
                         .size(ShipClass.SUBMARINE.getSize())
                         .direction(Direction.UP)
                         .build())
                 .get();
         ShipDto ship = shipFacade
-                .create(new ShipCreateDto.Builder().shipClass(ShipClass.SUBMARINE).build())
+                .create(ShipCreateDto.builder().shipClass(ShipClass.SUBMARINE).build())
                 .map(l -> shipFacade.find(l.getId()).get())
                 .get();
         return shipPointsFacade.create(new ShipPointsCreateDto.Builder().ship(ship).points(points).build()).get();
@@ -114,14 +114,14 @@ public final class ShipsCreator {
 
     public ShipWithPointsDto createDestroyerC10Up() {
         Set<PointDto> points = pointFacade
-                .createPoints(new PointsCreateDto.Builder()
+                .createPoints(PointsCreateDto.builder()
                         .point(pointsCreator.createC10())
                         .size(ShipClass.DESTROYER.getSize())
                         .direction(Direction.UP)
                         .build())
                 .get();
         ShipDto ship = shipFacade
-                .create(new ShipCreateDto.Builder().shipClass(ShipClass.DESTROYER).build())
+                .create(ShipCreateDto.builder().shipClass(ShipClass.DESTROYER).build())
                 .map(l -> shipFacade.find(l.getId()).get())
                 .get();
         return shipPointsFacade.create(new ShipPointsCreateDto.Builder().ship(ship).points(points).build()).get();
@@ -129,14 +129,14 @@ public final class ShipsCreator {
 
     public ShipWithPointsDto createBattleshipE10Up() {
         Set<PointDto> points = pointFacade
-                .createPoints(new PointsCreateDto.Builder()
+                .createPoints(PointsCreateDto.builder()
                         .point(pointsCreator.createE10())
                         .size(ShipClass.BATTLESHIP.getSize())
                         .direction(Direction.UP)
                         .build())
                 .get();
         ShipDto ship = shipFacade
-                .create(new ShipCreateDto.Builder().shipClass(ShipClass.BATTLESHIP).build())
+                .create(ShipCreateDto.builder().shipClass(ShipClass.BATTLESHIP).build())
                 .map(l -> shipFacade.find(l.getId()).get())
                 .get();
         return shipPointsFacade.create(new ShipPointsCreateDto.Builder().ship(ship).points(points).build()).get();
@@ -144,14 +144,14 @@ public final class ShipsCreator {
 
     public ShipWithPointsDto createCarrierJ10Up() {
         Set<PointDto> points = pointFacade
-                .createPoints(new PointsCreateDto.Builder()
+                .createPoints(PointsCreateDto.builder()
                         .point(pointsCreator.createJ10())
                         .size(ShipClass.CARRIER.getSize())
                         .direction(Direction.UP)
                         .build())
                 .get();
         ShipDto ship = shipFacade
-                .create(new ShipCreateDto.Builder().shipClass(ShipClass.CARRIER).build())
+                .create(ShipCreateDto.builder().shipClass(ShipClass.CARRIER).build())
                 .map(l -> shipFacade.find(l.getId()).get())
                 .get();
         return shipPointsFacade.create(new ShipPointsCreateDto.Builder().ship(ship).points(points).build()).get();
@@ -159,14 +159,14 @@ public final class ShipsCreator {
 
     public ShipWithPointsDto createBattleshipToClose() {
         Set<PointDto> points = pointFacade
-                .createPoints(new PointsCreateDto.Builder()
+                .createPoints(PointsCreateDto.builder()
                         .point(pointsCreator.createI10())
                         .size(ShipClass.BATTLESHIP.getSize())
                         .direction(Direction.UP)
                         .build())
                 .get();
         ShipDto ship = shipFacade
-                .create(new ShipCreateDto.Builder().shipClass(ShipClass.BATTLESHIP).build())
+                .create(ShipCreateDto.builder().shipClass(ShipClass.BATTLESHIP).build())
                 .map(l -> shipFacade.find(l.getId()).get())
                 .get();
         return shipPointsFacade.create(new ShipPointsCreateDto.Builder().ship(ship).points(points).build()).get();

@@ -14,7 +14,6 @@ import com.google.inject.Injector;
 import external.ConsoleModule;
 import io.vavr.collection.HashSet;
 import io.vavr.control.Either;
-import io.vavr.control.Option;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,7 +38,7 @@ class ValidatorTest {
     void test1() {
         // Given
         Either<Error, PointDto> point = pointFacade
-                .create(new PointCreateStringDto.Builder().pointString("a1").build());
+                .create(PointCreateStringDto.builder().pointString("a1").build());
 
         ShipPointsCreateDto inputData = new ShipPointsCreateDto.Builder()
                 .ship(null)
@@ -56,7 +55,7 @@ class ValidatorTest {
     void test2() {
         // Given
         Either<Error, ShipDto> ship = shipFacade
-                .create(new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build());
+                .create(ShipCreateDto.builder().shipClass(ShipClass.BARCA1).build());
         ShipPointsCreateDto inputData = new ShipPointsCreateDto.Builder()
                 .ship(ship.get())
                 .points(HashSet.empty())
@@ -72,7 +71,7 @@ class ValidatorTest {
     void test3() {
         // Given
         Either<Error, ShipDto> ship = shipFacade
-                .create(new ShipCreateDto.Builder().shipClass(ShipClass.BARCA1).build());
+                .create(ShipCreateDto.builder().shipClass(ShipClass.BARCA1).build());
         ShipPointsCreateDto inputData = new ShipPointsCreateDto.Builder().ship(ship.get()).points(null).build();
         // When
         Either<Error, ShipPointsCreateDto> validated = validator.validate(inputData);

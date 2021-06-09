@@ -127,7 +127,7 @@ public class Creator {
 
     private void updateHealth(ShipDto ship) {
         shipGateway
-                .update(new ShipDto.Builder()
+                .update(ShipDto.builder()
                         .health(ship.getHealth() - 1)
                         .shipClass(ship.getShipClass())
                         .id(ship.getId())

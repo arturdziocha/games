@@ -30,7 +30,7 @@ public final class PlayerLoader {
     }
 
     public PlayerDto loadSecondPlayer() {
-        PlayerCreateDto player =  PlayerCreateDto.builder()
+        PlayerCreateDto player = PlayerCreateDto.builder()
                 .name("Jarek")
                 .playerType(PlayerType.HUMAN_PLAYER)
                 .build();
@@ -41,7 +41,7 @@ public final class PlayerLoader {
     public Set<PlayerDto> loadTwoPlayers() {
         PlayerCreateDto[] players = {
                 PlayerCreateDto.builder().name("Artur").playerType(PlayerType.HUMAN_PLAYER).build(),
-                 PlayerCreateDto.builder().name("Jarek").playerType(PlayerType.HUMAN_PLAYER).build()};
+                PlayerCreateDto.builder().name("Jarek").playerType(PlayerType.HUMAN_PLAYER).build()};
         return Stream.of(players).map(player -> playerFacade.create(player).get()).toSet();
     }
 

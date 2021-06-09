@@ -41,14 +41,14 @@ public class ShipPointsFacadeTest {
     void test1() {
         // Given
         Either<Error, ShipDto> ship = shipFacade
-                .create(new ShipCreateDto.Builder().shipClass(ShipClass.CARRIER).build());
+                .create(ShipCreateDto.builder().shipClass(ShipClass.CARRIER).build());
 
         Either<Error, PointDto> startPoint = pointFacade
                 .create(PointCreateRowColDto.builder().row(0).column(0).build());
 
 
         Either<Error, Set<PointDto>> createdPoints = pointFacade
-                .createPoints(new PointsCreateDto.Builder()
+                .createPoints(PointsCreateDto.builder()
                         .point(startPoint.get())
                         .size(ship.get().getHealth())
                         .direction(Direction.DOWN)

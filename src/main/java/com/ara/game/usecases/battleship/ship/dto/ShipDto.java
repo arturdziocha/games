@@ -30,6 +30,10 @@ public final class ShipDto implements Comparable<ShipDto> {
         return "ShipDto [id=" + id + ", shipClass=" + shipClass + ", health=" + health + "]";
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public int compareTo(ShipDto o) {
         int result = health.compareTo(o.getHealth());

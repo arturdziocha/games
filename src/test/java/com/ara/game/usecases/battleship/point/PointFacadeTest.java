@@ -33,7 +33,7 @@ class PointFacadeTest {
     @DisplayName("Should create and save valid point from string")
     void test1() {
         // Given
-        PointCreateStringDto inputData = new PointCreateStringDto.Builder().pointString("a2").build();
+        PointCreateStringDto inputData = PointCreateStringDto.builder().pointString("a2").build();
 
         // When
         Either<Error, PointDto> point = pointFacade.create(inputData);
@@ -65,8 +65,8 @@ class PointFacadeTest {
         ShipClass shipClass = ShipClass.BATTLESHIP;
         Direction direction = Direction.DOWN;
         Either<Error, PointDto> point = pointFacade
-                .create(new PointCreateStringDto.Builder().pointString("b2").build());
-        PointsCreateDto spcid = new PointsCreateDto.Builder()
+                .create(PointCreateStringDto.builder().pointString("b2").build());
+        PointsCreateDto spcid = PointsCreateDto.builder()
                 .size(shipClass.getSize())
                 .point(point.get())
                 .direction(direction)
@@ -88,10 +88,10 @@ class PointFacadeTest {
         ShipClass shipClass = ShipClass.BATTLESHIP;
         Direction direction = Direction.UP;
         Either<Error, PointDto> point = pointFacade
-                .create(new PointCreateStringDto.Builder().pointString("b5").build());
+                .create(PointCreateStringDto.builder().pointString("b5").build());
         Either<Error, PointDto> findPoint = pointFacade.findById(point.get().getId());
 
-        PointsCreateDto spcid = new PointsCreateDto.Builder()
+        PointsCreateDto spcid = PointsCreateDto.builder()
                 .size(shipClass.getSize())
                 .point(findPoint.get())
                 .direction(direction)

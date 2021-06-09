@@ -29,6 +29,10 @@ public final class PointDto implements Comparable<PointDto> {
         return column;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public String toString() {
         return "PointDto [id=" + id + ", pointString=" + pointString + ", row=" + row + ", column=" + column + "]";

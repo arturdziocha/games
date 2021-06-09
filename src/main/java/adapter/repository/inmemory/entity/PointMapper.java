@@ -8,6 +8,6 @@ public class PointMapper {
     }
 
     public PointDto mapToDto(final PointInMemory point) {
-        return new PointDto.Builder().id(point.getId()).row(point.getRow()).column(point.getColumn()).pointString(point.getPointString()).build();
+        return PointDto.builder().id(point.getId()).row(point.getRow()).column(point.getColumn()).pointString(point.getPointString()).build();
     }
 }
