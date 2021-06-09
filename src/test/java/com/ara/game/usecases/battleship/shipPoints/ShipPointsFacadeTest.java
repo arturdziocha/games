@@ -44,7 +44,7 @@ public class ShipPointsFacadeTest {
                 .create(new ShipCreateDto.Builder().shipClass(ShipClass.CARRIER).build());
 
         Either<Error, PointDto> startPoint = pointFacade
-                .create(new PointCreateRowColDto.Builder().row(0).column(0).build());
+                .create(PointCreateRowColDto.builder().row(0).column(0).build());
 
 
         Either<Error, Set<PointDto>> createdPoints = pointFacade

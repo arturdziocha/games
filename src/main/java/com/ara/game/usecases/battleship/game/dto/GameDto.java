@@ -52,6 +52,10 @@ public final class GameDto {
         return createdTime;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private String id;
         private Set<PlayerDto> players;

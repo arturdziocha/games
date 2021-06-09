@@ -19,6 +19,10 @@ public final class GameJoinerDto {
         return playerToJoin;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private GameDto game;
         private PlayerDto playerToJoin;

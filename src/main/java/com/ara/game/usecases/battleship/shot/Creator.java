@@ -150,20 +150,20 @@ public class Creator {
         for (PointDto point : shipPoints) {
             for (int i = -1; i <= 1; i++) {
                 pointsToCreate = pointsToCreate
-                        .add(new PointCreateRowColDto.Builder()
+                        .add(PointCreateRowColDto.builder()
                                 .row(point.getRow() - 1)
                                 .column(point.getColumn() + i)
                                 .build());
                 pointsToCreate = pointsToCreate
-                        .add(new PointCreateRowColDto.Builder()
+                        .add(PointCreateRowColDto.builder()
                                 .row(point.getRow() + 1)
                                 .column(point.getColumn() + i)
                                 .build());
             }
             pointsToCreate = pointsToCreate
-                    .add(new PointCreateRowColDto.Builder().row(point.getRow()).column(point.getColumn() - 1).build());
+                    .add(PointCreateRowColDto.builder().row(point.getRow()).column(point.getColumn() - 1).build());
             pointsToCreate = pointsToCreate
-                    .add(new PointCreateRowColDto.Builder().row(point.getRow()).column(point.getColumn() + 1).build());
+                    .add(PointCreateRowColDto.builder().row(point.getRow()).column(point.getColumn() + 1).build());
         }
         pointsToCreate = pointsToCreate.removeAll(shipPointsToCreateRowCol(shipPoints));
         pointsToCreate = pointsToCreate
@@ -182,6 +182,6 @@ public class Creator {
     }
 
     private Set<PointCreateRowColDto> shipPointsToCreateRowCol(Set<PointDto> points) {
-        return points.map(p -> new PointCreateRowColDto.Builder().row(p.getRow()).column(p.getColumn()).build());
+        return points.map(p -> PointCreateRowColDto.builder().row(p.getRow()).column(p.getColumn()).build());
     }
 }

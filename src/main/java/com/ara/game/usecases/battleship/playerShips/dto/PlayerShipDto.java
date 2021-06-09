@@ -20,6 +20,10 @@ public final class PlayerShipDto {
         return ship;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private PlayerDto player;
         private ShipDto ship;

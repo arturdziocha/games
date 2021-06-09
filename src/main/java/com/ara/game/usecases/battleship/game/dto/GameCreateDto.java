@@ -20,6 +20,10 @@ public final class GameCreateDto {
         return size;
     }
 
+    public static Builder builder(){
+        return new Builder();
+    }
+
     public static class Builder {
         private PlayerDto firstPlayer;
         private Integer size;

@@ -18,7 +18,7 @@ public class GameMapper {
     }
 
     public GameDto mapToDto(GameInMemory game, Set<PlayerDto> players, PlayerDto currentPlayer) {
-        return new GameDto.Builder()
+        return GameDto.builder()
                 .id(game.getId())
                 .players(players)
                 .currentPlayer(currentPlayer)

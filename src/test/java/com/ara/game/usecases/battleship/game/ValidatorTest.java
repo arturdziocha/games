@@ -65,7 +65,7 @@ class ValidatorTest {
     @Test
     void test4() {
         // Given
-        GameJoinerDto inputData = new GameJoinerDto.Builder().game(null).playerToJoin(null).build();
+        GameJoinerDto inputData = GameJoinerDto.builder().game(null).playerToJoin(null).build();
         // When
         Either<Error, GameJoinerDto> validated = validator.validateJoin(inputData);
         // Then
@@ -76,14 +76,14 @@ class ValidatorTest {
     @Test
     void test5() {
         PlayerDto firstPlayer = playerLoader.loadFirstPlayer();
-        GameDto game = new GameDto.Builder()
+        GameDto game = GameDto.builder()
                 .currentPlayer(firstPlayer)
                 .currentPlayer(firstPlayer)
                 .isStarted(false)
                 .players(HashSet.of(firstPlayer))
                 .build();
         // Given
-        GameJoinerDto inputData = new GameJoinerDto.Builder().game(game).playerToJoin(null).build();
+        GameJoinerDto inputData = GameJoinerDto.builder().game(game).playerToJoin(null).build();
         // When
         Either<Error, GameJoinerDto> validated = validator.validateJoin(inputData);
         // Then
@@ -94,7 +94,7 @@ class ValidatorTest {
     @Test
     void test6() {
         PlayerDto firstPlayer = playerLoader.loadFirstPlayer();
-        GameDto game = new GameDto.Builder()
+        GameDto game = GameDto.builder()
                 .id("12345")
                 .currentPlayer(firstPlayer)
                 .currentPlayer(firstPlayer)
@@ -102,7 +102,7 @@ class ValidatorTest {
                 .players(HashSet.of(firstPlayer))
                 .build();
         // Given
-        GameJoinerDto inputData = new GameJoinerDto.Builder().game(game).playerToJoin(firstPlayer).build();
+        GameJoinerDto inputData = GameJoinerDto.builder().game(game).playerToJoin(firstPlayer).build();
         // When
         Either<Error, GameJoinerDto> validated = validator.validateJoin(inputData);
         // Then

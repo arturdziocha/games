@@ -47,7 +47,7 @@ class PointFacadeTest {
     @DisplayName("Should create and save valid point from row=1, column=2")
     void test2() {
         // Given
-        PointCreateRowColDto inputData = new PointCreateRowColDto.Builder().row(1).column(2).build();
+        PointCreateRowColDto inputData = PointCreateRowColDto.builder().row(1).column(2).build();
 
         // When
         Either<Error, PointDto> point = pointFacade.create(inputData);

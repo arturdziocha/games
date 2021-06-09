@@ -5,7 +5,7 @@ import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 
 final class Mapper {
     GameDto mapToDto(Game game) {
-        return new GameDto.Builder()
+        return GameDto.builder()
                 .id(game.getId())
                 .players(game.getPlayers())
                 .size(game.getSize())

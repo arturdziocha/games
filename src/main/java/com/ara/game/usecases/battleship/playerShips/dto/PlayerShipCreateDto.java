@@ -20,6 +20,10 @@ public class PlayerShipCreateDto {
         return shipWithPoints;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private PlayerDto player;
         private ShipWithPointsDto ship;

@@ -18,6 +18,10 @@ final public class PointCreateRowColDto {
         return column;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private Integer row;
         private Integer column;
@@ -62,11 +66,8 @@ final public class PointCreateRowColDto {
         } else if (!column.equals(other.column))
             return false;
         if (row == null) {
-            if (other.row != null)
-                return false;
-        } else if (!row.equals(other.row))
-            return false;
-        return true;
+            return other.row == null;
+        } else return row.equals(other.row);
     }
 
 }

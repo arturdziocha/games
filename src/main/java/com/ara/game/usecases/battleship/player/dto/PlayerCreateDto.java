@@ -19,6 +19,10 @@ public final class PlayerCreateDto {
         return playerType;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private String name;
         private PlayerType playerType;

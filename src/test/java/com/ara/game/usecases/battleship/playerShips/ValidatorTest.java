@@ -43,7 +43,7 @@ class ValidatorTest {
     @DisplayName("Should return Option<Error> when playerData is null")
     void test2() {
         // Given
-        PlayerShipCreateDto inputData = new PlayerShipCreateDto.Builder()
+        PlayerShipCreateDto inputData = PlayerShipCreateDto.builder()
                 .player(null)
                 .ship(shipsCreator.createBarca1A1Down())
                 .build();
@@ -58,7 +58,7 @@ class ValidatorTest {
     @DisplayName("Should return Option<Error> when ship data is null")
     void test3() {
         // Given
-        PlayerShipCreateDto inputData = new PlayerShipCreateDto.Builder()
+        PlayerShipCreateDto inputData = PlayerShipCreateDto.builder()
                 .player(playerLoader.loadFirstPlayer())
                 .ship(null)
                 .build();
