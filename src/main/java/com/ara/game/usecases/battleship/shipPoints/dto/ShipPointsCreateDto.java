@@ -21,6 +21,10 @@ public class ShipPointsCreateDto {
         return points;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private ShipDto ship;
         private Set<PointDto> points;

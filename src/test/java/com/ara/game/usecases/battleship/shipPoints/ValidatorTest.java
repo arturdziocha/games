@@ -40,7 +40,7 @@ class ValidatorTest {
         Either<Error, PointDto> point = pointFacade
                 .create(PointCreateStringDto.builder().pointString("a1").build());
 
-        ShipPointsCreateDto inputData = new ShipPointsCreateDto.Builder()
+        ShipPointsCreateDto inputData = ShipPointsCreateDto.builder()
                 .ship(null)
                 .points(HashSet.of(point.get()))
                 .build();
@@ -56,7 +56,7 @@ class ValidatorTest {
         // Given
         Either<Error, ShipDto> ship = shipFacade
                 .create(ShipCreateDto.builder().shipClass(ShipClass.BARCA1).build());
-        ShipPointsCreateDto inputData = new ShipPointsCreateDto.Builder()
+        ShipPointsCreateDto inputData = ShipPointsCreateDto.builder()
                 .ship(ship.get())
                 .points(HashSet.empty())
                 .build();
@@ -72,7 +72,7 @@ class ValidatorTest {
         // Given
         Either<Error, ShipDto> ship = shipFacade
                 .create(ShipCreateDto.builder().shipClass(ShipClass.BARCA1).build());
-        ShipPointsCreateDto inputData = new ShipPointsCreateDto.Builder().ship(ship.get()).points(null).build();
+        ShipPointsCreateDto inputData = ShipPointsCreateDto.builder().ship(ship.get()).points(null).build();
         // When
         Either<Error, ShipPointsCreateDto> validated = validator.validate(inputData);
         // Then

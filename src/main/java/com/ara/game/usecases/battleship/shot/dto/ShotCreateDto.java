@@ -20,6 +20,10 @@ public class ShotCreateDto {
         return point;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private GameDto game;
         private PointDto point;

@@ -24,6 +24,10 @@ public class AllShotsDto {
         return shots;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private PlayerDto player;
         private Map<PointDto, PointStatus> shots = HashMap.empty();

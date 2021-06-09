@@ -55,7 +55,7 @@ public class ShipPointsFacadeTest {
                         .build());
         Set<PointDto> points = createdPoints.get();
         // When
-        shipPointsFacade.create(new ShipPointsCreateDto.Builder().points(points).ship(ship.get()).build());
+        shipPointsFacade.create(ShipPointsCreateDto.builder().points(points).ship(ship.get()).build());
         Either<Error, ShipWithPointsDto> shipPoints = shipPointsFacade.find(ship.get().getId());
         Set<PointDto> shipPointsIds = shipPoints.get().getPoints();
         // Then

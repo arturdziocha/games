@@ -11,6 +11,6 @@ public class ShipPointsMapper {
     }
 
     public ShipWithPointsDto mapToOutputData(ShipDto ship, Set<PointDto> points) {
-        return new ShipWithPointsDto.Builder().ship(ship).points(points).build();
+        return ShipWithPointsDto.builder().ship(ship).points(points).build();
     }
 }

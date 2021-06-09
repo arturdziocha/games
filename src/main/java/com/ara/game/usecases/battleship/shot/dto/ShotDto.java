@@ -35,6 +35,10 @@ public class ShotDto {
         return shotTime;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private PlayerDto player;
         private PointDto point;

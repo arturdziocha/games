@@ -6,7 +6,7 @@ import com.ara.game.usecases.battleship.shipPoints.dto.ShipWithPointsDto;
 class Mapper {
 
     public ShipWithPointsDto mapToDto(ShipPoints shipPoints) {
-        return new ShipWithPointsDto.Builder().ship(shipPoints.getShip()).points(shipPoints.getPoints()).build();
+        return ShipWithPointsDto.builder().ship(shipPoints.getShip()).points(shipPoints.getPoints()).build();
     }
 
     public ShipPoints mapToEntity(ShipPointsCreateDto shipPoints) {
