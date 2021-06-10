@@ -33,7 +33,7 @@ public class ValidatorTest {
     @DisplayName("Should return Option<Error> when player name is null")
     void test2() {
         // Given
-        PlayerCreateDto input = new PlayerCreateDto.Builder().name(null).playerType(PlayerType.HUMAN_PLAYER).build();
+        PlayerCreateDto input = new PlayerCreateDto.Builder().withName(null).withPlayerType(PlayerType.HUMAN_PLAYER).build();
         // When
         Either<Error, PlayerCreateDto> validated = validator.validate(input);
         // Then
@@ -44,7 +44,7 @@ public class ValidatorTest {
     @DisplayName("Should return Option<Error> when player type is null")
     void test3() {
         // Given
-        PlayerCreateDto input = new PlayerCreateDto.Builder().name("Artur").playerType(null).build();
+        PlayerCreateDto input = new PlayerCreateDto.Builder().withName("Artur").withPlayerType(null).build();
         // When
         Either<Error, PlayerCreateDto> validated = validator.validate(input);
         // Then

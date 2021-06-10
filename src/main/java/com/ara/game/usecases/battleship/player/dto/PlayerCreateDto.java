@@ -27,12 +27,12 @@ public final class PlayerCreateDto {
         private String name;
         private PlayerType playerType;
 
-        public Builder name(final String name) {
+        public Builder withName(final String name) {
             this.name = name;
             return this;
         }
 
-        public Builder playerType(final PlayerType playerType) {
+        public Builder withPlayerType(final PlayerType playerType) {
             this.playerType = playerType;
             return this;
         }

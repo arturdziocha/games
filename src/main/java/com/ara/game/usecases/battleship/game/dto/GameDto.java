@@ -65,37 +65,37 @@ public final class GameDto {
         private boolean isFinished;
         private LocalDateTime createdTime;
 
-        public Builder id(final String id) {
+        public Builder withId(final String id) {
             this.id = id;
             return this;
         }
 
-        public Builder players(final Set<PlayerDto> players) {
+        public Builder withPlayers(final Set<PlayerDto> players) {
             this.players = players;
             return this;
         }
 
-        public Builder size(final Integer size) {
+        public Builder witSize(final Integer size) {
             this.size = size;
             return this;
         }
 
-        public Builder currentPlayer(final PlayerDto currentPlayer) {
+        public Builder withCurrentPlayer(final PlayerDto currentPlayer) {
             this.currentPlayer = currentPlayer;
             return this;
         }
 
-        public Builder isStarted(final boolean isStarted) {
+        public Builder withIsStarted(final boolean isStarted) {
             this.isStarted = isStarted;
             return this;
         }
 
-        public Builder isFinished(final boolean isFinished) {
+        public Builder withIsFinished(final boolean isFinished) {
             this.isFinished = isFinished;
             return this;
         }
 
-        public Builder createdTime(final LocalDateTime createdTime) {
+        public Builder withCreatedTime(final LocalDateTime createdTime) {
             this.createdTime = createdTime;
             return this;
         }

@@ -48,6 +48,10 @@ final class Game extends Entity {
         return createdTime;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     static class Builder extends Entity.Builder<Builder> {
         private Set<PlayerDto> players;
         private PlayerDto currentPlayer;
@@ -56,32 +60,32 @@ final class Game extends Entity {
         private boolean isFinished;
         private LocalDateTime createdTime;
 
-        Builder players(final Set<PlayerDto> players) {
+        Builder withPlayers(final Set<PlayerDto> players) {
             this.players = players;
             return self();
         }
 
-        Builder currentPlayer(final PlayerDto currentPlayer) {
+        Builder withCurrentPlayer(final PlayerDto currentPlayer) {
             this.currentPlayer = currentPlayer;
             return self();
         }
 
-        Builder size(final Integer size) {
+        Builder withSize(final Integer size) {
             this.size = size;
             return self();
         }
 
-        Builder isStarted(final boolean isStarted) {
+        Builder withIsStarted(final boolean isStarted) {
             this.isStarted = isStarted;
             return self();
         }
 
-        Builder isFinished(final boolean isFinished) {
+        Builder withIsFinished(final boolean isFinished) {
             this.isFinished = isFinished;
             return self();
         }
 
-        Builder createdTime(final LocalDateTime createdTime) {
+        Builder withCreatedTime(final LocalDateTime createdTime) {
             this.createdTime = createdTime;
             return self();
         }

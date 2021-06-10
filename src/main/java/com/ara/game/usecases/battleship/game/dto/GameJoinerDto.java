@@ -27,12 +27,12 @@ public final class GameJoinerDto {
         private GameDto game;
         private PlayerDto playerToJoin;
 
-        public Builder game(final GameDto game) {
+        public Builder withGame(final GameDto game) {
             this.game = game;
             return this;
         }
 
-        public Builder playerToJoin(final PlayerDto player) {
+        public Builder withPlayerToJoin(final PlayerDto player) {
             this.playerToJoin = player;
             return this;
         }

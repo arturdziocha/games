@@ -44,8 +44,8 @@ class ValidatorTest {
     void test2() {
         // Given
         PlayerShipCreateDto inputData = PlayerShipCreateDto.builder()
-                .player(null)
-                .ship(shipsCreator.createBarca1A1Down())
+                .withPlayer(null)
+                .withShip(shipsCreator.createBarca1A1Down())
                 .build();
         // When
         Option<Error> validated = validator.validate(inputData);
@@ -59,8 +59,8 @@ class ValidatorTest {
     void test3() {
         // Given
         PlayerShipCreateDto inputData = PlayerShipCreateDto.builder()
-                .player(playerLoader.loadFirstPlayer())
-                .ship(null)
+                .withPlayer(playerLoader.loadFirstPlayer())
+                .withShip(null)
                 .build();
         // When
         Option<Error> validated = validator.validate(inputData);

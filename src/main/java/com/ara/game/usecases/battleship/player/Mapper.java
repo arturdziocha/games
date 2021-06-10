@@ -7,14 +7,14 @@ final class Mapper {
 
     public PlayerDto mapToDto(Player player) {
         return new PlayerDto.Builder()
-                .id(player.getId())
-                .name(player.getName())
-                .playerType(player.getPlayerType())
+                .withId(player.getId())
+                .withName(player.getName())
+                .withPlayerType(player.getPlayerType())
                 .build();
     }
 
     public Player mapToEntity(String id, PlayerCreateDto inputData) {
-        return new Player.Builder().id(id).name(inputData.getName()).playerType(inputData.getPlayerType()).build();
+        return Player.builder().id(id).withName(inputData.getName()).withPlayerType(inputData.getPlayerType()).build();
     }
 
 }

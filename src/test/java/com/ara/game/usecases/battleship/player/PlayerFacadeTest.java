@@ -28,7 +28,7 @@ class PlayerFacadeTest {
     @DisplayName("Should return Option<Error> when player name already exists")
     void test4() {
         // Given
-        PlayerCreateDto input = PlayerCreateDto.builder().name("Artur").playerType(PlayerType.HUMAN_PLAYER).build();
+        PlayerCreateDto input = PlayerCreateDto.builder().withName("Artur").withPlayerType(PlayerType.HUMAN_PLAYER).build();
         // When
         playerFacade.create(input);
         Either<Error, PlayerDto> alreadyExists = playerFacade.create(input);
@@ -44,7 +44,7 @@ class PlayerFacadeTest {
         // Given
         PlayerType playerType = PlayerType.HUMAN_PLAYER;
         // When
-        PlayerCreateDto input = PlayerCreateDto.builder().name("Artur").playerType(playerType).build();
+        PlayerCreateDto input = PlayerCreateDto.builder().withName("Artur").withPlayerType(playerType).build();
         Either<Error, PlayerDto> player = playerFacade.create(input);
 
         // Then

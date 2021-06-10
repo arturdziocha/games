@@ -56,9 +56,9 @@ final class Creator {
                 return Either.left(PlayerShipError.SHIP_IS_TO_CLOSE_OTHER);
             }
         }
-        return savePlayerShip(new PlayerShip.Builder()
-                .player(inputData.getPlayer())
-                .ship(inputData.getShipWithPoints().getShip())
+        return savePlayerShip( PlayerShip.builder()
+                .withPlayer(inputData.getPlayer())
+                .withShip(inputData.getShipWithPoints().getShip())
                 .build());
     }
 

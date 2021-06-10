@@ -14,6 +14,6 @@ public class PlayerMapper {
     }
 
     public PlayerDto mapToDto(PlayerInMemory playerInMemory, PlayerType playerType) {
-        return new PlayerDto.Builder().id(playerInMemory.getId()).name(playerInMemory.getName()).playerType(playerType).build();
+        return new PlayerDto.Builder().withId(playerInMemory.getId()).withName(playerInMemory.getName()).withPlayerType(playerType).build();
     }
 }

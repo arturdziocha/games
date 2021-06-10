@@ -29,14 +29,14 @@ final class Creator {
     }
 
     Either<Error, GameDto> create(final GameCreateDto inputData) {
-        return validator.validateCreate(inputData).flatMap(v -> saveGame(new Game.Builder()
+        return validator.validateCreate(inputData).flatMap(v -> saveGame(Game.builder()
                 .id(idGenerator.generate())
-                .createdTime(LocalDateTime.now())
-                .isStarted(false)
-                .isFinished(false)
-                .currentPlayer(v.getFirstPlayer())
-                .size(v.getSize())
-                .players(HashSet.of(v.getFirstPlayer())).build()));
+                .withCreatedTime(LocalDateTime.now())
+                .withIsStarted(false)
+                .withIsFinished(false)
+                .withCurrentPlayer(v.getFirstPlayer())
+                .withSize(v.getSize())
+                .withPlayers(HashSet.of(v.getFirstPlayer())).build()));
     }
 
     private Either<Error, GameDto> saveGame(Game game) {

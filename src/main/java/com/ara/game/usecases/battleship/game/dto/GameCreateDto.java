@@ -28,12 +28,12 @@ public final class GameCreateDto {
         private PlayerDto firstPlayer;
         private Integer size;
 
-        public Builder firstPlayer(final PlayerDto firstPlayer) {
+        public Builder withFirstPlayer(final PlayerDto firstPlayer) {
             this.firstPlayer = firstPlayer;
             return this;
         }
 
-        public Builder size(final Integer size) {
+        public Builder withSize(final Integer size) {
             this.size = size;
             return this;
         }

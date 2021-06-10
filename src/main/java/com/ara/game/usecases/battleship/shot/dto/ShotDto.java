@@ -45,22 +45,22 @@ public class ShotDto {
         private PointStatus pointStatus;
         private LocalDateTime shotTime;
 
-        public Builder player(final PlayerDto player) {
+        public Builder withPlayer(final PlayerDto player) {
             this.player = player;
             return this;
         }
 
-        public Builder point(final PointDto point) {
+        public Builder withPoint(final PointDto point) {
             this.point = point;
             return this;
         }
 
-        public Builder pointStatus(final PointStatus pointStatus) {
+        public Builder withPointStatus(final PointStatus pointStatus) {
             this.pointStatus = pointStatus;
             return this;
         }
 
-        public Builder shotTime(final LocalDateTime shotTime) {
+        public Builder withShotTime(final LocalDateTime shotTime) {
             this.shotTime = shotTime;
             return this;
         }

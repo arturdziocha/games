@@ -37,7 +37,7 @@ class PlayerShipFacadeTest {
         Set<ShipWithPointsDto> ships = shipsLoader.createNineShips();
         // When
         for (ShipWithPointsDto ship : ships) {
-            playerShipFacade.create(PlayerShipCreateDto.builder().player(playerId).ship(ship).build());
+            playerShipFacade.create(PlayerShipCreateDto.builder().withPlayer(playerId).withShip(ship).build());
         }
         // Then
         Either<Error, Set<ShipWithPointsDto>> findShips = playerShipFacade.find(playerId.getId());
@@ -53,10 +53,10 @@ class PlayerShipFacadeTest {
         ShipWithPointsDto shipToPlace = shipsLoader.createBattleshipE10Up();
         // When
         for (ShipWithPointsDto ship : ships) {
-            playerShipFacade.create(PlayerShipCreateDto.builder().player(playerId).ship(ship).build());
+            playerShipFacade.create(PlayerShipCreateDto.builder().withPlayer(playerId).withShip(ship).build());
         }
         Either<Error, PlayerShipDto> ship = playerShipFacade
-                .create(PlayerShipCreateDto.builder().ship(shipToPlace).player(playerId).build());
+                .create(PlayerShipCreateDto.builder().withShip(shipToPlace).withPlayer(playerId).build());
         // Then
         assertThat(ship.getLeft().getCause()).isEqualTo("All ships already placed");
     }
@@ -69,11 +69,11 @@ class PlayerShipFacadeTest {
         ShipWithPointsDto firstBattleship = shipsLoader.createBattleshipE10Up();
         ShipWithPointsDto secondBattleship = shipsLoader.createBattleshipE10Up();
         playerShipFacade
-                .create(PlayerShipCreateDto.builder().ship(firstBattleship).player(playerId).build());
+                .create(PlayerShipCreateDto.builder().withShip(firstBattleship).withPlayer(playerId).build());
 
         // When
         Either<Error, PlayerShipDto> shipWithError = playerShipFacade
-                .create(PlayerShipCreateDto.builder().ship(secondBattleship).player(playerId).build());
+                .create(PlayerShipCreateDto.builder().withShip(secondBattleship).withPlayer(playerId).build());
         // Then
         assertThat(shipWithError.getLeft().getCause()).isEqualTo("Ship is already placed");
     }
@@ -86,11 +86,11 @@ class PlayerShipFacadeTest {
         ShipWithPointsDto firstBattleship = shipsLoader.createCarrierJ10Up();
         ShipWithPointsDto secondBattleship = shipsLoader.createBattleshipToClose();
         playerShipFacade
-                .create(PlayerShipCreateDto.builder().ship(firstBattleship).player(playerId).build());
+                .create(PlayerShipCreateDto.builder().withShip(firstBattleship).withPlayer(playerId).build());
 
         // When
         Either<Error, PlayerShipDto> shipWithError = playerShipFacade
-                .create(PlayerShipCreateDto.builder().ship(secondBattleship).player(playerId).build());
+                .create(PlayerShipCreateDto.builder().withShip(secondBattleship).withPlayer(playerId).build());
         // Then
         assertThat(shipWithError.getLeft().getCause()).isEqualTo("Ship is to close other ships");
     }

@@ -36,6 +36,10 @@ final class Shot {
         return shotTime;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     static class Builder {
         private PlayerDto player;
         private PointDto point;
@@ -46,26 +50,24 @@ final class Shot {
             return new Shot(this);
         }
 
-        Builder player(final PlayerDto player) {
+        Builder withPlayer(final PlayerDto player) {
             this.player = player;
             return this;
         }
 
-        Builder point(final PointDto point) {
+        Builder withPoint(final PointDto point) {
             this.point = point;
             return this;
         }
 
-        Builder pointStatus(final PointStatus pointStatus) {
+        Builder withPointStatus(final PointStatus pointStatus) {
             this.pointStatus = pointStatus;
             return this;
         }
 
-        Builder shotTime(final LocalDateTime shotTime) {
+        Builder withShotTime(final LocalDateTime shotTime) {
             this.shotTime = shotTime;
             return this;
         }
     }
-
-
 }

@@ -6,25 +6,25 @@ import com.ara.game.usecases.battleship.player.dto.PlayerDto;
 final class Mapper {
     GameDto mapToDto(Game game) {
         return GameDto.builder()
-                .id(game.getId())
-                .players(game.getPlayers())
-                .size(game.getSize())
-                .currentPlayer(game.getCurrentPlayer())
-                .isStarted(game.isStarted())
-                .isFinished(game.isFinished())
-                .createdTime(game.getCreatedTime())
+                .withId(game.getId())
+                .withPlayers(game.getPlayers())
+                .witSize(game.getSize())
+                .withCurrentPlayer(game.getCurrentPlayer())
+                .withIsStarted(game.isStarted())
+                .withIsFinished(game.isFinished())
+                .withCreatedTime(game.getCreatedTime())
                 .build();
     }
 
     Game mapToJoinEntity(GameDto game, PlayerDto player) {
-        return new Game.Builder()
+        return Game.builder()
                 .id(game.getId())
-                .players(game.getPlayers().add(player))
-                .size(game.getSize())
-                .currentPlayer(game.getCurrentPlayer())
-                .isStarted(game.isStarted())
-                .isFinished(game.isFinished())
-                .createdTime(game.getCreatedTime())
+                .withPlayers(game.getPlayers().add(player))
+                .withSize(game.getSize())
+                .withCurrentPlayer(game.getCurrentPlayer())
+                .withIsStarted(game.isStarted())
+                .withIsFinished(game.isFinished())
+                .withCreatedTime(game.getCreatedTime())
                 .build();
     }
 }

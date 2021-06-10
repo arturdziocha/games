@@ -22,8 +22,8 @@ public final class PlayerLoader {
 
     public PlayerDto loadFirstPlayer() {
         PlayerCreateDto player = PlayerCreateDto.builder()
-                .name("Artur")
-                .playerType(PlayerType.HUMAN_PLAYER)
+                .withName("Artur")
+                .withPlayerType(PlayerType.HUMAN_PLAYER)
                 .build();
         Either<Error, PlayerDto> playerCreated = playerFacade.create(player);
         return playerCreated.get();
@@ -31,8 +31,8 @@ public final class PlayerLoader {
 
     public PlayerDto loadSecondPlayer() {
         PlayerCreateDto player = PlayerCreateDto.builder()
-                .name("Jarek")
-                .playerType(PlayerType.HUMAN_PLAYER)
+                .withName("Jarek")
+                .withPlayerType(PlayerType.HUMAN_PLAYER)
                 .build();
         Either<Error, PlayerDto> playerCreated = playerFacade.create(player);
         return playerCreated.get();
@@ -40,8 +40,8 @@ public final class PlayerLoader {
 
     public Set<PlayerDto> loadTwoPlayers() {
         PlayerCreateDto[] players = {
-                PlayerCreateDto.builder().name("Artur").playerType(PlayerType.HUMAN_PLAYER).build(),
-                PlayerCreateDto.builder().name("Jarek").playerType(PlayerType.HUMAN_PLAYER).build()};
+                PlayerCreateDto.builder().withName("Artur").withPlayerType(PlayerType.HUMAN_PLAYER).build(),
+                PlayerCreateDto.builder().withName("Jarek").withPlayerType(PlayerType.HUMAN_PLAYER).build()};
         return Stream.of(players).map(player -> playerFacade.create(player).get()).toSet();
     }
 

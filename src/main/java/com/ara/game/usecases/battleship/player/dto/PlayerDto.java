@@ -62,17 +62,17 @@ public final class PlayerDto {
         private String id;
         private PlayerType playerType;
 
-        public Builder id(final String id) {
+        public Builder withId(final String id) {
             this.id = id;
             return this;
         }
 
-        public Builder name(final String name) {
+        public Builder withName(final String name) {
             this.name = name;
             return this;
         }
 
-        public Builder playerType(final PlayerType playerType) {
+        public Builder withPlayerType(final PlayerType playerType) {
             this.playerType = playerType;
             return this;
         }

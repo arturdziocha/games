@@ -61,37 +61,37 @@ public class Creator {
         Option<ShipWithPointsDto> findShip = findOpponentShip(opponent, inputData.getPoint());
         Shot shot;
         if (findShip.isEmpty()) {
-            shot = new Shot.Builder()
-                    .player(currentPlayer)
-                    .point(inputData.getPoint())
-                    .pointStatus(PointStatus.MISS)
-                    .shotTime(LocalDateTime.now())
+            shot = Shot.builder()
+                    .withPlayer(currentPlayer)
+                    .withPoint(inputData.getPoint())
+                    .withPointStatus(PointStatus.MISS)
+                    .withShotTime(LocalDateTime.now())
                     .build();
         } else {
             ShipWithPointsDto ship = findShip.get();
             if (ship.getShip().getHealth() > 1) {
-                shot = new Shot.Builder()
-                        .player(currentPlayer)
-                        .point(inputData.getPoint())
-                        .pointStatus(PointStatus.HIT)
-                        .shotTime(LocalDateTime.now())
+                shot = Shot.builder()
+                        .withPlayer(currentPlayer)
+                        .withPoint(inputData.getPoint())
+                        .withPointStatus(PointStatus.HIT)
+                        .withShotTime(LocalDateTime.now())
                         .build();
             } else {
                 ship
                         .getPoints()
                         .filter(point -> !point.equals(inputData.getPoint()))
-                        .map(z -> new Shot.Builder()
-                                .player(currentPlayer)
-                                .point(inputData.getPoint())
-                                .pointStatus(PointStatus.SUNK)
-                                .shotTime(LocalDateTime.now())
+                        .map(z -> Shot.builder()
+                                .withPlayer(currentPlayer)
+                                .withPoint(inputData.getPoint())
+                                .withPointStatus(PointStatus.SUNK)
+                                .withShotTime(LocalDateTime.now())
                                 .build())
                         .peek(this::updateShot);
-                shot = new Shot.Builder()
-                        .player(inputData.getGame().getCurrentPlayer())
-                        .point(inputData.getPoint())
-                        .pointStatus(PointStatus.SUNK)
-                        .shotTime(LocalDateTime.now())
+                shot = Shot.builder()
+                        .withPlayer(inputData.getGame().getCurrentPlayer())
+                        .withPoint(inputData.getPoint())
+                        .withPointStatus(PointStatus.SUNK)
+                        .withShotTime(LocalDateTime.now())
                         .build();
                 // TODO Set occupied points
 

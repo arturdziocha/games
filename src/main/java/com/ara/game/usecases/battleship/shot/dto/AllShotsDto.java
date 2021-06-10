@@ -32,7 +32,7 @@ public class AllShotsDto {
         private PlayerDto player;
         private Map<PointDto, PointStatus> shots = HashMap.empty();
 
-        public Builder player(final PlayerDto player) {
+        public Builder withPlayer(final PlayerDto player) {
             this.player = player;
             return this;
         }

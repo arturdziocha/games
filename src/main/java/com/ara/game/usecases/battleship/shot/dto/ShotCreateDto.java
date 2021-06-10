@@ -28,12 +28,12 @@ public class ShotCreateDto {
         private GameDto game;
         private PointDto point;
 
-        public Builder game(final GameDto game) {
+        public Builder withGame(final GameDto game) {
             this.game = game;
             return this;
         }
 
-        public Builder point(final PointDto point) {
+        public Builder withPoint(final PointDto point) {
             this.point = point;
             return this;
         }

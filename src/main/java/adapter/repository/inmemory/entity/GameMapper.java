@@ -19,13 +19,13 @@ public class GameMapper {
 
     public GameDto mapToDto(GameInMemory game, Set<PlayerDto> players, PlayerDto currentPlayer) {
         return GameDto.builder()
-                .id(game.getId())
-                .players(players)
-                .currentPlayer(currentPlayer)
-                .isStarted(game.isStarted())
-                .size(game.getSize())
-                .isFinished(game.isFinished())
-                .createdTime(game.getCreatedTime())
+                .withId(game.getId())
+                .withPlayers(players)
+                .withCurrentPlayer(currentPlayer)
+                .withIsStarted(game.isStarted())
+                .witSize(game.getSize())
+                .withIsFinished(game.isFinished())
+                .withCreatedTime(game.getCreatedTime())
                 .build();
     }
 }

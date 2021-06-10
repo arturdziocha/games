@@ -21,16 +21,20 @@ final class Player extends Entity {
         return playerType;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     static class Builder extends Entity.Builder<Builder> {
         private String name;
         private PlayerType playerType;
 
-        Builder name(final String name) {
+        Builder withName(final String name) {
             this.name = name;
             return self();
         }
 
-        Builder playerType(final PlayerType playerType) {
+        Builder withPlayerType(final PlayerType playerType) {
             this.playerType = playerType;
             return self();
         }

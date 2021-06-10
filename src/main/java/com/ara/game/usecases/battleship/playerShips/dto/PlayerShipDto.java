@@ -28,12 +28,12 @@ public final class PlayerShipDto {
         private PlayerDto player;
         private ShipDto ship;
 
-        public Builder player(final PlayerDto player) {
+        public Builder withPlayer(final PlayerDto player) {
             this.player = player;
             return this;
         }
 
-        public Builder ship(final ShipDto ship) {
+        public Builder withShip(final ShipDto ship) {
             this.ship = ship;
             return this;
         }

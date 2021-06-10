@@ -20,16 +20,20 @@ final class PlayerShip {
         return ship;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     static class Builder {
         private PlayerDto player;
         private ShipDto ship;
 
-        Builder player(final PlayerDto player) {
+        Builder withPlayer(final PlayerDto player) {
             this.player = player;
             return this;
         }
 
-        Builder ship(final ShipDto ship) {
+        Builder withShip(final ShipDto ship) {
             this.ship = ship;
             return this;
         }
