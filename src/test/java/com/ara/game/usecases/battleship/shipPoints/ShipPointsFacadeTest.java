@@ -41,21 +41,21 @@ public class ShipPointsFacadeTest {
     void test1() {
         // Given
         Either<Error, ShipDto> ship = shipFacade
-                .create(ShipCreateDto.builder().shipClass(ShipClass.CARRIER).build());
+                .create(ShipCreateDto.builder().withShipClass(ShipClass.CARRIER).build());
 
         Either<Error, PointDto> startPoint = pointFacade
-                .create(PointCreateRowColDto.builder().row(0).column(0).build());
+                .create(PointCreateRowColDto.builder().withRow(0).withColumn(0).build());
 
 
         Either<Error, Set<PointDto>> createdPoints = pointFacade
                 .createPoints(PointsCreateDto.builder()
-                        .point(startPoint.get())
-                        .size(ship.get().getHealth())
-                        .direction(Direction.DOWN)
+                        .withPoint(startPoint.get())
+                        .withSize(ship.get().getHealth())
+                        .withDirection(Direction.DOWN)
                         .build());
         Set<PointDto> points = createdPoints.get();
         // When
-        shipPointsFacade.create(ShipPointsCreateDto.builder().points(points).ship(ship.get()).build());
+        shipPointsFacade.create(ShipPointsCreateDto.builder().withPoints(points).withShip(ship.get()).build());
         Either<Error, ShipWithPointsDto> shipPoints = shipPointsFacade.find(ship.get().getId());
         Set<PointDto> shipPointsIds = shipPoints.get().getPoints();
         // Then

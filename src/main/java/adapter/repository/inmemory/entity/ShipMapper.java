@@ -13,6 +13,6 @@ public class ShipMapper {
     }
 
     public ShipDto mapToDto(final ShipInMemory ship, final ShipClass shipClass) {
-        return ShipDto.builder().id(ship.getId()).health(ship.getHealth()).shipClass(shipClass).build();
+        return ShipDto.builder().withId(ship.getId()).withHealth(ship.getHealth()).withShipClass(shipClass).build();
     }
 }

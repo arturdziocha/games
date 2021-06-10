@@ -26,12 +26,12 @@ final public class PointCreateRowColDto {
         private Integer row;
         private Integer column;
 
-        public Builder row(final Integer row) {
+        public Builder withRow(final Integer row) {
             this.row = row;
             return this;
         }
 
-        public Builder column(final Integer column) {
+        public Builder withColumn(final Integer column) {
             this.column = column;
             return this;
         }

@@ -25,7 +25,7 @@ final class Ship extends Entity {
         private ShipClass shipClass;
         private Integer health;
 
-        Builder shipClass(final ShipClass shipClassDto) {
+        Builder withShipClass(final ShipClass shipClassDto) {
             this.shipClass = shipClassDto;
             this.health = shipClassDto.getSize();
             return self();

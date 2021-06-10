@@ -33,7 +33,7 @@ class PointFacadeTest {
     @DisplayName("Should create and save valid point from string")
     void test1() {
         // Given
-        PointCreateStringDto inputData = PointCreateStringDto.builder().pointString("a2").build();
+        PointCreateStringDto inputData = PointCreateStringDto.builder().withPointString("a2").build();
 
         // When
         Either<Error, PointDto> point = pointFacade.create(inputData);
@@ -47,7 +47,7 @@ class PointFacadeTest {
     @DisplayName("Should create and save valid point from row=1, column=2")
     void test2() {
         // Given
-        PointCreateRowColDto inputData = PointCreateRowColDto.builder().row(1).column(2).build();
+        PointCreateRowColDto inputData = PointCreateRowColDto.builder().withRow(1).withColumn(2).build();
 
         // When
         Either<Error, PointDto> point = pointFacade.create(inputData);
@@ -65,11 +65,11 @@ class PointFacadeTest {
         ShipClass shipClass = ShipClass.BATTLESHIP;
         Direction direction = Direction.DOWN;
         Either<Error, PointDto> point = pointFacade
-                .create(PointCreateStringDto.builder().pointString("b2").build());
+                .create(PointCreateStringDto.builder().withPointString("b2").build());
         PointsCreateDto spcid = PointsCreateDto.builder()
-                .size(shipClass.getSize())
-                .point(point.get())
-                .direction(direction)
+                .withSize(shipClass.getSize())
+                .withPoint(point.get())
+                .withDirection(direction)
                 .build();
 
         // When
@@ -88,13 +88,13 @@ class PointFacadeTest {
         ShipClass shipClass = ShipClass.BATTLESHIP;
         Direction direction = Direction.UP;
         Either<Error, PointDto> point = pointFacade
-                .create(PointCreateStringDto.builder().pointString("b5").build());
+                .create(PointCreateStringDto.builder().withPointString("b5").build());
         Either<Error, PointDto> findPoint = pointFacade.findById(point.get().getId());
 
         PointsCreateDto spcid = PointsCreateDto.builder()
-                .size(shipClass.getSize())
-                .point(findPoint.get())
-                .direction(direction)
+                .withSize(shipClass.getSize())
+                .withPoint(findPoint.get())
+                .withDirection(direction)
                 .build();
 
         // When

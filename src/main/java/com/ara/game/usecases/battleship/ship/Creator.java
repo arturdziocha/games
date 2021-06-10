@@ -29,7 +29,7 @@ class Creator {
         return validator
                 .validate(inputData)
                 .flatMap(
-                        v -> saveShip(new Ship.Builder().id(idGenerator.generate()).shipClass(v.getShipClass()).build()));
+                        v -> saveShip(new Ship.Builder().id(idGenerator.generate()).withShipClass(v.getShipClass()).build()));
     }
 
     private Either<Error, ShipDto> saveShip(final Ship ship) {

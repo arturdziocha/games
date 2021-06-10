@@ -21,16 +21,20 @@ final class ShipPoints {
         return points;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     static class Builder {
         private ShipDto ship;
         private Set<PointDto> points;
 
-        Builder ship(final ShipDto ship) {
+        Builder withShip(final ShipDto ship) {
             this.ship = ship;
             return this;
         }
 
-        Builder points(Set<PointDto> points) {
+        Builder withPoints(Set<PointDto> points) {
             this.points = points;
             return this;
         }

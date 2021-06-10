@@ -54,7 +54,7 @@ final class PointsCreator {
     }
 
     private Either<Error, PointDto> create(final Integer row, final Integer column) {
-        return creator.create(PointCreateRowColDto.builder().row(row).column(column).build());
+        return creator.create(PointCreateRowColDto.builder().withRow(row).withColumn(column).build());
     }
 
     private RowColumn calculate(DirectionStrategy directionStrategy, RowColumn rowColumn, Integer move) {

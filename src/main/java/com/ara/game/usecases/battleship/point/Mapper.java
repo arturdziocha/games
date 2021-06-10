@@ -6,10 +6,10 @@ class Mapper {
 
     final PointDto mapToDTO(final Point point) {
         return PointDto.builder()
-                .id(point.getId())
-                .pointString(point.getPointString())
-                .row(point.getRow())
-                .column(point.getColumn())
+                .withId(point.getId())
+                .withPointString(point.getPointString())
+                .withRow(point.getRow())
+                .withColumn(point.getColumn())
                 .build();
     }
 

@@ -19,7 +19,7 @@ final public class PointCreateStringDto {
     public static class Builder {
         private String pointString;
 
-        public Builder pointString(final String pointString) {
+        public Builder withPointString(final String pointString) {
             this.pointString = pointString;
             return this;
         }

@@ -35,17 +35,17 @@ public final class PointsCreateDto {
         private PointDto point;
         private Direction direction;
 
-        public Builder size(final Integer size) {
+        public Builder withSize(final Integer size) {
             this.size = size;
             return this;
         }
 
-        public Builder point(final PointDto point) {
+        public Builder withPoint(final PointDto point) {
             this.point = point;
             return this;
         }
 
-        public Builder direction(final Direction direction) {
+        public Builder withDirection(final Direction direction) {
             this.direction = direction;
             return this;
         }

@@ -75,22 +75,22 @@ public final class PointDto implements Comparable<PointDto> {
         private Integer row;
         private Integer column;
 
-        public Builder id(final String id) {
+        public Builder withId(final String id) {
             this.id = id;
             return this;
         }
 
-        public Builder pointString(final String pointString) {
+        public Builder withPointString(final String pointString) {
             this.pointString = pointString;
             return this;
         }
 
-        public Builder row(final Integer row) {
+        public Builder withRow(final Integer row) {
             this.row = row;
             return this;
         }
 
-        public Builder column(final Integer column) {
+        public Builder withColumn(final Integer column) {
             this.column = column;
             return this;
         }

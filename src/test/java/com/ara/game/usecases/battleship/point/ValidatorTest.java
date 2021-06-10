@@ -33,7 +33,7 @@ class ValidatorTest {
     @DisplayName("Should return Option<Error> when pointString is null")
     void test2() {
         // Given
-        PointCreateStringDto inputData = PointCreateStringDto.builder().pointString(null).build();
+        PointCreateStringDto inputData = PointCreateStringDto.builder().withPointString(null).build();
         // When
 
         Option<Error> validated = validator.validatePointString(inputData);
@@ -45,7 +45,7 @@ class ValidatorTest {
     @DisplayName("Should return Option<Error> Point String cannot be empty")
     void test3() {
         // Given
-        PointCreateStringDto inputData = PointCreateStringDto.builder().pointString("").build();
+        PointCreateStringDto inputData = PointCreateStringDto.builder().withPointString("").build();
         // When
         Option<Error> validated = validator.validatePointString(inputData);
         // Then
@@ -56,7 +56,7 @@ class ValidatorTest {
     @DisplayName("Should return Option<Error> Row cannot be parsed")
     void test4() {
         // Given
-        PointCreateStringDto inputData = PointCreateStringDto.builder().pointString("aa2").build();
+        PointCreateStringDto inputData = PointCreateStringDto.builder().withPointString("aa2").build();
 
         // When
         Option<Error> validated = validator.validatePointString(inputData);
@@ -69,7 +69,7 @@ class ValidatorTest {
     @DisplayName("Should return Option<Error> when column is null")
     void test5() {
         // Given
-        PointCreateRowColDto inputData = PointCreateRowColDto.builder().row(1).column(null).build();
+        PointCreateRowColDto inputData = PointCreateRowColDto.builder().withRow(1).withColumn(null).build();
         // When
         Option<Error> validated = validator.validateRowCol(inputData);
         // Then
@@ -80,7 +80,7 @@ class ValidatorTest {
     @DisplayName("Should return Option<Error> when column is negative")
     void test6() {
         // Given
-        PointCreateRowColDto inputData = PointCreateRowColDto.builder().row(1).column(-1).build();
+        PointCreateRowColDto inputData = PointCreateRowColDto.builder().withRow(1).withColumn(-1).build();
         // When
         Option<Error> validated = validator.validateRowCol(inputData);
         // Then
@@ -91,7 +91,7 @@ class ValidatorTest {
     @DisplayName("Should return Option<Error> when row is null")
     void test7() {
         // Given
-        PointCreateRowColDto inputData = PointCreateRowColDto.builder().row(null).column(1).build();
+        PointCreateRowColDto inputData = PointCreateRowColDto.builder().withRow(null).withColumn(1).build();
         // When
         Option<Error> validated = validator.validateRowCol(inputData);
         // Then
@@ -102,7 +102,7 @@ class ValidatorTest {
     @DisplayName("Should return Option<Error> when row is negative")
     void test8() {
         // Given
-        PointCreateRowColDto inputData = PointCreateRowColDto.builder().row(-1).column(1).build();
+        PointCreateRowColDto inputData = PointCreateRowColDto.builder().withRow(-1).withColumn(1).build();
         // When
         Option<Error> validated = validator.validateRowCol(inputData);
         // Then
@@ -113,7 +113,7 @@ class ValidatorTest {
     @DisplayName("Should return Either.left Wrong column specified when column=40, row=1")
     void test9() {
         // Given
-        PointCreateRowColDto inputData = PointCreateRowColDto.builder().row(1).column(40).build();
+        PointCreateRowColDto inputData = PointCreateRowColDto.builder().withRow(1).withColumn(40).build();
         // When
         Option<Error> validated = validator.validateRowCol(inputData);
 

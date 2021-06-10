@@ -41,11 +41,11 @@ final class Creator {
             Integer row = createRowFromString(pointString);
             Integer column = createColumnFromString(pointString);
 
-            Point point = new Point.Builder()
+            Point point = Point.builder()
                     .id(idGenerator.generate())
-                    .row(row)
-                    .column(column)
-                    .pointString(pointString)
+                    .withRow(row)
+                    .withColumn(column)
+                    .withPointString(pointString)
                     .build();
 
             return savePoint(point);
@@ -62,11 +62,11 @@ final class Creator {
             return Either.right(find.get());
         } else {
             String pointString = createStringFromRowAndColumn(inputData.getRow(), inputData.getColumn());
-            Point point = new Point.Builder()
+            Point point = Point.builder()
                     .id(idGenerator.generate())
-                    .row(inputData.getRow())
-                    .column(inputData.getColumn())
-                    .pointString(pointString)
+                    .withRow(inputData.getRow())
+                    .withColumn(inputData.getColumn())
+                    .withPointString(pointString)
                     .build();
             return savePoint(point);
         }

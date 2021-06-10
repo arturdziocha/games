@@ -5,9 +5,9 @@ import com.ara.game.usecases.battleship.ship.dto.ShipDto;
 class Mapper {
     ShipDto mapToDto(final Ship ship) {
         return ShipDto.builder()
-                .id(ship.getId())
-                .shipClass(ship.getShipClass())
-                .health(ship.getHealth())
+                .withId(ship.getId())
+                .withShipClass(ship.getShipClass())
+                .withHealth(ship.getHealth())
                 .build();
     }
 }

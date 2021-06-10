@@ -48,17 +48,17 @@ public final class ShipDto implements Comparable<ShipDto> {
         private ShipClass shipClass;
         private Integer health;
 
-        public Builder id(final String id) {
+        public Builder withId(final String id) {
             this.id = id;
             return this;
         }
 
-        public Builder shipClass(final ShipClass shipClass) {
+        public Builder withShipClass(final ShipClass shipClass) {
             this.shipClass = shipClass;
             return this;
         }
 
-        public Builder health(final Integer health) {
+        public Builder withHealth(final Integer health) {
             this.health = health;
             return this;
         }

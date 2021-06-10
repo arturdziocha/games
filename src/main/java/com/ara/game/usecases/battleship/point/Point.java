@@ -26,23 +26,25 @@ final class Point extends Entity {
     public String getPointString() {
         return pointString;
     }
-
+public static Builder builder(){
+        return new Builder();
+}
     static class Builder extends Entity.Builder<Builder> {
         private Integer row;
         private Integer column;
         private String pointString;
 
-        Builder row(final Integer row) {
+        Builder withRow(final Integer row) {
             this.row = row;
             return self();
         }
 
-        Builder column(final Integer column) {
+        Builder withColumn(final Integer column) {
             this.column = column;
             return self();
         }
 
-        Builder pointString(final String pointString) {
+        Builder withPointString(final String pointString) {
             this.pointString = pointString;
             return self();
         }

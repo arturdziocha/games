@@ -37,12 +37,12 @@ public class ShipWithPointsDto {
         private ShipDto ship;
         private Set<PointDto> points;
 
-        public Builder ship(final ShipDto shipId) {
+        public Builder withShip(final ShipDto shipId) {
             this.ship = shipId;
             return this;
         }
 
-        public Builder points(final Set<PointDto> points) {
+        public Builder withPoints(final Set<PointDto> points) {
             this.points = points;
             return this;
         }

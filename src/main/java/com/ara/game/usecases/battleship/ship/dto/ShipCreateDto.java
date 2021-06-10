@@ -20,7 +20,7 @@ public class ShipCreateDto {
     public static class Builder {
         private ShipClass shipClass;
 
-        public Builder shipClass(final ShipClass shipClass) {
+        public Builder withShipClass(final ShipClass shipClass) {
             this.shipClass = shipClass;
             return this;
         }

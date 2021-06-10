@@ -28,7 +28,7 @@ public class ShipFactoryTest {
     void test1() {
         // Given
         ShipClass shipClass = ShipClass.SUBMARINE;
-        ShipCreateDto createInputData = ShipCreateDto.builder().shipClass(shipClass).build();
+        ShipCreateDto createInputData = ShipCreateDto.builder().withShipClass(shipClass).build();
         // When
         Either<Error, ShipDto> ship = shipFacade.create(createInputData);
         // Then

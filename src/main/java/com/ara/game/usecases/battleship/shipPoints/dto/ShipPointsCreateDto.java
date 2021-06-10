@@ -29,12 +29,12 @@ public class ShipPointsCreateDto {
         private ShipDto ship;
         private Set<PointDto> points;
 
-        public Builder ship(final ShipDto ship) {
+        public Builder withShip(final ShipDto ship) {
             this.ship = ship;
             return this;
         }
 
-        public Builder points(final Set<PointDto> points) {
+        public Builder withPoints(final Set<PointDto> points) {
             this.points = points;
             return this;
         }
