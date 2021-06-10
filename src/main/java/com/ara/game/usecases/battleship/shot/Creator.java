@@ -52,7 +52,7 @@ public class Creator {
             return Either.left(validated.getLeft());
         }
         if (isPointAlreadyShot(inputData.getGame().getCurrentPlayer(), inputData.getPoint())) {
-            return Either.left(ShotError.POINT_ALREADY_SHOOTED);
+            return Either.left(ShotError.POINT_ALREADY_SHOT);
         }
 
         PlayerDto currentPlayer = inputData.getGame().getCurrentPlayer();

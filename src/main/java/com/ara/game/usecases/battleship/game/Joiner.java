@@ -13,7 +13,7 @@ final class Joiner {
     private final GameGateway gameGateway;
     private final Validator validator;
     private final Mapper mapper;
-    private Logger log;
+    private final Logger log;
 
     Joiner(final GameGateway gameGateway) {
         this.gameGateway = gameGateway;

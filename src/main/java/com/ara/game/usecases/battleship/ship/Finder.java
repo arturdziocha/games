@@ -17,7 +17,7 @@ class Finder {
         if (StringUtils.isEmpty(id)) {
             return Either.left(ShipError.SHIP_ID_CANNOT_BE_EMPTY);
         }
-        return shipGateway.findById(id).toEither(ShipError.SHIP_DOESNT_EXISTS);
+        return shipGateway.findById(id).toEither(ShipError.SHIP_DOEST_EXISTS);
     }
 
 }

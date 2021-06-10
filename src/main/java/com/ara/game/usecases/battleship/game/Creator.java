@@ -18,7 +18,7 @@ final class Creator {
     private final IdGenerator idGenerator;
     private final Validator validator;
     private final Mapper mapper;
-    private Logger log;
+    private final Logger log;
 
     Creator(final GameGateway gameGateway, final IdGenerator idGenerator) {
         this.gameGateway = gameGateway;

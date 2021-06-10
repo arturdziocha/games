@@ -54,8 +54,8 @@ public class GameInMemoryGateway implements GameGateway {
     }
 
     @Override
-    public void remove(String gameId) {
+    public String remove(String gameId) {
         // TODO Auto-generated method stub
-
+        return null;
     }
 }

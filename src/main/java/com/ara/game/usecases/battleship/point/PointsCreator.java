@@ -81,8 +81,9 @@ final class PointsCreator {
         RowColumn calculate(RowColumn rowColumn, Integer move);
     }
 
-    private class RowColumn {
-        private Integer row, column;
+    private static class RowColumn {
+        private final Integer row;
+        private final Integer column;
 
         RowColumn(Integer row, Integer column) {
             this.row = row;
@@ -98,28 +99,28 @@ final class PointsCreator {
         }
     }
 
-    private class UpStrategy implements DirectionStrategy {
+    private static class UpStrategy implements DirectionStrategy {
         @Override
         public RowColumn calculate(RowColumn rowColumn, Integer move) {
             return new RowColumn(rowColumn.getRow() - move, rowColumn.getColumn());
         }
     }
 
-    private class RightStrategy implements DirectionStrategy {
+    private static class RightStrategy implements DirectionStrategy {
         @Override
         public RowColumn calculate(RowColumn rowColumn, Integer move) {
             return new RowColumn(rowColumn.getRow(), rowColumn.getColumn() + move);
         }
     }
 
-    private class DownStrategy implements DirectionStrategy {
+    private static class DownStrategy implements DirectionStrategy {
         @Override
         public RowColumn calculate(RowColumn rowColumn, Integer move) {
             return new RowColumn(rowColumn.getRow() + move, rowColumn.getColumn());
         }
     }
 
-    private class LeftStrategy implements DirectionStrategy {
+    private static class LeftStrategy implements DirectionStrategy {
         @Override
         public RowColumn calculate(RowColumn rowColumn, Integer move) {
             return new RowColumn(rowColumn.getRow(), rowColumn.getColumn() - move);

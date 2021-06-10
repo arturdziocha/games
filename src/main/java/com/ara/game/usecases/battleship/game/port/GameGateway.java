@@ -10,6 +10,6 @@ public interface GameGateway {
 
     Option<GameDto> find(String gameId);
 
-    void remove(String gameId);
+    String remove(String gameId);
 
 }
